@@ -71,6 +71,7 @@ coverage/
 
 # Claude Code
 .claude/
+context.md
 
 # Large files (>100MB)
 frontend/src/components/alignui/pdf/Icons*.pdf
