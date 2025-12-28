@@ -24,10 +24,18 @@ class Settings(BaseSettings):
     telegram_bot_token: str = Field(default="test_token")
     telegram_chat_id: str = Field(default="123456789")
 
-    # Puter.js LLM API
+    # Puter.js LLM API (legacy - kept for fallback)
     puter_api_key: str = Field(default="test_puter_key")
     puter_api_url: str = Field(default="https://api.puter.ai/v1")
     puter_default_model: str = Field(default="claude-sonnet-4.5")
+
+    # LLM via OpenRouter API (primary)
+    openrouter_api_key: str = Field(default="")
+    openrouter_base_url: str = Field(default="https://openrouter.ai/api/v1")
+    llm_model: str = Field(default="google/gemini-2.0-flash-exp:free")
+    llm_vision_model: str = Field(default="google/gemini-2.0-flash-exp:free")
+    llm_timeout: int = Field(default=60)  # seconds
+    llm_context_dir: str = Field(default="data/context")  # .md files for context
 
     # Database
     database_url: str = Field(default="sqlite:///./data/app.db")

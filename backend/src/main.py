@@ -20,6 +20,8 @@ from .orchestration.scenario_runner import scenario_runner
 
 # Agent imports (register available agents)
 from .agents.whatsapp_agent import whatsapp_agent
+from .agents.max_agent import max_agent
+from .agents.sms_agent import sms_agent
 
 
 # Lifespan context manager for startup/shutdown
@@ -65,9 +67,9 @@ async def lifespan(app: FastAPI):
 
         # Register available agents
         scenario_runner.register_agent("whatsapp", whatsapp_agent)
-        # TODO: Register other agents as they are implemented
-        # scenario_runner.register_agent("instagram", instagram_agent)
-        # scenario_runner.register_agent("linkedin", linkedin_agent)
+        scenario_runner.register_agent("max", max_agent)
+        scenario_runner.register_agent("sms", sms_agent)
+        logger.info("📱 Registered agents: whatsapp, max, sms")
 
         # Start Queue Manager
         logger.info("📋 Starting Queue Manager...")
