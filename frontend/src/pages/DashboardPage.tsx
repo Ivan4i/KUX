@@ -10,7 +10,7 @@ import type { DeviceStatus } from '@/types/device'
 import type { Task } from '@/types/task'
 import type { Log } from '@/types/log'
 import type { TaskProgress } from '@/types/task'
-import { FaSync, FaPlay, FaRedo } from 'react-icons/fa'
+import { RiRefreshLine, RiPlayFill, RiNotionFill } from '@remixicon/react'
 
 export function DashboardPage() {
   const [devices, setDevices] = useState<DeviceStatus[]>([])
@@ -203,7 +203,7 @@ export function DashboardPage() {
               <Button
                 variant="secondary"
                 size="md"
-                leftIcon={<FaSync />}
+                leftIcon={<RiNotionFill className="size-4" />}
                 onClick={handleSyncNotion}
                 isLoading={isSyncing}
               >
@@ -212,7 +212,7 @@ export function DashboardPage() {
               <Button
                 variant="primary"
                 size="md"
-                leftIcon={<FaPlay />}
+                leftIcon={<RiPlayFill className="size-4" />}
                 onClick={handleRunTask}
                 isLoading={isLoading}
                 disabled={activeTask !== null}
@@ -222,7 +222,7 @@ export function DashboardPage() {
               <Button
                 variant="ghost"
                 size="md"
-                leftIcon={<FaRedo />}
+                leftIcon={<RiRefreshLine className="size-4" />}
                 onClick={() => loadData(true)}
               >
                 Refresh

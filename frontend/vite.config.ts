@@ -8,10 +8,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@alignui': path.resolve(__dirname, './src/components/alignui/components-reference'),
     },
   },
   server: {
-    port: 3000,
+    port: 5173,
     proxy: {
       '/api': {
         target: 'http://localhost:8000',

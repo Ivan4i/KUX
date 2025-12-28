@@ -1,10 +1,18 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { FaPlus, FaSync, FaFilter, FaList, FaThLarge } from 'react-icons/fa'
+import {
+  RiAddLine,
+  RiRefreshLine,
+  RiFilterLine,
+  RiListUnordered,
+  RiGridFill,
+  RiFlowChart
+} from '@remixicon/react'
 import { Button } from '@/components/common/Button'
 import { ScenarioCard } from '@/components/scenarios/ScenarioCard'
 import { ScenarioBuilder } from '@/components/scenarios/ScenarioBuilder'
+import { WorkflowCanvas } from '@/components/workflow'
 import { useWebSocketMessages } from '@/hooks/useWebSocket'
 import {
   getScenarios,
@@ -24,7 +32,7 @@ import {
 } from '@/services/api'
 import type { Scenario, ScenarioListItem, ScenarioStatus, CreateStepRequest, UpdateStepRequest } from '@/types/scenario'
 
-type ViewMode = 'list' | 'grid'
+type ViewMode = 'list' | 'grid' | 'workflow'
 type FilterStatus = ScenarioStatus | 'all'
 
 export function ScenariosPage() {
@@ -40,6 +48,7 @@ export function ScenariosPage() {
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all')
   const [showTemplatesOnly, setShowTemplatesOnly] = useState(false)
   const [showCreateModal, setShowCreateModal] = useState(false)
+  const [showWorkflowBuilder, setShowWorkflowBuilder] = useState(false)
   const [newScenarioName, setNewScenarioName] = useState('')
   const [newScenarioDescription, setNewScenarioDescription] = useState('')
 
@@ -343,9 +352,17 @@ export function ScenariosPage() {
 
             <div className="flex items-center gap-3">
               <Button
+                variant="secondary"
+                size="md"
+                leftIcon={<RiFlowChart className="size-4" />}
+                onClick={() => setShowWorkflowBuilder(!showWorkflowBuilder)}
+              >
+                {showWorkflowBuilder ? 'List View' : 'Workflow Builder'}
+              </Button>
+              <Button
                 variant="ghost"
                 size="md"
-                leftIcon={<FaSync />}
+                leftIcon={<RiRefreshLine className="size-4" />}
                 onClick={() => loadScenarios()}
                 isLoading={isLoading}
               >
@@ -354,7 +371,7 @@ export function ScenariosPage() {
               <Button
                 variant="primary"
                 size="md"
-                leftIcon={<FaPlus />}
+                leftIcon={<RiAddLine className="size-4" />}
                 onClick={() => setShowCreateModal(true)}
               >
                 New Scenario
@@ -370,7 +387,7 @@ export function ScenariosPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <FaFilter className="w-4 h-4 text-gray-400" />
+                <RiFilterLine className="size-4 text-gray-400" />
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value as FilterStatus)}
@@ -401,13 +418,13 @@ export function ScenariosPage() {
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded ${viewMode === 'grid' ? 'bg-white shadow-sm' : 'text-gray-500'}`}
               >
-                <FaThLarge className="w-4 h-4" />
+                <RiGridFill className="size-4" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
                 className={`p-2 rounded ${viewMode === 'list' ? 'bg-white shadow-sm' : 'text-gray-500'}`}
               >
-                <FaList className="w-4 h-4" />
+                <RiListUnordered className="size-4" />
               </button>
             </div>
           </div>
@@ -416,69 +433,90 @@ export function ScenariosPage() {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Error */}
-        {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
-            <p className="text-sm text-red-700">{error}</p>
-          </div>
-        )}
-
-        {/* Loading */}
-        {isInitialLoad && isLoading && (
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-              <p className="mt-4 text-sm text-gray-600">Loading scenarios...</p>
+        {/* Workflow Builder View */}
+        {showWorkflowBuilder ? (
+          <div>
+            <div className="mb-4">
+              <h2 className="text-lg font-semibold text-gray-900">Visual Workflow Builder</h2>
+              <p className="text-sm text-gray-500">Drag and drop nodes to create automation workflows</p>
             </div>
+            <WorkflowCanvas
+              onSave={(nodes, edges) => {
+                console.log('Saving workflow:', { nodes, edges })
+                toast.success('Workflow saved!')
+              }}
+              onRun={() => {
+                toast.success('Workflow started!')
+              }}
+            />
           </div>
-        )}
+        ) : (
+          <>
+            {/* Error */}
+            {error && (
+              <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            )}
 
-        {/* Empty State */}
-        {!isLoading && scenarios?.length === 0 && (
-          <div className="text-center py-12">
-            <svg
-              className="mx-auto h-12 w-12 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-              />
-            </svg>
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No scenarios</h3>
-            <p className="mt-1 text-sm text-gray-500">
-              Get started by creating your first automation scenario.
-            </p>
-            <div className="mt-6">
-              <Button variant="primary" onClick={() => setShowCreateModal(true)}>
-                <FaPlus className="w-4 h-4 mr-2" />
-                Create Scenario
-              </Button>
-            </div>
-          </div>
-        )}
+            {/* Loading */}
+            {isInitialLoad && isLoading && (
+              <div className="flex items-center justify-center py-12">
+                <div className="text-center">
+                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+                  <p className="mt-4 text-sm text-gray-600">Loading scenarios...</p>
+                </div>
+              </div>
+            )}
 
-        {/* Scenarios Grid/List */}
-        {!isInitialLoad && scenarios?.length > 0 && (
-          <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-4'}>
-            {scenarios.map((scenario) => (
-              <ScenarioCard
-                key={scenario.id}
-                scenario={scenario}
-                onRun={handleRunScenario}
-                onPause={handlePauseScenario}
-                onCancel={handleCancelScenario}
-                onEdit={handleEditScenario}
-                onDuplicate={handleDuplicateScenario}
-                onDelete={handleDeleteScenario}
-                isLoading={isLoading}
-              />
-            ))}
-          </div>
+            {/* Empty State */}
+            {!isLoading && scenarios?.length === 0 && (
+              <div className="text-center py-12">
+                <svg
+                  className="mx-auto h-12 w-12 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                  />
+                </svg>
+                <h3 className="mt-2 text-sm font-medium text-gray-900">No scenarios</h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  Get started by creating your first automation scenario.
+                </p>
+                <div className="mt-6">
+                  <Button variant="primary" onClick={() => setShowCreateModal(true)}>
+                    <RiAddLine className="size-4 mr-2" />
+                    Create Scenario
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Scenarios Grid/List */}
+            {!isInitialLoad && scenarios?.length > 0 && (
+              <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-4'}>
+                {scenarios.map((scenario) => (
+                  <ScenarioCard
+                    key={scenario.id}
+                    scenario={scenario}
+                    onRun={handleRunScenario}
+                    onPause={handlePauseScenario}
+                    onCancel={handleCancelScenario}
+                    onEdit={handleEditScenario}
+                    onDuplicate={handleDuplicateScenario}
+                    onDelete={handleDeleteScenario}
+                    isLoading={isLoading}
+                  />
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
 

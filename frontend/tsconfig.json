@@ -23,7 +23,8 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@alignui/*": ["./src/components/alignui/components-reference/*"]
     }
   },
   "include": ["src"],

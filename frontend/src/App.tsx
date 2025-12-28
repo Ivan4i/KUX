@@ -1,6 +1,15 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
-import { FaHome, FaProjectDiagram, FaTasks, FaRobot, FaCog, FaList, FaMobileAlt, FaChartBar } from 'react-icons/fa'
+import {
+  RiDashboardLine,
+  RiFlowChart,
+  RiTaskLine,
+  RiRobotLine,
+  RiSettings4Line,
+  RiFileListLine,
+  RiSmartphoneLine,
+  RiBarChartBoxLine
+} from '@remixicon/react'
 import { DashboardPage } from '@/pages/DashboardPage'
 import { ScenariosPage } from '@/pages/ScenariosPage'
 import { TasksPage } from '@/pages/TasksPage'
@@ -12,14 +21,14 @@ import { AnalyticsPage } from '@/pages/AnalyticsPage'
 
 function NavBar() {
   const navItems = [
-    { to: '/', icon: FaHome, label: 'Dashboard' },
-    { to: '/devices', icon: FaMobileAlt, label: 'Devices' },
-    { to: '/scenarios', icon: FaProjectDiagram, label: 'Scenarios' },
-    { to: '/tasks', icon: FaTasks, label: 'Tasks' },
-    { to: '/agents', icon: FaRobot, label: 'Agents' },
-    { to: '/logs', icon: FaList, label: 'Logs' },
-    { to: '/analytics', icon: FaChartBar, label: 'Analytics' },
-    { to: '/settings', icon: FaCog, label: 'Settings' },
+    { to: '/', icon: RiDashboardLine, label: 'Dashboard' },
+    { to: '/devices', icon: RiSmartphoneLine, label: 'Devices' },
+    { to: '/scenarios', icon: RiFlowChart, label: 'Scenarios' },
+    { to: '/tasks', icon: RiTaskLine, label: 'Tasks' },
+    { to: '/agents', icon: RiRobotLine, label: 'Agents' },
+    { to: '/logs', icon: RiFileListLine, label: 'Logs' },
+    { to: '/analytics', icon: RiBarChartBoxLine, label: 'Analytics' },
+    { to: '/settings', icon: RiSettings4Line, label: 'Settings' },
   ]
 
   return (
@@ -44,7 +53,7 @@ function NavBar() {
                   }`
                 }
               >
-                <item.icon className="w-4 h-4" />
+                <item.icon className="size-4" />
                 {item.label}
               </NavLink>
             ))}

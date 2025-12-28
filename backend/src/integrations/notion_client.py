@@ -1,7 +1,8 @@
-"""Notion API Client - manages WhatsApp tasks from Notion database"""
+"""Notion API Client - manages lead/task data from Notion database with multi-channel support"""
 
 import asyncio
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
+from datetime import datetime
 from notion_client import AsyncClient
 from loguru import logger
 
@@ -9,7 +10,15 @@ from ..config import get_settings
 
 
 class NotionClient:
-    """Manages integration with Notion database"""
+    """Manages integration with Notion database for leads and multi-channel messaging"""
+
+    # Channel checkbox mappings
+    CHANNEL_CHECKBOXES = {
+        "whatsapp": "Sent via WhatsApp",
+        "sms": "Sent via SMS",
+        "max": "Sent via MAX",
+        "telegram": "Sent via Telegram"
+    }
 
     def __init__(self):
         """Initialize Notion client"""
@@ -17,6 +26,7 @@ class NotionClient:
         self.client = AsyncClient(auth=settings.notion_api_key)
         self.database_id = settings.notion_database_id
         self._cache: Dict[str, Dict] = {}  # Simple cache for tasks
+        self._lead_cache: Dict[str, Dict] = {}  # Cache for lead data
 
     async def get_pending_tasks(self, limit: int = 10) -> List[Dict]:
         """
@@ -68,7 +78,7 @@ class NotionClient:
 
     def _parse_notion_page(self, page: Dict) -> Optional[Dict]:
         """
-        Parse Notion page into task dict
+        Parse Notion page into task dict with full lead data
 
         Args:
             page: Notion page object
@@ -79,7 +89,7 @@ class NotionClient:
         try:
             properties = page.get('properties', {})
 
-            # Extract fields from Notion properties
+            # Extract core task fields
             task = {
                 'notion_id': page['id'],
                 'recipient_name': self._get_text_property(properties, 'Recipient Name'),
@@ -91,7 +101,27 @@ class NotionClient:
                 'created_date': self._get_date_property(properties, 'Created Date'),
                 'scheduled_send_time': self._get_date_property(properties, 'Scheduled Send Time'),
                 'attempt_count': self._get_number_property(properties, 'Attempt Count', default=0),
-                'notes': self._get_text_property(properties, 'Notes')
+                'notes': self._get_text_property(properties, 'Notes'),
+
+                # Extended lead data for personalization
+                'company': self._get_text_property(properties, 'Company'),
+                'website': self._get_url_property(properties, 'Website'),
+                'rusprofile_url': self._get_url_property(properties, 'RusProfile URL'),
+                'revenue': self._get_number_property(properties, 'Revenue'),
+                'profit': self._get_number_property(properties, 'Profit'),
+                'industry': self._get_select_property(properties, 'Industry'),
+                'region': self._get_select_property(properties, 'Region'),
+
+                # Channel tracking
+                'sent_via_whatsapp': self._get_checkbox_property(properties, 'Sent via WhatsApp'),
+                'sent_via_sms': self._get_checkbox_property(properties, 'Sent via SMS'),
+                'sent_via_max': self._get_checkbox_property(properties, 'Sent via MAX'),
+                'sent_via_telegram': self._get_checkbox_property(properties, 'Sent via Telegram'),
+
+                # Response tracking
+                'response_received': self._get_checkbox_property(properties, 'Response Received'),
+                'response_date': self._get_date_property(properties, 'Response Date'),
+                'conversion_status': self._get_select_property(properties, 'Conversion Status')
             }
 
             return task
@@ -226,6 +256,205 @@ class NotionClient:
         prop = properties.get(key, {})
         date_obj = prop.get('date', {})
         return date_obj.get('start') if date_obj else None
+
+    def _get_url_property(self, properties: Dict, key: str, default: str = "") -> str:
+        """Extract URL property"""
+        prop = properties.get(key, {})
+        return prop.get('url', default) or default
+
+    def _get_checkbox_property(self, properties: Dict, key: str, default: bool = False) -> bool:
+        """Extract checkbox property"""
+        prop = properties.get(key, {})
+        return prop.get('checkbox', default)
+
+    async def update_channel_sent(
+        self,
+        notion_id: str,
+        channel: str,
+        sent: bool = True,
+        sent_date: Optional[str] = None
+    ) -> bool:
+        """
+        Update channel-specific sent checkbox in Notion
+
+        Args:
+            notion_id: Notion page ID
+            channel: Channel type (whatsapp, sms, max, telegram)
+            sent: Whether message was sent via this channel
+            sent_date: Optional sent date (ISO format)
+
+        Returns:
+            bool: True if successful
+        """
+        try:
+            checkbox_name = self.CHANNEL_CHECKBOXES.get(channel.lower())
+            if not checkbox_name:
+                logger.warning(f"⚠️ Unknown channel: {channel}")
+                return False
+
+            properties: Dict[str, Any] = {
+                checkbox_name: {
+                    "checkbox": sent
+                }
+            }
+
+            if sent_date:
+                properties[f"{channel.capitalize()} Sent Date"] = {
+                    "date": {
+                        "start": sent_date
+                    }
+                }
+
+            await self.client.pages.update(
+                page_id=notion_id,
+                properties=properties
+            )
+
+            logger.success(f"✅ Updated Notion: {notion_id} sent via {channel}")
+            return True
+
+        except Exception as e:
+            logger.error(f"❌ Error updating channel sent in Notion: {e}")
+            return False
+
+    async def get_leads_for_channel(
+        self,
+        channel: str,
+        limit: int = 50,
+        exclude_sent: bool = True
+    ) -> List[Dict]:
+        """
+        Get leads that haven't been contacted via specific channel
+
+        Args:
+            channel: Channel type (whatsapp, sms, max, telegram)
+            limit: Maximum leads to fetch
+            exclude_sent: Exclude leads already contacted via this channel
+
+        Returns:
+            List of leads
+        """
+        try:
+            checkbox_name = self.CHANNEL_CHECKBOXES.get(channel.lower())
+            if not checkbox_name:
+                logger.warning(f"⚠️ Unknown channel: {channel}")
+                return []
+
+            # Build filter
+            filter_conditions = {
+                "and": [
+                    {
+                        "property": "Status",
+                        "status": {
+                            "does_not_equal": "Completed"
+                        }
+                    }
+                ]
+            }
+
+            if exclude_sent:
+                filter_conditions["and"].append({
+                    "property": checkbox_name,
+                    "checkbox": {
+                        "equals": False
+                    }
+                })
+
+            response = await self.client.databases.query(
+                database_id=self.database_id,
+                filter=filter_conditions,
+                sorts=[
+                    {"property": "Priority", "direction": "descending"},
+                    {"property": "Created Date", "direction": "ascending"}
+                ],
+                page_size=limit
+            )
+
+            leads = []
+            for page in response.get('results', []):
+                lead = self._parse_notion_page(page)
+                if lead:
+                    leads.append(lead)
+                    self._lead_cache[lead['notion_id']] = lead
+
+            logger.info(f"📥 Found {len(leads)} leads for {channel} channel")
+            return leads
+
+        except Exception as e:
+            logger.error(f"❌ Error fetching leads for channel: {e}")
+            return []
+
+    async def get_lead_for_personalization(self, notion_id: str) -> Optional[Dict]:
+        """
+        Get full lead data for LLM personalization
+
+        Args:
+            notion_id: Notion page ID
+
+        Returns:
+            Lead data dict with all fields for personalization
+        """
+        # Check cache first
+        if notion_id in self._lead_cache:
+            return self._lead_cache[notion_id]
+
+        try:
+            page = await self.client.pages.retrieve(page_id=notion_id)
+            lead = self._parse_notion_page(page)
+
+            if lead:
+                self._lead_cache[notion_id] = lead
+
+            return lead
+
+        except Exception as e:
+            logger.error(f"❌ Error fetching lead for personalization: {e}")
+            return None
+
+    async def mark_response_received(
+        self,
+        notion_id: str,
+        channel: str,
+        response_date: Optional[str] = None
+    ) -> bool:
+        """
+        Mark that a response was received from lead
+
+        Args:
+            notion_id: Notion page ID
+            channel: Channel where response was received
+            response_date: Date of response (ISO format, defaults to now)
+
+        Returns:
+            bool: True if successful
+        """
+        try:
+            if not response_date:
+                response_date = datetime.utcnow().isoformat()
+
+            properties = {
+                "Response Received": {"checkbox": True},
+                "Response Date": {"date": {"start": response_date}},
+                "Response Channel": {"select": {"name": channel.capitalize()}}
+            }
+
+            await self.client.pages.update(
+                page_id=notion_id,
+                properties=properties
+            )
+
+            logger.success(f"✅ Marked response received: {notion_id} via {channel}")
+            return True
+
+        except Exception as e:
+            logger.error(f"❌ Error marking response: {e}")
+            return False
+
+    def clear_cache(self):
+        """Clear all caches"""
+        self._cache.clear()
+        self._lead_cache.clear()
+        logger.info("🗑️ Cleared Notion client caches")
 
 
 # Global instance

@@ -34,13 +34,30 @@ class StepStatus(str, enum.Enum):
 class AgentType(str, enum.Enum):
     """Available agent types"""
     WHATSAPP = "whatsapp"
+    MAX = "max"
+    SMS = "sms"
     INSTAGRAM = "instagram"
     LINKEDIN = "linkedin"
     TELEGRAM = "telegram"
-    YOUTUBE = "youtube"
-    SMS = "sms"
     NOTION = "notion"
     SCRAPER = "scraper"
+
+
+class TaskStatus(str, enum.Enum):
+    """Task execution status"""
+    PENDING = "pending"
+    PROCESSING = "processing"
+    SENT = "sent"
+    FAILED = "failed"
+    CONFIRMED = "confirmed"
+
+
+class DeviceStatus(str, enum.Enum):
+    """Device status"""
+    OK = "ok"
+    SLOW = "slow"
+    OFFLINE = "offline"
+    MAINTENANCE_NEEDED = "maintenance_needed"
 
 
 class Device(Base):
@@ -238,3 +255,145 @@ class ScheduledJob(Base):
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Execution(Base):
+    """Execution model - step-by-step execution log for scenarios"""
+    __tablename__ = "executions"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    scenario_id = Column(String, ForeignKey('scenarios.id', ondelete='CASCADE'), nullable=False)
+    step_id = Column(String, ForeignKey('scenario_steps.id', ondelete='SET NULL'), nullable=True)
+    device_id = Column(String, ForeignKey('devices.id', ondelete='SET NULL'), nullable=True)
+
+    # Execution details
+    action = Column(String(100), nullable=False)  # send_whatsapp, send_sms, etc.
+    target = Column(String, nullable=True)  # phone number, contact name
+    status = Column(String(20), default="pending")  # pending, running, success, failed, skipped
+
+    # Input/Output
+    input_data = Column(JSON, nullable=True)  # Parameters passed to action
+    output_data = Column(JSON, nullable=True)  # Result from action
+    error_message = Column(Text, nullable=True)
+
+    # Timing
+    started_at = Column(DateTime, nullable=True)
+    completed_at = Column(DateTime, nullable=True)
+    duration_ms = Column(Integer, nullable=True)
+
+    # Screenshots
+    screenshot_before = Column(String, nullable=True)  # Path to screenshot before action
+    screenshot_after = Column(String, nullable=True)  # Path to screenshot after action
+
+    # Retry tracking
+    attempt_number = Column(Integer, default=1)
+    max_attempts = Column(Integer, default=3)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    # Relationships
+    scenario = relationship("Scenario", backref="executions")
+    step = relationship("ScenarioStep", backref="executions")
+    device = relationship("Device", backref="executions")
+
+
+class RateLimit(Base):
+    """RateLimit model - per-device rate limiting configuration"""
+    __tablename__ = "rate_limits"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    device_id = Column(String, ForeignKey('devices.id', ondelete='CASCADE'), nullable=False)
+
+    # Rate limit type
+    limit_type = Column(String(50), nullable=False)  # whatsapp, sms, max, global
+    channel = Column(String(50), nullable=True)  # Specific channel if applicable
+
+    # Limits
+    max_per_hour = Column(Integer, default=20)
+    max_per_day = Column(Integer, default=100)
+    min_interval_seconds = Column(Integer, default=60)  # Minimum time between messages
+
+    # Current usage (reset daily/hourly)
+    current_hour_count = Column(Integer, default=0)
+    current_day_count = Column(Integer, default=0)
+    last_action_at = Column(DateTime, nullable=True)
+    hour_reset_at = Column(DateTime, nullable=True)
+    day_reset_at = Column(DateTime, nullable=True)
+
+    # State
+    is_blocked = Column(Boolean, default=False)
+    blocked_until = Column(DateTime, nullable=True)
+    block_reason = Column(String, nullable=True)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    device = relationship("Device", backref="rate_limits")
+
+
+class UIPath(Base):
+    """UIPath model - UIAutomator selectors for different apps/screens"""
+    __tablename__ = "ui_paths"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+
+    # App identification
+    app_name = Column(String(50), nullable=False)  # whatsapp, max, sms, telegram
+    app_package = Column(String(100), nullable=True)  # com.whatsapp, etc.
+    app_version = Column(String(20), nullable=True)  # Version this selector works for
+
+    # Screen/Element identification
+    screen_name = Column(String(100), nullable=False)  # main_chat, contact_search, etc.
+    element_name = Column(String(100), nullable=False)  # send_button, message_input, etc.
+
+    # Selectors (multiple strategies)
+    resource_id = Column(String, nullable=True)  # Android resource ID
+    content_desc = Column(String, nullable=True)  # Content description
+    xpath = Column(String, nullable=True)  # XPath selector
+    class_name = Column(String, nullable=True)  # Android class name
+    text_pattern = Column(String, nullable=True)  # Text or regex pattern
+    bounds = Column(String, nullable=True)  # Fallback coordinates [x1,y1,x2,y2]
+
+    # Selector metadata
+    selector_priority = Column(Integer, default=1)  # Lower = try first
+    is_active = Column(Boolean, default=True)
+    confidence = Column(Float, default=1.0)  # How reliable this selector is (0-1)
+
+    # Usage tracking
+    success_count = Column(Integer, default=0)
+    failure_count = Column(Integer, default=0)
+    last_success_at = Column(DateTime, nullable=True)
+    last_failure_at = Column(DateTime, nullable=True)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class SessionCache(Base):
+    """SessionCache model - cached app session data for faster automation"""
+    __tablename__ = "session_cache"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    device_id = Column(String, ForeignKey('devices.id', ondelete='CASCADE'), nullable=False)
+
+    # Cache type
+    cache_type = Column(String(50), nullable=False)  # app_state, contact_list, recent_chats
+    app_name = Column(String(50), nullable=True)
+
+    # Cached data
+    data = Column(JSON, nullable=False)
+
+    # Validity
+    expires_at = Column(DateTime, nullable=True)
+    is_valid = Column(Boolean, default=True)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    device = relationship("Device", backref="session_caches")
