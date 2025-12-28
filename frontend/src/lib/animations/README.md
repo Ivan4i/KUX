@@ -15,8 +15,15 @@
 
 ```bash
 npm install animejs
-cp -r transport/animation/hooks/* /path/to/project/src/hooks/
-cp -r transport/animation/utils/* /path/to/project/src/utils/
+```
+
+Animation files are now located at:
+```
+frontend/src/lib/animations/
+├── hooks/                   # React hooks (useAnimation, useAnimeMotion)
+├── utils/                   # Animation utilities
+├── docs/                    # 14 documentation files
+└── README.md                # This file
 ```
 
 ## Basic Usage

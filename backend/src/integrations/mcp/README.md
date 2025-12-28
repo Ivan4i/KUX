@@ -34,20 +34,27 @@ MCP (Model Context Protocol) enables AI agents to interact with external service
 
 ## Setup
 
-### 1. Copy to new project
+### Current Location
 
-```bash
-cp -r transport/mcp/ /path/to/project/mcp-kit/
+MCP Kit is now located at:
+```
+backend/src/integrations/mcp/
+├── config/          # MCP configuration files
+├── scripts/         # Setup and check scripts
+├── secrets/         # Credentials (gitignored)
+├── src/             # Service connectors
+│   ├── services/    # Individual service modules
+│   └── utils/       # Utility functions
+└── README.md        # This file
 ```
 
-### 2. Create secrets directory
+### 1. Create secrets directory (if not exists)
 
 ```bash
-mkdir -p /path/to/project/mcp-kit/secrets
-chmod 700 /path/to/project/mcp-kit/secrets
+chmod 700 backend/src/integrations/mcp/secrets
 ```
 
-### 3. Configure MCP
+### 2. Configure MCP
 
 Edit `config/mcp.json.example` and save as `.mcp.json` in project root:
 

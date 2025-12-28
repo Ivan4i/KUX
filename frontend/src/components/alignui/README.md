@@ -106,16 +106,19 @@ npm install @radix-ui/react-avatar @radix-ui/react-checkbox \
   @remixicon/react clsx tailwind-merge tailwind-variants
 ```
 
-### 2. Copy files
+### 2. File Locations
 
-```bash
-# Components
-cp -r transport/alignui/components-reference/* \
-  /path/to/project/frontend/src/components/alignui/
-
-# Utils (required)
-cp transport/alignui/utils/* \
-  /path/to/project/frontend/src/utils/
+Components are now located at:
+```
+frontend/src/components/alignui/
+├── components-reference/    # React components
+├── utils/                   # Utility functions (cn, tv, polymorphic)
+├── tokens/                  # Design token contracts
+├── config/                  # Tailwind/PostCSS configs
+├── docs/                    # Component documentation
+├── figma/                   # Figma integration
+├── pdf/                     # Visual specifications
+└── templates/               # Dashboard templates
 ```
 
 ### 3. Configure Tailwind

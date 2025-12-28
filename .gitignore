@@ -73,4 +73,4 @@ coverage/
 .claude/
 
 # Large files (>100MB)
-docs/transport/alignui/pdf/Icons*.pdf
+frontend/src/components/alignui/pdf/Icons*.pdf
