@@ -1,0 +1,346 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/*#region AlignUI Colors */
+@theme {
+  /* Neutral */
+  --color-neutral-0: hsl(0 0% 100%);
+  --color-neutral-50: hsl(216 33.33% 97.06%);
+  --color-neutral-100: hsl(210 30% 96.08%);
+  --color-neutral-200: hsl(220 17.65% 90%);
+  --color-neutral-300: hsl(218.57 15.22% 81.96%);
+  --color-neutral-400: hsl(220 11.48% 64.12%);
+  --color-neutral-500: hsl(221.05 7.76% 48.04%);
+  --color-neutral-600: hsl(222 10.87% 36.08%);
+  --color-neutral-700: hsl(221.25 15.69% 20%);
+  --color-neutral-800: hsl(227.14 17.07% 16.08%);
+  --color-neutral-900: hsl(226.15 21.31% 11.96%);
+  --color-neutral-950: hsl(221.54 31.71% 8.04%);
+  --color-neutral-alpha-24: hsl(220 11.48% 64.12% / 24%);
+  --color-neutral-alpha-16: hsl(220 11.48% 64.12% / 16%);
+  --color-neutral-alpha-10: hsl(220 11.48% 64.12% / 10%);
+
+  /* Blue */
+  --color-blue-50: hsl(222 100% 96.08%);
+  --color-blue-100: hsl(221.43 100% 91.76%);
+  --color-blue-200: hsl(220 100% 87.65%);
+  --color-blue-300: hsl(219.81 100% 79.61%);
+  --color-blue-400: hsl(222.12 100% 70.39%);
+  --color-blue-500: hsl(227.94 100% 60%);
+  --color-blue-600: hsl(228 80.36% 56.08%);
+  --color-blue-700: hsl(228.07 69.8% 48.04%);
+  --color-blue-800: hsl(228.17 69.61% 40%);
+  --color-blue-900: hsl(228 70.55% 31.96%);
+  --color-blue-950: hsl(228.14 70.49% 23.92%);
+  --color-blue-alpha-24: hsl(227.93 100% 63.92% / 24%);
+  --color-blue-alpha-16: hsl(227.93 100% 63.92% / 16%);
+  --color-blue-alpha-10: hsl(227.93 100% 63.92% / 10%);
+
+  /* Orange */
+  --color-orange-50: hsl(24 100% 96.08%);
+  --color-orange-100: hsl(24.29 100% 91.76%);
+  --color-orange-200: hsl(23.81 100% 87.65%);
+  --color-orange-300: hsl(24.23 100% 79.61%);
+  --color-orange-400: hsl(23.84 100% 70.39%);
+  --color-orange-500: hsl(24.13 100% 63.92%);
+  --color-orange-600: hsl(24 80.36% 56.08%);
+  --color-orange-700: hsl(23.86 69.8% 48.04%);
+  --color-orange-800: hsl(24.08 69.61% 40%);
+  --color-orange-900: hsl(24 70.55% 31.96%);
+  --color-orange-950: hsl(23.72 70.49% 23.92%);
+  --color-orange-alpha-24: hsl(24.13 100% 63.92% / 24%);
+  --color-orange-alpha-16: hsl(24.13 100% 63.92% / 16%);
+  --color-orange-alpha-10: hsl(24.13 100% 63.92% / 10%);
+
+  /* Red */
+  --color-red-50: hsl(357 100% 96.08%);
+  --color-red-100: hsl(355.71 100% 91.76%);
+  --color-red-200: hsl(355.24 100% 87.65%);
+  --color-red-300: hsl(354.81 100% 79.61%);
+  --color-red-400: hsl(354.83 100% 70.39%);
+  --color-red-500: hsl(354.8 96.08% 60%);
+  --color-red-600: hsl(355 80.36% 56.08%);
+  --color-red-700: hsl(355.09 69.8% 48.04%);
+  --color-red-800: hsl(354.93 69.61% 40%);
+  --color-red-900: hsl(354.78 70.55% 31.96%);
+  --color-red-950: hsl(355.12 70.49% 23.92%);
+  --color-red-alpha-24: hsl(354.8 96.08% 60% / 24%);
+  --color-red-alpha-16: hsl(354.8 96.08% 60% / 16%);
+  --color-red-alpha-10: hsl(354.8 96.08% 60% / 10%);
+
+  /* Green */
+  --color-green-50: hsl(147.69 72.22% 92.94%);
+  --color-green-100: hsl(154.88 84.31% 90%);
+  --color-green-200: hsl(148.24 71.83% 86.08%);
+  --color-green-300: hsl(147.96 72.03% 71.96%);
+  --color-green-400: hsl(147.78 72.32% 56.08%);
+  --color-green-500: hsl(148.15 72.32% 43.92%);
+  --color-green-600: hsl(147.95 71.57% 40%);
+  --color-green-700: hsl(148.21 71.78% 31.96%);
+  --color-green-800: hsl(147.69 63.64% 28.04%);
+  --color-green-900: hsl(148.46 63.93% 23.92%);
+  --color-green-950: hsl(148.47 72.84% 15.88%);
+  --color-green-alpha-24: hsl(148.15 72.32% 43.92% / 24%);
+  --color-green-alpha-16: hsl(148.15 72.32% 43.92% / 16%);
+  --color-green-alpha-10: hsl(148.15 72.32% 43.92% / 10%);
+
+  /* Yellow */
+  --color-yellow-50: hsl(43.9 100% 91.96%);
+  --color-yellow-100: hsl(41.18 100% 90%);
+  --color-yellow-200: hsl(41.9 100% 87.65%);
+  --color-yellow-300: hsl(42.12 100% 79.61%);
+  --color-yellow-400: hsl(42.12 100% 70.39%);
+  --color-yellow-500: hsl(41.94 92.31% 54.12%);
+  --color-yellow-600: hsl(41.85 80.39% 50%);
+  --color-yellow-700: hsl(42.04 64.08% 48.04%);
+  --color-yellow-800: hsl(42 63.73% 40%);
+  --color-yellow-900: hsl(41.71 64.42% 31.96%);
+  --color-yellow-950: hsl(42.16 60.66% 23.92%);
+  --color-yellow-alpha-24: hsl(41.93 95.65% 63.92% / 24%);
+  --color-yellow-alpha-16: hsl(41.93 95.65% 63.92% / 16%);
+  --color-yellow-alpha-10: hsl(41.93 95.65% 63.92% / 10%);
+
+  /* Purple */
+  --color-purple-50: hsl(252 100% 96.08%);
+  --color-purple-100: hsl(250 100% 91.76%);
+  --color-purple-200: hsl(249.52 100% 87.65%);
+  --color-purple-300: hsl(249.81 100% 79.61%);
+  --color-purple-400: hsl(252.18 88.08% 70.39%);
+  --color-purple-500: hsl(255.93 88.04% 63.92%);
+  --color-purple-600: hsl(255.93 72.32% 56.08%);
+  --color-purple-700: hsl(257.96 64.08% 48.04%);
+  --color-purple-800: hsl(258 63.73% 40%);
+  --color-purple-900: hsl(258.29 64.42% 31.96%);
+  --color-purple-950: hsl(257.8 63.64% 28.04%);
+  --color-purple-alpha-24: hsl(255.93 83.51% 61.96% / 24%);
+  --color-purple-alpha-16: hsl(255.93 83.51% 61.96% / 16%);
+  --color-purple-alpha-10: hsl(255.93 83.51% 61.96% / 10%);
+
+  /* Teal */
+  --color-teal-50: hsl(172.17 74.19% 93.92%);
+  --color-teal-100: hsl(171.63 84.31% 90%);
+  --color-teal-200: hsl(171.76 71.83% 86.08%);
+  --color-teal-300: hsl(171.84 72.03% 71.96%);
+  --color-teal-400: hsl(172.08 70.67% 55.88%);
+  --color-teal-500: hsl(171.86 72.24% 48.04%);
+  --color-teal-600: hsl(172.19 71.57% 40%);
+  --color-teal-700: hsl(172.31 71.78% 31.96%);
+  --color-teal-800: hsl(172.09 63.64% 28.04%);
+  --color-teal-900: hsl(172.31 63.93% 23.92%);
+  --color-teal-950: hsl(171.86 72.84% 15.88%);
+  --color-teal-alpha-24: hsl(171.86 72.24% 48.04% / 24%);
+  --color-teal-alpha-16: hsl(171.86 72.24% 48.04% / 16%);
+  --color-teal-alpha-10: hsl(171.86 72.24% 48.04% / 10%);
+
+  /* Sky */
+  --color-sky-50: hsl(201 100% 96.08%);
+  --color-sky-100: hsl(200 100% 91.76%);
+  --color-sky-200: hsl(200 100% 87.65%);
+  --color-sky-300: hsl(200.19 100% 79.61%);
+  --color-sky-400: hsl(199.87 100% 70.39%);
+  --color-sky-500: hsl(199.89 100% 63.92%);
+  --color-sky-600: hsl(200 80.36% 56.08%);
+  --color-sky-700: hsl(200 69.8% 48.04%);
+  --color-sky-800: hsl(199.86 69.61% 40%);
+  --color-sky-900: hsl(199.83 70.55% 31.96%);
+  --color-sky-950: hsl(200.23 70.49% 23.92%);
+  --color-sky-alpha-24: hsl(199.89 100% 63.92% / 24%);
+  --color-sky-alpha-16: hsl(199.89 100% 63.92% / 16%);
+  --color-sky-alpha-10: hsl(199.89 100% 63.92% / 10%);
+
+  /* Pink */
+  --color-pink-50: hsl(333 100% 96.08%);
+  --color-pink-100: hsl(330 100% 91.76%);
+  --color-pink-200: hsl(330.48 100% 87.65%);
+  --color-pink-300: hsl(330 100% 79.61%);
+  --color-pink-400: hsl(330.2 100% 70.39%);
+  --color-pink-500: hsl(330 95.65% 63.92%);
+  --color-pink-600: hsl(330 80.36% 56.08%);
+  --color-pink-700: hsl(330.18 69.8% 48.04%);
+  --color-pink-800: hsl(330 69.61% 40%);
+  --color-pink-900: hsl(329.74 70.55% 31.96%);
+  --color-pink-950: hsl(330 70.49% 23.92%);
+  --color-pink-alpha-24: hsl(330 95.65% 63.92% / 24%);
+  --color-pink-alpha-16: hsl(330 95.65% 63.92% / 16%);
+  --color-pink-alpha-10: hsl(330 95.65% 63.92% / 10%);
+
+  /* Primary (Blue) */
+  --color-primary-dark: var(--color-blue-800);
+  --color-primary-darker: var(--color-blue-700);
+  --color-primary-base: var(--color-blue-500);
+  --color-primary-alpha-24: var(--color-blue-alpha-24);
+  --color-primary-alpha-16: var(--color-blue-alpha-16);
+  --color-primary-alpha-10: var(--color-blue-alpha-10);
+
+  /* Static */
+  --color-static-black: var(--color-neutral-950);
+  --color-static-white: var(--color-neutral-0);
+
+  /* Background */
+  --color-bg-strong-950: var(--color-neutral-950);
+  --color-bg-surface-800: var(--color-neutral-800);
+  --color-bg-sub-300: var(--color-neutral-300);
+  --color-bg-soft-200: var(--color-neutral-200);
+  --color-bg-weak-50: var(--color-neutral-50);
+  --color-bg-white-0: var(--color-neutral-0);
+
+  /* Text */
+  --color-text-strong-950: var(--color-neutral-950);
+  --color-text-sub-600: var(--color-neutral-600);
+  --color-text-soft-400: var(--color-neutral-400);
+  --color-text-disabled-300: var(--color-neutral-300);
+  --color-text-white-0: var(--color-neutral-0);
+
+  /* Stroke */
+  --color-stroke-strong-950: var(--color-neutral-950);
+  --color-stroke-sub-300: var(--color-neutral-300);
+  --color-stroke-soft-200: var(--color-neutral-200);
+  --color-stroke-white-0: var(--color-neutral-0);
+
+  /* Semantic - Faded */
+  --color-faded-dark: var(--color-neutral-800);
+  --color-faded-base: var(--color-neutral-500);
+  --color-faded-light: var(--color-neutral-200);
+  --color-faded-lighter: var(--color-neutral-100);
+
+  /* Semantic - Information */
+  --color-information-dark: var(--color-blue-950);
+  --color-information-base: var(--color-blue-500);
+  --color-information-light: var(--color-blue-200);
+  --color-information-lighter: var(--color-blue-50);
+
+  /* Semantic - Warning */
+  --color-warning-dark: var(--color-orange-950);
+  --color-warning-base: var(--color-orange-500);
+  --color-warning-light: var(--color-orange-200);
+  --color-warning-lighter: var(--color-orange-50);
+
+  /* Semantic - Error */
+  --color-error-dark: var(--color-red-950);
+  --color-error-base: var(--color-red-500);
+  --color-error-light: var(--color-red-200);
+  --color-error-lighter: var(--color-red-50);
+
+  /* Semantic - Success */
+  --color-success-dark: var(--color-green-950);
+  --color-success-base: var(--color-green-500);
+  --color-success-light: var(--color-green-200);
+  --color-success-lighter: var(--color-green-50);
+
+  /* Semantic - Away */
+  --color-away-dark: var(--color-yellow-950);
+  --color-away-base: var(--color-yellow-500);
+  --color-away-light: var(--color-yellow-200);
+  --color-away-lighter: var(--color-yellow-50);
+
+  /* Semantic - Feature */
+  --color-feature-dark: var(--color-purple-950);
+  --color-feature-base: var(--color-purple-500);
+  --color-feature-light: var(--color-purple-200);
+  --color-feature-lighter: var(--color-purple-50);
+
+  /* Semantic - Verified */
+  --color-verified-dark: var(--color-sky-950);
+  --color-verified-base: var(--color-sky-500);
+  --color-verified-light: var(--color-sky-200);
+  --color-verified-lighter: var(--color-sky-50);
+
+  /* Semantic - Highlighted */
+  --color-highlighted-dark: var(--color-pink-950);
+  --color-highlighted-base: var(--color-pink-500);
+  --color-highlighted-light: var(--color-pink-200);
+  --color-highlighted-lighter: var(--color-pink-50);
+
+  /* Semantic - Stable */
+  --color-stable-dark: var(--color-teal-950);
+  --color-stable-base: var(--color-teal-500);
+  --color-stable-light: var(--color-teal-200);
+  --color-stable-lighter: var(--color-teal-50);
+
+  /* Overlay */
+  --color-overlay: hsl(208.57 84% 4.9% / 24%);
+
+  /* Social */
+  --color-social-apple: hsl(0 0% 0%);
+  --color-social-twitter: hsl(0 0% 0.39%);
+  --color-social-github: hsl(212.73 13.25% 16.27%);
+  --color-social-notion: hsl(210 11.76% 13.33%);
+  --color-social-tidal: hsl(0 0% 0%);
+  --color-social-amazon: hsl(210 14.52% 24.31%);
+  --color-social-zendesk: hsl(46.67 25.71% 6.86%);
+
+  /* Typography */
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Font sizes */
+  --font-size-title-h1: 3.5rem;
+  --font-size-title-h2: 3rem;
+  --font-size-title-h3: 2.5rem;
+  --font-size-title-h4: 2rem;
+  --font-size-title-h5: 1.5rem;
+  --font-size-title-h6: 1.25rem;
+  --font-size-label-xl: 1.5rem;
+  --font-size-label-lg: 1.125rem;
+  --font-size-label-md: 1rem;
+  --font-size-label-sm: 0.875rem;
+  --font-size-label-xs: 0.75rem;
+  --font-size-paragraph-xl: 1.5rem;
+  --font-size-paragraph-lg: 1.125rem;
+  --font-size-paragraph-md: 1rem;
+  --font-size-paragraph-sm: 0.875rem;
+  --font-size-paragraph-xs: 0.75rem;
+  --font-size-subheading-md: 1rem;
+  --font-size-subheading-sm: 0.875rem;
+  --font-size-subheading-xs: 0.75rem;
+  --font-size-subheading-2xs: 0.6875rem;
+
+  /* Shadows */
+  --shadow-regular-xs: 0 1px 2px 0 #0a0d1408;
+  --shadow-regular-sm: 0 2px 4px #1b1c1d0a;
+  --shadow-regular-md: 0 16px 32px -12px #0e121b1a;
+  --shadow-button-primary-focus: 0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-primary-alpha-10);
+  --shadow-button-important-focus: 0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-neutral-alpha-16);
+  --shadow-button-error-focus: 0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-red-alpha-10);
+  --shadow-toggle-switch: 0 6px 10px 0 #0e121b0f, 0 2px 4px 0 #0e121b08;
+  --shadow-switch-thumb: 0 4px 8px 0 #1b1c1d0f, 0 2px 4px 0 #0e121b14;
+  --shadow-tooltip: 0 12px 24px 0 #0e121b0f, 0 1px 2px 0 #0e121b08;
+
+  /* Border Radius */
+  --radius-10: 0.625rem;
+  --radius-20: 1.25rem;
+}
+/*#endregion Colors */
+
+/* Remix Icon scale fix */
+.remixicon path {
+  transform: scale(0.8996);
+  transform-origin: center;
+}
+
+@layer base {
+  html {
+    color: var(--color-text-strong-950);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-family-sans);
+  }
+
+  body {
+    background-color: var(--color-bg-white-0);
+    min-height: 100vh;
+    margin: 0;
+  }
+}
+
+@layer utilities {
+  .mask-exclude {
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}

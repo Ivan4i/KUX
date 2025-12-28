@@ -1,0 +1,439 @@
+{
+  "meta": {
+    "version": "1.1.0",
+    "lastUpdated": "2025-12-18",
+    "figmaFileId": "pEe3Tz3bjuUAja59htoQBr",
+    "figmaFileName": "Align UI ✦ Design System 2.0",
+    "baseUrlPattern": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id={NODE_ID}&m=dev",
+    "totalNodes": 56,
+    "verificationDate": "2025-12-18",
+    "verificationMethod": "ls frontend/src/components/alignui/ && cat frontend/package.json"
+  },
+  "foundations": [
+    {
+      "name": "Typography",
+      "nodeId": "2697-307",
+      "figmaUrl": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id=2697-307&m=dev",
+      "localMapping": "frontend/tailwind.config.ts (texts)",
+      "tokens": ["title-h1..h6", "label-xl..xs", "paragraph-xl..xs", "subheading-md..2xs"]
+    },
+    {
+      "name": "Color Palette",
+      "nodeId": "2623-2287",
+      "figmaUrl": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id=2623-2287&m=dev",
+      "localMapping": "frontend/src/index.css (@theme block)",
+      "tokens": ["neutral", "blue", "red", "green", "yellow", "orange", "purple", "teal", "sky", "pink"]
+    },
+    {
+      "name": "Token System",
+      "nodeId": "2645-344",
+      "figmaUrl": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id=2645-344&m=dev",
+      "localMapping": "frontend/src/index.css (semantic tokens)",
+      "tokens": ["bg-*", "text-*", "stroke-*", "primary-*", "semantic statuses"]
+    },
+    {
+      "name": "Icons",
+      "nodeId": "2716-25504",
+      "figmaUrl": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id=2716-25504&m=dev",
+      "localMapping": "@remixicon/react",
+      "notes": "Using Remix Icon library"
+    },
+    {
+      "name": "Shadows",
+      "nodeId": "2767-1801",
+      "figmaUrl": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id=2767-1801&m=dev",
+      "localMapping": "frontend/tailwind.config.ts (shadows)",
+      "tokens": ["regular-xs", "regular-sm", "regular-md", "button-*-focus", "toggle-switch", "tooltip"]
+    },
+    {
+      "name": "Corner Radius",
+      "nodeId": "2839-908",
+      "figmaUrl": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id=2839-908&m=dev",
+      "localMapping": "frontend/tailwind.config.ts (borderRadii)",
+      "tokens": ["rounded-10", "rounded-20", "rounded-lg", "rounded-full"]
+    },
+    {
+      "name": "Major Brands",
+      "nodeId": "2778-6081",
+      "figmaUrl": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id=2778-6081&m=dev",
+      "localMapping": "Social buttons, brand icons",
+      "notes": "Asset library"
+    },
+    {
+      "name": "Country Flags",
+      "nodeId": "2806-1685",
+      "figmaUrl": "https://www.figma.com/design/pEe3Tz3bjuUAja59htoQBr/Align-UI-%E2%9C%A6-Design-System--2.0-?node-id=2806-1685&m=dev",
+      "localMapping": "Asset library",
+      "notes": "For region selection"
+    }
+  ],
+  "components": [
+    {
+      "name": "Alert, Notification & Toast",
+      "nodeId": "2880-5429",
+      "localFile": "frontend/src/components/alignui/alert.tsx",
+      "variants": {
+        "status": ["success", "warning", "error", "information", "feature"],
+        "variant": ["filled", "light", "lighter", "stroke"]
+      }
+    },
+    {
+      "name": "Activity Feed",
+      "nodeId": "165978-43394",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/activity*.tsx frontend/src/components/alignui/feed*.tsx",
+      "notes": "Component not found in local repo"
+    },
+    {
+      "name": "Avatar",
+      "nodeId": "2906-13402",
+      "localFile": "frontend/src/components/alignui/avatar.tsx",
+      "localFileAlternatives": [
+        "frontend/src/components/alignui/avatar-group.tsx",
+        "frontend/src/components/alignui/avatar-group-compact.tsx",
+        "frontend/src/components/alignui/avatar-empty-icons.tsx"
+      ],
+      "variants": {
+        "size": ["80", "72", "64", "56", "48", "40", "32", "24", "20"],
+        "color": ["gray", "yellow", "blue", "sky", "purple", "red"]
+      },
+      "subComponents": ["Root", "Image", "Indicator", "Status", "BrandLogo", "Notification"]
+    },
+    {
+      "name": "Badge",
+      "nodeId": "2939-17953",
+      "localFile": "frontend/src/components/alignui/badge.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/status-badge.tsx"],
+      "variants": {
+        "size": ["small", "medium"],
+        "variant": ["filled", "light", "lighter", "stroke"],
+        "color": ["gray", "blue", "orange", "red", "green", "yellow", "purple", "sky", "pink", "teal"]
+      },
+      "subComponents": ["Root", "Icon", "Dot"]
+    },
+    {
+      "name": "Banner",
+      "nodeId": "2952-12714",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/banner*.tsx",
+      "notes": "Component not found in local repo"
+    },
+    {
+      "name": "Button",
+      "nodeId": "2955-34374",
+      "localFile": "frontend/src/components/alignui/button.tsx",
+      "localFileAlternatives": [
+        "frontend/src/components/alignui/compact-button.tsx",
+        "frontend/src/components/alignui/fancy-button.tsx",
+        "frontend/src/components/alignui/link-button.tsx",
+        "frontend/src/components/alignui/social-button.tsx"
+      ],
+      "variants": {
+        "variant": ["primary", "neutral", "error"],
+        "mode": ["filled", "stroke", "lighter", "ghost"],
+        "size": ["medium", "small", "xsmall", "xxsmall"]
+      },
+      "subComponents": ["Root", "Icon"]
+    },
+    {
+      "name": "Button Group",
+      "nodeId": "3016-38391",
+      "localFile": "frontend/src/components/alignui/button-group.tsx",
+      "subComponents": ["Root", "Item"]
+    },
+    {
+      "name": "Checkbox",
+      "nodeId": "3031-3228",
+      "localFile": "frontend/src/components/alignui/checkbox.tsx",
+      "radixPrimitive": "@radix-ui/react-checkbox"
+    },
+    {
+      "name": "Content Divider",
+      "nodeId": "3100-17932",
+      "localFile": "frontend/src/components/alignui/divider.tsx",
+      "variants": {
+        "variant": ["line-text", "line-spacing"]
+      }
+    },
+    {
+      "name": "Command Menu",
+      "nodeId": "4212-7592",
+      "localFile": "frontend/src/components/alignui/command-menu.tsx",
+      "dependency": "cmdk"
+    },
+    {
+      "name": "Date Picker",
+      "nodeId": "3118-24439",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/date-picker*.tsx frontend/src/components/alignui/calendar*.tsx && grep react-day-picker frontend/package.json",
+      "notes": "Component not found. react-day-picker NOT in package.json"
+    },
+    {
+      "name": "Drawer",
+      "nodeId": "4096-39882",
+      "localFile": "frontend/src/components/alignui/drawer.tsx",
+      "radixPrimitive": "@radix-ui/react-dialog"
+    },
+    {
+      "name": "Dropdown",
+      "nodeId": "166999-144440",
+      "localFile": "frontend/src/components/alignui/dropdown.tsx"
+    },
+    {
+      "name": "File Upload",
+      "nodeId": "3280-20889",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/file-upload*.tsx frontend/src/components/alignui/*dropzone*.tsx",
+      "notes": "Component not found. file-format-icon.tsx exists but not full file-upload"
+    },
+    {
+      "name": "Filters",
+      "nodeId": "4415-19389",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/filter*.tsx",
+      "notes": "Composition pattern - may not have dedicated component"
+    },
+    {
+      "name": "Modal",
+      "nodeId": "3319-16461",
+      "localFile": "frontend/src/components/alignui/modal.tsx",
+      "radixPrimitive": "@radix-ui/react-dialog",
+      "subComponents": ["Root", "Trigger", "Content", "Close", "Header", "Body", "Footer"]
+    },
+    {
+      "name": "Notifications",
+      "nodeId": "4316-37858",
+      "localFile": "frontend/src/components/alignui/alert.tsx",
+      "notes": "Shared with Alert component"
+    },
+    {
+      "name": "Pagination",
+      "nodeId": "3325-20027",
+      "localFile": "frontend/src/components/alignui/pagination.tsx"
+    },
+    {
+      "name": "Popover",
+      "nodeId": "4431-82035",
+      "localFile": "frontend/src/components/alignui/popover.tsx"
+    },
+    {
+      "name": "Progress Bar",
+      "nodeId": "3376-287",
+      "localFile": "frontend/src/components/alignui/progress-bar.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/progress-circle.tsx"]
+    },
+    {
+      "name": "Radio",
+      "nodeId": "3401-4760",
+      "localFile": "frontend/src/components/alignui/radio.tsx"
+    },
+    {
+      "name": "Rating",
+      "nodeId": "3421-22519",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/rating*.tsx",
+      "notes": "Component not found in local repo"
+    },
+    {
+      "name": "Rich Editor",
+      "nodeId": "166313-25334",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/rich-editor*.tsx frontend/src/components/alignui/editor*.tsx",
+      "notes": "Component not found. Third-party editor integration needed"
+    },
+    {
+      "name": "Scroll",
+      "nodeId": "166558-29851",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/scroll*.tsx",
+      "notes": "Component not found. Would need @radix-ui/react-scroll-area"
+    },
+    {
+      "name": "Select",
+      "nodeId": "3211-6627",
+      "localFile": "frontend/src/components/alignui/select.tsx",
+      "variants": {
+        "size": ["medium", "small", "xsmall"],
+        "variant": ["default", "compact", "compactForInput", "inline"]
+      },
+      "subComponents": ["Root", "Trigger", "TriggerIcon", "Value", "Content", "Item", "ItemIcon", "Group", "GroupLabel", "Separator"]
+    },
+    {
+      "name": "Slider",
+      "nodeId": "3501-1565",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/slider*.tsx && grep @radix-ui/react-slider frontend/package.json",
+      "notes": "Component not found. @radix-ui/react-slider NOT in package.json"
+    },
+    {
+      "name": "Step Indicator",
+      "nodeId": "3508-6266",
+      "localFile": "frontend/src/components/alignui/horizontal-stepper.tsx",
+      "localFileAlternatives": [
+        "frontend/src/components/alignui/vertical-stepper.tsx",
+        "frontend/src/components/alignui/dot-stepper.tsx"
+      ]
+    },
+    {
+      "name": "Switch",
+      "nodeId": "3677-7838",
+      "localFile": "frontend/src/components/alignui/switch.tsx",
+      "radixPrimitive": "@radix-ui/react-switch"
+    },
+    {
+      "name": "Segmented Control",
+      "nodeId": "3688-26806",
+      "localFile": "frontend/src/components/alignui/segmented-control.tsx"
+    },
+    {
+      "name": "Tab Menu",
+      "nodeId": "3516-12126",
+      "localFile": "frontend/src/components/alignui/tab-menu-horizontal.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/tab-menu-vertical.tsx"]
+    },
+    {
+      "name": "Table",
+      "nodeId": "3525-7648",
+      "localFile": "frontend/src/components/alignui/table.tsx"
+    },
+    {
+      "name": "Tag",
+      "nodeId": "3571-30133",
+      "localFile": "frontend/src/components/alignui/tag.tsx"
+    },
+    {
+      "name": "Text Area",
+      "nodeId": "3631-1360",
+      "localFile": "frontend/src/components/alignui/textarea.tsx"
+    },
+    {
+      "name": "Text Input",
+      "nodeId": "3643-41796",
+      "localFile": "frontend/src/components/alignui/input.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/digit-input.tsx"],
+      "subComponents": ["Root", "Wrapper", "Input", "Icon"]
+    },
+    {
+      "name": "Time Picker",
+      "nodeId": "165596-18563",
+      "localFile": null,
+      "verifyCommand": "ls frontend/src/components/alignui/time-picker*.tsx frontend/src/components/alignui/time*.tsx",
+      "notes": "Component not found in local repo"
+    },
+    {
+      "name": "Tooltip",
+      "nodeId": "3715-41752",
+      "localFile": "frontend/src/components/alignui/tooltip.tsx"
+    },
+    {
+      "name": "Label",
+      "nodeId": null,
+      "localFile": "frontend/src/components/alignui/label.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/hint.tsx"],
+      "radixPrimitive": "@radix-ui/react-label"
+    },
+    {
+      "name": "Kbd",
+      "nodeId": null,
+      "localFile": "frontend/src/components/alignui/kbd.tsx"
+    }
+  ],
+  "layouts": [
+    {
+      "name": "Sidebar [Navigation] 1.1",
+      "nodeId": "3802-11759",
+      "notes": "Navigation sidebar layout"
+    },
+    {
+      "name": "Sidebar Components",
+      "nodeId": "3802-24565",
+      "notes": "Individual sidebar building blocks"
+    },
+    {
+      "name": "Topbar [Navigation] 1.1",
+      "nodeId": "3814-25274",
+      "notes": "Top navigation bar"
+    },
+    {
+      "name": "Calendar Page Components [HR]",
+      "nodeId": "6842-109929",
+      "notes": "HR calendar page blocks"
+    },
+    {
+      "name": "Schedule [HR Widgets]",
+      "nodeId": "3710-13312",
+      "notes": "Schedule widget blocks"
+    },
+    {
+      "name": "Widgets [Finance & Banking] 1.1",
+      "nodeId": "3963-7181",
+      "notes": "Finance dashboard widgets"
+    },
+    {
+      "name": "Widgets [HR Management] 1.1",
+      "nodeId": "3851-32690",
+      "notes": "HR dashboard widgets"
+    },
+    {
+      "name": "Widgets [Marketing & Sales] 1.1",
+      "nodeId": "164628-1734",
+      "notes": "Marketing dashboard widgets"
+    }
+  ],
+  "applicationScreens": [
+    {
+      "screenName": "Auth",
+      "route": "/",
+      "nodeId": null,
+      "instructionsToFind": "Custom screen - not in design system file. Use design system components.",
+      "majorComponents": ["Button", "Input", "Divider"],
+      "localFile": "frontend/src/pages/Auth.tsx"
+    },
+    {
+      "screenName": "Rooms",
+      "route": "/rooms",
+      "nodeId": null,
+      "instructionsToFind": "Custom screen - not in design system file",
+      "majorComponents": ["Button", "Badge", "Avatar", "Divider"],
+      "localFile": "frontend/src/pages/Rooms.tsx"
+    },
+    {
+      "screenName": "CreateRoom",
+      "route": "/create-room",
+      "nodeId": null,
+      "instructionsToFind": "Custom screen - not in design system file",
+      "majorComponents": ["Input", "Textarea", "Select", "Switch", "Label", "Button", "Divider"],
+      "localFile": "frontend/src/pages/CreateRoom.tsx"
+    },
+    {
+      "screenName": "Room",
+      "route": "/room/:id",
+      "nodeId": null,
+      "instructionsToFind": "Custom screen - not in design system file",
+      "majorComponents": ["Button", "Avatar", "Drawer", "Modal"],
+      "localFile": "frontend/src/pages/Room.tsx"
+    }
+  ],
+  "missingComponentsSummary": {
+    "notInLocalRepo": [
+      "date-picker",
+      "time-picker",
+      "banner",
+      "rating",
+      "file-upload",
+      "rich-editor",
+      "scroll-area",
+      "slider",
+      "activity-feed",
+      "filter"
+    ],
+    "verifyAllCommand": "for f in date-picker time-picker banner rating file-upload rich-editor scroll-area slider activity-feed filter; do echo \"=== $f ===\"; ls frontend/src/components/alignui/$f*.tsx 2>/dev/null || echo 'NOT FOUND'; done"
+  },
+  "verificationStatusLegend": {
+    "localFile_path": "Component exists and is verified",
+    "localFile_null": "Component file not found/not created - check verifyCommand",
+    "localFileAlternatives": "Additional related component files",
+    "verifyCommand": "Shell command to verify component existence",
+    "radixPrimitive": "Built on Radix UI primitive"
+  }
+}

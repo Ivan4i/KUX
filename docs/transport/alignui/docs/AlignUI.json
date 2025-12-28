@@ -1,0 +1,754 @@
+{
+  "meta": {
+    "version": "1.1",
+    "lastUpdated": "2025-12-18",
+    "source": "AlignUI Design System 2.0",
+    "figmaFileId": "pEe3Tz3bjuUAja59htoQBr",
+    "verificationDate": "2025-12-18",
+    "verificationMethod": "ls frontend/src/components/alignui/ && cat frontend/package.json"
+  },
+  "components": [
+    {
+      "id": "ds:rich-editor",
+      "name": "Rich Editor",
+      "nodeId": "166313-25334",
+      "localFile": null,
+      "description": "Rich Editor is a text editing interface offering heading styles, text formatting, and custom content insertion through an intuitive toolbar.",
+      "anatomy": ["Rich Editor", "Rich Editor Items", "Rich Editor Colors"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "UNKNOWN",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/rich-editor*.tsx"
+    },
+    {
+      "id": "ds:scroll",
+      "name": "Scroll",
+      "nodeId": "166558-29851",
+      "localFile": null,
+      "description": "Scroll component optimizes content navigation with customizable scrollbars and indicators.",
+      "anatomy": ["Scroll"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "@radix-ui/react-scroll-area",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/scroll*.tsx"
+    },
+    {
+      "id": "ds:select",
+      "name": "Select",
+      "nodeId": "3211-6627",
+      "localFile": "frontend/src/components/alignui/select.tsx",
+      "description": "Select component for selecting options or actions with icons, country flags, avatars support.",
+      "anatomy": ["Select", "Compact Select", "Inline Select"],
+      "variants": {
+        "size": ["medium", "small", "xsmall"],
+        "variant": ["default", "compact", "compactForInput", "inline"],
+        "hasError": [true, false]
+      },
+      "exports": ["Root", "Content", "Group", "GroupLabel", "Item", "ItemIcon", "Separator", "Trigger", "TriggerIcon", "Value"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind + tailwind-variants",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:slider",
+      "name": "Slider",
+      "nodeId": "3501-1565",
+      "localFile": null,
+      "description": "Slider and Range Slider components for numerical value input with integrated tooltips.",
+      "anatomy": ["Slider", "Range Slider"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "@radix-ui/react-slider",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/slider*.tsx"
+    },
+    {
+      "id": "ds:step-indicator",
+      "name": "Step Indicator",
+      "nodeId": "3508-6266",
+      "localFile": "frontend/src/components/alignui/horizontal-stepper.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/vertical-stepper.tsx", "frontend/src/components/alignui/dot-stepper.tsx"],
+      "description": "Step Indicator serves as a visual guide through a sequence of steps or stages.",
+      "anatomy": ["Step Indicator Horizontal", "Step Indicator Vertical", "Stepper Dot"],
+      "variants": ["Horizontal", "Vertical", "Dot"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Radix UI primitives",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:tab-menu",
+      "name": "Tab Menu",
+      "nodeId": "3516-12126",
+      "localFile": "frontend/src/components/alignui/tab-menu-horizontal.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/tab-menu-vertical.tsx"],
+      "description": "Tab Menu for organizing and navigating content in horizontal and vertical layouts.",
+      "anatomy": ["Tab Menu Horizontal", "Tab Menu Vertical"],
+      "variants": ["Horizontal", "Vertical"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:table",
+      "name": "Table",
+      "nodeId": "3525-7648",
+      "localFile": "frontend/src/components/alignui/table.tsx",
+      "description": "Table component for structured data presentation with sorting capabilities.",
+      "anatomy": ["Table Row Cell", "Table Header Cell", "Sorting Icons"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Native HTML table",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:file-upload",
+      "name": "File Upload",
+      "nodeId": "3280-20889",
+      "localFile": null,
+      "description": "File Upload component with drag-and-drop area and progress bars.",
+      "anatomy": ["File Upload Area", "File Upload Cards", "File Format Icons", "Image Upload"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "UNKNOWN",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/file-upload*.tsx frontend/src/components/alignui/*dropzone*.tsx",
+      "notes": "file-format-icon.tsx exists but not full file-upload component"
+    },
+    {
+      "id": "ds:checkbox",
+      "name": "Checkbox",
+      "nodeId": "3031-3228",
+      "localFile": "frontend/src/components/alignui/checkbox.tsx",
+      "description": "Checkboxes for multiple choice selection with labels and cards.",
+      "anatomy": ["Checkbox", "Checkbox Label", "Checkbox Card"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "@radix-ui/react-checkbox",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:content-divider",
+      "name": "Content Divider",
+      "nodeId": "3100-17932",
+      "localFile": "frontend/src/components/alignui/divider.tsx",
+      "description": "Content dividers for visual separation between sections.",
+      "anatomy": ["Content Divider"],
+      "variants": ["Line", "Text", "Icon", "Button"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Radix UI primitives",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:command-menu",
+      "name": "Command Menu",
+      "nodeId": "4212-7592",
+      "localFile": "frontend/src/components/alignui/command-menu.tsx",
+      "description": "Command Menu using CMD+K shortcut for quick searches.",
+      "anatomy": ["Command Menu Search Input", "Command Menu Items", "Command Menu Footer"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "cmdk",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:date-picker",
+      "name": "Date Picker",
+      "nodeId": "3118-24439",
+      "localFile": null,
+      "description": "Date Picker with Date Picker, Range Picker, and time filtering.",
+      "anatomy": ["Day Label & Cells", "Period Range & Date Selector", "Date & Range Pickers"],
+      "variants": ["Date Picker", "Range Picker"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "UNKNOWN - react-day-picker NOT in package.json",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/date-picker*.tsx frontend/src/components/alignui/calendar*.tsx && grep react-day-picker frontend/package.json"
+    },
+    {
+      "id": "ds:drawer",
+      "name": "Drawer",
+      "nodeId": "4096-39882",
+      "localFile": "frontend/src/components/alignui/drawer.tsx",
+      "description": "Drawers as adaptable sliding panels for details, input, or action validation.",
+      "anatomy": ["Drawer Header", "Drawer Footer"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "@radix-ui/react-dialog",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:dropdown",
+      "name": "Dropdown",
+      "nodeId": "166999-144440",
+      "localFile": "frontend/src/components/alignui/dropdown.tsx",
+      "description": "Dropdown list of interactive actions with vertical layout.",
+      "anatomy": ["Dropdown Items", "Dropdown Misc. Items"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:tag",
+      "name": "Tag",
+      "nodeId": "3571-30133",
+      "localFile": "frontend/src/components/alignui/tag.tsx",
+      "description": "Tag component for categorizing and labeling content.",
+      "anatomy": ["Tag"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Radix UI primitives",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:filter",
+      "name": "Filter",
+      "nodeId": "4415-19389",
+      "localFile": null,
+      "description": "Filters for narrowing down content based on criteria.",
+      "anatomy": ["Horizontal Filter", "Vertical Filter Items", "Vertical Filter Header", "Vertical Filter Footer"],
+      "variants": ["Horizontal", "Vertical"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "UNKNOWN",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/filter*.tsx",
+      "notes": "Composition pattern - may not have dedicated component"
+    },
+    {
+      "id": "ds:alert-notification-toast",
+      "name": "Alert, Notification & Toast",
+      "nodeId": "2880-5429",
+      "localFile": "frontend/src/components/alignui/alert.tsx",
+      "description": "Dynamic components for relaying information, updates, and feedback.",
+      "anatomy": ["Alert, Notification & Toast"],
+      "variants": {
+        "variant": ["filled", "light", "lighter", "stroke"],
+        "status": ["error", "warning", "success", "information"]
+      },
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Radix UI primitives",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:activity-feed",
+      "name": "Activity Feed",
+      "nodeId": "165978-43394",
+      "localFile": null,
+      "description": "Central communication component displaying user activities chronologically.",
+      "anatomy": ["Activity Feed", "Activity Feed Items"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "UNKNOWN",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/activity*.tsx frontend/src/components/alignui/feed*.tsx"
+    },
+    {
+      "id": "ds:avatar",
+      "name": "Avatar",
+      "nodeId": "2906-13402",
+      "localFile": "frontend/src/components/alignui/avatar.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/avatar-group.tsx", "frontend/src/components/alignui/avatar-group-compact.tsx", "frontend/src/components/alignui/avatar-empty-icons.tsx"],
+      "description": "Avatar components for visual user/entity representation.",
+      "anatomy": ["Avatar", "Avatar Indicator", "Avatar Status"],
+      "variants": {
+        "size": ["80", "72", "64", "56", "48", "40", "32", "24", "20"],
+        "color": ["gray", "yellow", "blue", "sky", "purple", "red"]
+      },
+      "exports": ["Root", "Image", "Indicator", "Status", "BrandLogo", "Notification"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind + tailwind-variants",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:badge",
+      "name": "Badge",
+      "nodeId": "2939-17953",
+      "localFile": "frontend/src/components/alignui/badge.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/status-badge.tsx"],
+      "description": "Badges as visual indicators or labels with colors and styles.",
+      "anatomy": ["Badge", "Status Badge"],
+      "variants": {
+        "size": ["small", "medium"],
+        "variant": ["filled", "light", "lighter", "stroke"],
+        "color": ["gray", "blue", "orange", "red", "green", "yellow", "purple", "sky", "pink", "teal"]
+      },
+      "exports": ["Root", "Icon", "Dot"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind + tailwind-variants",
+        "a11y_base": "Radix UI primitives",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:banner",
+      "name": "Banner",
+      "nodeId": "2952-12714",
+      "localFile": null,
+      "description": "Banners for communicating essential information or alerts.",
+      "anatomy": ["Banner"],
+      "variants": {
+        "variant": ["filled", "light", "lighter", "stroke"],
+        "status": ["error", "warning", "success", "information"]
+      },
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "UNKNOWN",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/banner*.tsx"
+    },
+    {
+      "id": "ds:buttons",
+      "name": "Buttons",
+      "nodeId": "2955-34374",
+      "localFile": "frontend/src/components/alignui/button.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/compact-button.tsx", "frontend/src/components/alignui/fancy-button.tsx", "frontend/src/components/alignui/link-button.tsx", "frontend/src/components/alignui/social-button.tsx"],
+      "description": "Foundational button elements with multiple variations.",
+      "anatomy": ["Buttons", "Link Buttons", "Social Buttons", "Fancy Buttons", "Compact Button"],
+      "variants": {
+        "variant": ["primary", "neutral", "error"],
+        "mode": ["filled", "stroke", "lighter", "ghost"],
+        "size": ["medium", "small", "xsmall", "xxsmall"]
+      },
+      "exports": ["Root", "Icon"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind + tailwind-variants",
+        "a11y_base": "Radix UI Slot",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:button-group",
+      "name": "Button Group",
+      "nodeId": "3016-38391",
+      "localFile": "frontend/src/components/alignui/button-group.tsx",
+      "description": "Button Groups for organizing multiple buttons cohesively.",
+      "anatomy": ["Button Group", "Button Group Items"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Radix UI primitives",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:modal",
+      "name": "Modal",
+      "nodeId": "3319-16461",
+      "localFile": "frontend/src/components/alignui/modal.tsx",
+      "description": "Overlay components capturing user attention for critical tasks.",
+      "anatomy": ["Modal", "Modal Header", "Modal Body", "Modal Footer"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "@radix-ui/react-dialog",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:pagination",
+      "name": "Pagination",
+      "nodeId": "3325-20027",
+      "localFile": "frontend/src/components/alignui/pagination.tsx",
+      "description": "Navigation component for dividing content into pages.",
+      "anatomy": ["Pagination"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Radix UI primitives",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:progress-bar",
+      "name": "Progress Bar",
+      "nodeId": "3376-287",
+      "localFile": "frontend/src/components/alignui/progress-bar.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/progress-circle.tsx"],
+      "description": "Visual representation of task completion status.",
+      "anatomy": ["Progress Bar", "Progress Circle"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:popover",
+      "name": "Popover",
+      "nodeId": "4431-82035",
+      "localFile": "frontend/src/components/alignui/popover.tsx",
+      "description": "Floating element for contextual information or actions.",
+      "anatomy": ["Popover"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:radio",
+      "name": "Radio",
+      "nodeId": "3401-4760",
+      "localFile": "frontend/src/components/alignui/radio.tsx",
+      "description": "Radio buttons for single option selection from a set.",
+      "anatomy": ["Radio", "Radio Group"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:rating",
+      "name": "Rating",
+      "nodeId": "3421-22519",
+      "localFile": null,
+      "description": "Rating component for capturing evaluations with icons.",
+      "anatomy": ["Rating"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "UNKNOWN",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/rating*.tsx"
+    },
+    {
+      "id": "ds:text-area",
+      "name": "Text Area",
+      "nodeId": "3631-1360",
+      "localFile": "frontend/src/components/alignui/textarea.tsx",
+      "description": "Multi-line text input component.",
+      "anatomy": ["Text Area"],
+      "props": {
+        "simple": "boolean",
+        "hasError": "boolean"
+      },
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Native textarea",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:text-input",
+      "name": "Text Input",
+      "nodeId": "3643-41796",
+      "localFile": "frontend/src/components/alignui/input.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/digit-input.tsx"],
+      "description": "Core input element for single-line text entry.",
+      "anatomy": ["Text Input", "Digit Input"],
+      "exports": ["Root", "Wrapper", "Input", "Icon"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Native input",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:time-picker",
+      "name": "Time Picker",
+      "nodeId": "165596-18563",
+      "localFile": null,
+      "description": "Time Picker for selecting time values.",
+      "anatomy": ["Time Picker"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "UNKNOWN",
+        "polymorphic": true
+      },
+      "confidence": "Unverified",
+      "verifyCommand": "ls frontend/src/components/alignui/time-picker*.tsx frontend/src/components/alignui/time*.tsx"
+    },
+    {
+      "id": "ds:switch",
+      "name": "Switch",
+      "nodeId": "3677-7838",
+      "localFile": "frontend/src/components/alignui/switch.tsx",
+      "description": "Binary on/off control for toggling settings.",
+      "anatomy": ["Switch"],
+      "exports": ["Root"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "@radix-ui/react-switch",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:segmented-control",
+      "name": "Segmented Control",
+      "nodeId": "3688-26806",
+      "localFile": "frontend/src/components/alignui/segmented-control.tsx",
+      "description": "Component for switching between related options.",
+      "anatomy": ["Segmented Control"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:tooltip",
+      "name": "Tooltip",
+      "nodeId": "3715-41752",
+      "localFile": "frontend/src/components/alignui/tooltip.tsx",
+      "description": "Brief contextual information on hover or focus.",
+      "anatomy": ["Tooltip"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Custom implementation",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:label",
+      "name": "Label",
+      "nodeId": null,
+      "localFile": "frontend/src/components/alignui/label.tsx",
+      "localFileAlternatives": ["frontend/src/components/alignui/hint.tsx"],
+      "description": "Label component for form inputs.",
+      "anatomy": ["Label", "Hint"],
+      "exports": ["Root", "Asterisk", "Sub"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "@radix-ui/react-label",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    },
+    {
+      "id": "ds:kbd",
+      "name": "Keyboard",
+      "nodeId": null,
+      "localFile": "frontend/src/components/alignui/kbd.tsx",
+      "description": "Keyboard shortcut display component.",
+      "anatomy": ["Kbd"],
+      "tech_notes": {
+        "framework": "React",
+        "styling": "Tailwind",
+        "a11y_base": "Native kbd element",
+        "polymorphic": true
+      },
+      "confidence": "High"
+    }
+  ],
+  "foundations": [
+    {
+      "id": "foundation:typography",
+      "name": "Typography",
+      "nodeId": "2851-3621",
+      "description": "Type scale including headings, body text, and special text styles.",
+      "scales": {
+        "title": ["h1", "h2", "h3", "h4", "h5", "h6"],
+        "label": ["xl", "lg", "md", "sm", "xs"],
+        "paragraph": ["xl", "lg", "md", "sm", "xs"],
+        "subheading": ["md", "sm", "xs", "2xs"]
+      }
+    },
+    {
+      "id": "foundation:color-palette",
+      "name": "Color Palette",
+      "nodeId": "2839-27",
+      "description": "Full primitive color palette including alpha variants.",
+      "palettes": ["neutral", "blue", "orange", "red", "green", "yellow", "purple", "teal", "sky", "pink"]
+    },
+    {
+      "id": "foundation:token-system",
+      "name": "Token System",
+      "nodeId": "2839-43",
+      "description": "Semantic token system for colors, typography, and effects.",
+      "categories": ["primary", "static", "bg", "text", "stroke", "semantic-status"]
+    },
+    {
+      "id": "foundation:icons",
+      "name": "Icons",
+      "nodeId": "2839-18481",
+      "description": "Remix Icon library integration.",
+      "library": "@remixicon/react"
+    },
+    {
+      "id": "foundation:shadows",
+      "name": "Shadows",
+      "nodeId": "3761-5",
+      "description": "Shadow tokens for elevation.",
+      "tokens": ["regular-xs", "regular-sm", "regular-md", "button-primary-focus", "button-important-focus", "button-error-focus", "toggle-switch", "switch-thumb", "tooltip"]
+    },
+    {
+      "id": "foundation:corner-radius",
+      "name": "Corner Radius",
+      "nodeId": "3761-181",
+      "description": "Border radius tokens.",
+      "tokens": ["10", "20"]
+    }
+  ],
+  "layouts": [
+    {
+      "id": "layout:sidebar-navigation",
+      "name": "Sidebar Navigation",
+      "nodeId": "3802-11759",
+      "description": "Sidebar layout for primary navigation."
+    },
+    {
+      "id": "layout:topbar-navigation",
+      "name": "Topbar Navigation",
+      "nodeId": "3814-25274",
+      "description": "Horizontal navigation bar."
+    }
+  ],
+  "widgets": [
+    {
+      "id": "widget:hr-management",
+      "name": "Widgets [HR Management]",
+      "nodeId": "3851-32690",
+      "description": "Interface blocks for HR dashboards."
+    },
+    {
+      "id": "widget:finance-banking",
+      "name": "Widgets [Finance & Banking]",
+      "nodeId": "3963-7181",
+      "description": "Predesigned components for financial dashboards."
+    },
+    {
+      "id": "widget:marketing-sales",
+      "name": "Widgets [Marketing & Sales]",
+      "nodeId": "164628-1734",
+      "description": "Interface blocks for marketing and sales dashboards."
+    }
+  ],
+  "projectScreens": [
+    {
+      "id": "screen:auth",
+      "name": "Auth Page",
+      "localFile": "frontend/src/pages/Auth.tsx",
+      "components": ["button", "input", "label"]
+    },
+    {
+      "id": "screen:rooms",
+      "name": "Rooms Page",
+      "localFile": "frontend/src/pages/Rooms.tsx",
+      "components": ["button", "avatar", "badge"]
+    },
+    {
+      "id": "screen:create-room",
+      "name": "Create Room Page",
+      "localFile": "frontend/src/pages/CreateRoom.tsx",
+      "components": ["button", "input", "textarea", "label", "switch", "divider", "select"]
+    },
+    {
+      "id": "screen:room",
+      "name": "Room Page",
+      "localFile": "frontend/src/pages/Room.tsx",
+      "components": ["button", "avatar", "badge", "modal"]
+    }
+  ],
+  "missingComponents": {
+    "notInLocalRepo": [
+      "date-picker",
+      "time-picker",
+      "banner",
+      "rating",
+      "file-upload",
+      "rich-editor",
+      "scroll-area",
+      "slider",
+      "activity-feed",
+      "filter"
+    ],
+    "verifyAllCommand": "for f in date-picker time-picker banner rating file-upload rich-editor scroll-area slider activity-feed filter; do echo \"=== $f ===\"; ls frontend/src/components/alignui/$f*.tsx 2>/dev/null || echo 'NOT FOUND'; done"
+  }
+}

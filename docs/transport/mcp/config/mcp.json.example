@@ -1,0 +1,85 @@
+{
+  "mcpServers": {
+    "saas-gateway": {
+      "command": "node",
+      "args": ["./mcp-kit/mcp/saas-gateway/dist/index.js"],
+      "env": {
+        "MCPLOGLEVEL": "${MCPLOGLEVEL:-info}",
+        "GITHUBTOKEN": "${GITHUBTOKEN}",
+        "GITHUBOWNER": "${GITHUBOWNER:-}",
+        "FIGMATOKEN": "${FIGMATOKEN}",
+        "FIGMAFILEKEY": "${FIGMAFILEKEY:-}",
+        "CLOUDFLAREAPITOKEN": "${CLOUDFLAREAPITOKEN}",
+        "CLOUDFLAREZONEID": "${CLOUDFLAREZONEID:-}",
+        "VERCELTOKEN": "${VERCELTOKEN}",
+        "VERCELTEAMID": "${VERCELTEAMID:-}",
+        "NOTIONTOKEN": "${NOTIONTOKEN}",
+        "LINEARTOKEN": "${LINEARTOKEN}",
+        "SENTRYAUTHTOKEN": "${SENTRYAUTHTOKEN}",
+        "SENTRYORG": "${SENTRYORG:-}",
+        "SENTRYPROJECT": "${SENTRYPROJECT:-}",
+        "CLOUDINARYURL": "${CLOUDINARYURL:-}",
+        "CLOUDINARYCLOUDNAME": "${CLOUDINARYCLOUDNAME:-}",
+        "CLOUDINARYAPIKEY": "${CLOUDINARYAPIKEY:-}",
+        "CLOUDINARYAPISECRET": "${CLOUDINARYAPISECRET:-}",
+        "POSTMANAPIKEY": "${POSTMANAPIKEY}",
+        "DATADOGAPIKEY": "${DATADOGAPIKEY}",
+        "DATADOGAPPKEY": "${DATADOGAPPKEY}",
+        "DATADOGSITE": "${DATADOGSITE:-datadoghq.com}",
+        "AWSACCESSKEYID": "${AWSACCESSKEYID:-}",
+        "AWSSECRETACCESSKEY": "${AWSSECRETACCESSKEY:-}",
+        "AWSREGION": "${AWSREGION:-us-east-1}",
+        "ELKURL": "${ELKURL}",
+        "ELKUSERNAME": "${ELKUSERNAME:-}",
+        "ELKPASSWORD": "${ELKPASSWORD:-}",
+        "ELKAPIKEY": "${ELKAPIKEY:-}",
+        "BOXCLIENTID": "${BOXCLIENTID:-}",
+        "BOXCLIENTSECRET": "${BOXCLIENTSECRET:-}",
+        "CANVAAPIKEY": "${CANVAAPIKEY:-}",
+        "CLARITYPROJECTID": "${CLARITYPROJECTID:-}",
+        "SUPABASEURL": "${SUPABASEURL:-}",
+        "SUPABASEANONKEY": "${SUPABASEANONKEY:-}",
+        "SUPABASEPROJECTREF": "${SUPABASEPROJECTREF:-}",
+        "SUPABASEDBHOST": "${SUPABASEDBHOST:-}",
+        "SUPABASEDBPASSWORD": "${SUPABASEDBPASSWORD:-}",
+        "DATABASEURL": "${DATABASEURL:-}",
+        "DIRECTURL": "${DIRECTURL:-}",
+        "SUPABASEACCESSTOKEN": "${SUPABASEACCESSTOKEN:-}",
+        "MONGODBPUBLICKEY": "${MONGODBPUBLICKEY:-}",
+        "MONGODBPRIVATEKEY": "${MONGODBPRIVATEKEY:-}"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${MCPFSROOT:-.}",
+        "${MCPFSSANDBOX:-.sandbox}"
+      ]
+    },
+    "desktop-commander": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/desktop-commander"],
+      "disabled": "${ENABLEDESKTOPCOMMANDER:-false}",
+      "env": {
+        "ENABLEDESKTOPCOMMANDER": "${ENABLEDESKTOPCOMMANDER:-false}"
+      }
+    },
+    "browser-control": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-puppeteer"],
+      "disabled": "${ENABLECHROMECONTROL:-false}",
+      "env": {
+        "ENABLECHROMECONTROL": "${ENABLECHROMECONTROL:-false}",
+        "PUPPETEERHEADLESS": "${PUPPETEERHEADLESS:-true}"
+      }
+    },
+    "supabase": {
+      "url": "https://mcp.supabase.com/mcp?project_ref=lgyojjsojkxenkgaiafx",
+      "headers": {
+        "Authorization": "Bearer ${SUPABASEACCESSTOKEN}"
+      }
+    }
+  }
+}

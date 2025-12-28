@@ -1,0 +1,25 @@
+# Device Configuration
+# Devices available for automation tasks
+
+devices:
+  - id: "pixel5-1"
+    name: "Google Pixel 5 #1"
+    adb_id: "100.123.32.112:5555"
+    location: "Thailand"
+    timezone: "Asia/Bangkok"
+    connection_type: "tailscale"
+    tailscale_ip: "100.123.32.112"
+    adb_port: 5555
+    active_hours: "00:00-23:59"
+    max_tasks_per_day: 100
+
+  - id: "pixel5-2"
+    name: "Google Pixel 5 #2"
+    adb_id: "100.77.184.29:5555"
+    location: "Thailand"
+    timezone: "Asia/Bangkok"
+    connection_type: "tailscale"
+    tailscale_ip: "100.77.184.29"
+    adb_port: 5555
+    active_hours: "00:00-23:59"
+    max_tasks_per_day: 100
