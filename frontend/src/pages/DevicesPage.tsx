@@ -127,7 +127,7 @@ export function DevicesPage() {
     }
   }
 
-  const handleTakeScreenshot = async (deviceId: string, deviceName: string) => {
+  const handleTakeScreenshot = async (deviceId: string, _deviceName: string) => {
     try {
       setActionInProgress((prev) => ({ ...prev, [deviceId]: 'screenshot' }))
       const result = await takeDeviceScreenshot(deviceId)

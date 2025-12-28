@@ -24,28 +24,6 @@ import {
   testTelegramConnection,
 } from '@/services/api'
 
-interface IntegrationSettings {
-  notion_api_key: string | null
-  notion_database_id: string | null
-  telegram_bot_token: string | null
-  telegram_chat_id: string | null
-  puter_api_key: string | null
-  puter_api_url: string | null
-  puter_default_model: string | null
-}
-
-interface BehaviorSettings {
-  min_typing_delay_ms: number
-  max_typing_delay_ms: number
-  min_action_delay_ms: number
-  max_action_delay_ms: number
-  typo_probability: number
-  typo_fix_probability: number
-  max_messages_per_hour: number
-  max_messages_per_day: number
-  cooldown_after_batch_min: number
-}
-
 interface ConfigStatus {
   integrations: {
     notion: { configured: boolean; api_key: boolean; database_id: boolean }

@@ -12,7 +12,7 @@ import {
   FaClock,
   FaCalendarAlt,
 } from 'react-icons/fa'
-import { getLogs, getLogsSummary, getDevices, getTasks } from '@/services/api'
+import { getLogsSummary, getDevices, getTasks } from '@/services/api'
 import type { LogsSummary } from '@/types/log'
 import type { DeviceStatus } from '@/types/device'
 import type { Task } from '@/types/task'
@@ -89,7 +89,7 @@ export function AnalyticsPage() {
     : '0'
 
   // Calculate task stats
-  const completedTasks = tasks.filter((t) => t.status === 'Completed').length
+  const completedTasks = tasks.filter((t) => t.status === 'Sent').length
   const failedTasks = tasks.filter((t) => t.status === 'Failed').length
   const pendingTasks = tasks.filter((t) => t.status === 'Pending').length
   const runningTasks = tasks.filter((t) => t.status === 'Running').length

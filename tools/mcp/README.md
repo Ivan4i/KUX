@@ -38,7 +38,7 @@ MCP (Model Context Protocol) enables AI agents to interact with external service
 
 MCP Kit is now located at:
 ```
-backend/src/integrations/mcp/
+tools/mcp/
 ├── config/          # MCP configuration files
 ├── scripts/         # Setup and check scripts
 ├── secrets/         # Credentials (gitignored)
@@ -51,7 +51,7 @@ backend/src/integrations/mcp/
 ### 1. Create secrets directory (if not exists)
 
 ```bash
-chmod 700 backend/src/integrations/mcp/secrets
+chmod 700 tools/mcp/secrets
 ```
 
 ### 2. Configure MCP
@@ -88,7 +88,7 @@ SUPABASE_ANON_KEY=xxxxx
 ### 5. Run setup script
 
 ```bash
-cd mcp-kit/scripts/
+cd tools/mcp/scripts/
 ./setup_mcp.sh
 ```
 

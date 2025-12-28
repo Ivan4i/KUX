@@ -27,5 +27,9 @@
     }
   },
   "include": ["src"],
+  "exclude": [
+    "src/components/alignui/**/*",
+    "src/lib/animations/**/*"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
