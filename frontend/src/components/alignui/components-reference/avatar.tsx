@@ -9,7 +9,7 @@ import { tv, type VariantProps } from '@/utils/tv';
 import {
   IconEmptyCompany,
   IconEmptyUser,
-} from '@/components/alignui/avatar-empty-icons';
+} from './avatar-empty-icons';
 
 export const AVATAR_ROOT_NAME = 'AvatarRoot';
 const AVATAR_IMAGE_NAME = 'AvatarImage';
