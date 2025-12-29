@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, ReactNode, useState, forwardRef } from 'react'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { RiEyeLine, RiEyeOffLine } from '@remixicon/react'
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string
@@ -99,9 +99,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               tabIndex={-1}
             >
               {showPassword ? (
-                <FaEyeSlash className={iconSizeStyles[size]} />
+                <RiEyeOffLine className={iconSizeStyles[size]} />
               ) : (
-                <FaEye className={iconSizeStyles[size]} />
+                <RiEyeLine className={iconSizeStyles[size]} />
               )}
             </button>
           )}
