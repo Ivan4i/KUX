@@ -2,19 +2,19 @@ import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { Button } from '@/components/common/Button'
 import {
-  FaSave,
-  FaSync,
-  FaCheckCircle,
-  FaTimesCircle,
-  FaEye,
-  FaEyeSlash,
-  FaCog,
-  FaRobot,
-  FaKey,
-  FaTelegram,
-  FaDatabase,
-} from 'react-icons/fa'
-import { SiNotion } from 'react-icons/si'
+  RiSaveLine,
+  RiRefreshLine,
+  RiCheckboxCircleFill,
+  RiCloseCircleFill,
+  RiEyeLine,
+  RiEyeOffLine,
+  RiSettingsLine,
+  RiRobot2Line,
+  RiKeyLine,
+  RiTelegramLine,
+  RiDatabase2Line,
+  RiNotionLine,
+} from '@remixicon/react'
 import {
   getSettings,
   getConfigStatus,
@@ -212,12 +212,12 @@ export function SettingsPage() {
     >
       {configured ? (
         <>
-          <FaCheckCircle className="w-3 h-3" />
+          <RiCheckboxCircleFill className="w-3 h-3" />
           Configured
         </>
       ) : (
         <>
-          <FaTimesCircle className="w-3 h-3" />
+          <RiCloseCircleFill className="w-3 h-3" />
           Not configured
         </>
       )}
@@ -250,7 +250,7 @@ export function SettingsPage() {
             <Button
               variant="ghost"
               size="md"
-              leftIcon={<FaSync />}
+              leftIcon={<RiRefreshLine />}
               onClick={loadSettings}
             >
               Refresh
@@ -265,7 +265,7 @@ export function SettingsPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
-              <FaKey className="w-5 h-5 text-primary-600" />
+              <RiKeyLine className="w-5 h-5 text-primary-600" />
               <h2 className="text-lg font-semibold text-gray-900">
                 API Integrations
               </h2>
@@ -280,7 +280,7 @@ export function SettingsPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <SiNotion className="w-5 h-5 text-gray-800" />
+                  <RiNotionLine className="w-5 h-5 text-gray-800" />
                   <h3 className="font-medium text-gray-900">Notion</h3>
                 </div>
                 {configStatus && (
@@ -306,7 +306,7 @@ export function SettingsPage() {
                       onClick={() => setShowNotionKey(!showNotionKey)}
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
-                      {showNotionKey ? <FaEyeSlash /> : <FaEye />}
+                      {showNotionKey ? <RiEyeOffLine /> : <RiEyeLine />}
                     </button>
                   </div>
                 </div>
@@ -340,7 +340,7 @@ export function SettingsPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <FaTelegram className="w-5 h-5 text-blue-400" />
+                  <RiTelegramLine className="w-5 h-5 text-blue-400" />
                   <h3 className="font-medium text-gray-900">Telegram Bot</h3>
                 </div>
                 {configStatus && (
@@ -366,7 +366,7 @@ export function SettingsPage() {
                       onClick={() => setShowTelegramToken(!showTelegramToken)}
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
-                      {showTelegramToken ? <FaEyeSlash /> : <FaEye />}
+                      {showTelegramToken ? <RiEyeOffLine /> : <RiEyeLine />}
                     </button>
                   </div>
                 </div>
@@ -400,7 +400,7 @@ export function SettingsPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <FaRobot className="w-5 h-5 text-purple-500" />
+                  <RiRobot2Line className="w-5 h-5 text-purple-500" />
                   <h3 className="font-medium text-gray-900">Puter.js LLM</h3>
                 </div>
                 {configStatus && (
@@ -426,7 +426,7 @@ export function SettingsPage() {
                       onClick={() => setShowPuterKey(!showPuterKey)}
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
-                      {showPuterKey ? <FaEyeSlash /> : <FaEye />}
+                      {showPuterKey ? <RiEyeOffLine /> : <RiEyeLine />}
                     </button>
                   </div>
                 </div>
@@ -464,7 +464,7 @@ export function SettingsPage() {
           <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 rounded-b-xl">
             <Button
               variant="primary"
-              leftIcon={<FaSave />}
+              leftIcon={<RiSaveLine />}
               onClick={handleSaveIntegrations}
               isLoading={isSaving}
             >
@@ -477,7 +477,7 @@ export function SettingsPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
-              <FaCog className="w-5 h-5 text-primary-600" />
+              <RiSettingsLine className="w-5 h-5 text-primary-600" />
               <h2 className="text-lg font-semibold text-gray-900">
                 Behavior Settings
               </h2>
@@ -657,7 +657,7 @@ export function SettingsPage() {
           <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 rounded-b-xl">
             <Button
               variant="primary"
-              leftIcon={<FaSave />}
+              leftIcon={<RiSaveLine />}
               onClick={handleSaveBehavior}
               isLoading={isSaving}
             >
@@ -670,7 +670,7 @@ export function SettingsPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
-              <FaDatabase className="w-5 h-5 text-primary-600" />
+              <RiDatabase2Line className="w-5 h-5 text-primary-600" />
               <h2 className="text-lg font-semibold text-gray-900">
                 Configuration Status
               </h2>
@@ -688,23 +688,23 @@ export function SettingsPage() {
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <SiNotion className="w-5 h-5 text-gray-800" />
+                  <RiNotionLine className="w-5 h-5 text-gray-800" />
                   <span className="font-medium">Notion</span>
                 </div>
                 <div className="mt-2 space-y-1 text-sm">
                   <div className="flex items-center gap-2">
                     {configStatus?.integrations.notion.api_key ? (
-                      <FaCheckCircle className="w-3 h-3 text-success-600" />
+                      <RiCheckboxCircleFill className="w-3 h-3 text-success-600" />
                     ) : (
-                      <FaTimesCircle className="w-3 h-3 text-warning-600" />
+                      <RiCloseCircleFill className="w-3 h-3 text-warning-600" />
                     )}
                     <span>API Key</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {configStatus?.integrations.notion.database_id ? (
-                      <FaCheckCircle className="w-3 h-3 text-success-600" />
+                      <RiCheckboxCircleFill className="w-3 h-3 text-success-600" />
                     ) : (
-                      <FaTimesCircle className="w-3 h-3 text-warning-600" />
+                      <RiCloseCircleFill className="w-3 h-3 text-warning-600" />
                     )}
                     <span>Database ID</span>
                   </div>
@@ -720,23 +720,23 @@ export function SettingsPage() {
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <FaTelegram className="w-5 h-5 text-blue-400" />
+                  <RiTelegramLine className="w-5 h-5 text-blue-400" />
                   <span className="font-medium">Telegram</span>
                 </div>
                 <div className="mt-2 space-y-1 text-sm">
                   <div className="flex items-center gap-2">
                     {configStatus?.integrations.telegram.bot_token ? (
-                      <FaCheckCircle className="w-3 h-3 text-success-600" />
+                      <RiCheckboxCircleFill className="w-3 h-3 text-success-600" />
                     ) : (
-                      <FaTimesCircle className="w-3 h-3 text-warning-600" />
+                      <RiCloseCircleFill className="w-3 h-3 text-warning-600" />
                     )}
                     <span>Bot Token</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {configStatus?.integrations.telegram.chat_id ? (
-                      <FaCheckCircle className="w-3 h-3 text-success-600" />
+                      <RiCheckboxCircleFill className="w-3 h-3 text-success-600" />
                     ) : (
-                      <FaTimesCircle className="w-3 h-3 text-warning-600" />
+                      <RiCloseCircleFill className="w-3 h-3 text-warning-600" />
                     )}
                     <span>Chat ID</span>
                   </div>
@@ -752,15 +752,15 @@ export function SettingsPage() {
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <FaRobot className="w-5 h-5 text-purple-500" />
+                  <RiRobot2Line className="w-5 h-5 text-purple-500" />
                   <span className="font-medium">Puter.js LLM</span>
                 </div>
                 <div className="mt-2 space-y-1 text-sm">
                   <div className="flex items-center gap-2">
                     {configStatus?.integrations.puter.api_key ? (
-                      <FaCheckCircle className="w-3 h-3 text-success-600" />
+                      <RiCheckboxCircleFill className="w-3 h-3 text-success-600" />
                     ) : (
-                      <FaTimesCircle className="w-3 h-3 text-warning-600" />
+                      <RiCloseCircleFill className="w-3 h-3 text-warning-600" />
                     )}
                     <span>API Key</span>
                   </div>

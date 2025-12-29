@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import toast from 'react-hot-toast'
-import { FaSync, FaPlay, FaTrash, FaFilter, FaCheck, FaTimes, FaClock, FaSpinner } from 'react-icons/fa'
+import { RiRefreshLine, RiPlayFill, RiDeleteBinLine, RiFilterLine, RiCheckLine, RiCloseLine, RiTimeLine, RiLoader4Line } from '@remixicon/react'
 import { Button } from '@/components/common/Button'
 import { useWebSocketMessages } from '@/hooks/useWebSocket'
 import { getTasks, runTask, deleteTask, syncNotionTasks } from '@/services/api'
@@ -9,10 +9,10 @@ import type { Task, TaskProgress } from '@/types/task'
 type TaskStatus = 'Pending' | 'Running' | 'Sent' | 'Failed' | 'all'
 
 const STATUS_CONFIG: Record<string, { color: string; bgColor: string; icon: React.ReactNode }> = {
-  Pending: { color: 'text-yellow-600', bgColor: 'bg-yellow-100', icon: <FaClock className="w-3 h-3" /> },
-  Running: { color: 'text-primary-600', bgColor: 'bg-blue-100', icon: <FaSpinner className="w-3 h-3 animate-spin" /> },
-  Sent: { color: 'text-green-600', bgColor: 'bg-green-100', icon: <FaCheck className="w-3 h-3" /> },
-  Failed: { color: 'text-red-600', bgColor: 'bg-red-100', icon: <FaTimes className="w-3 h-3" /> },
+  Pending: { color: 'text-yellow-600', bgColor: 'bg-yellow-100', icon: <RiTimeLine className="w-3 h-3" /> },
+  Running: { color: 'text-primary-600', bgColor: 'bg-blue-100', icon: <RiLoader4Line className="w-3 h-3 animate-spin" /> },
+  Sent: { color: 'text-green-600', bgColor: 'bg-green-100', icon: <RiCheckLine className="w-3 h-3" /> },
+  Failed: { color: 'text-red-600', bgColor: 'bg-red-100', icon: <RiCloseLine className="w-3 h-3" /> },
 }
 
 export function TasksPage() {
@@ -193,7 +193,7 @@ export function TasksPage() {
               <Button
                 variant="secondary"
                 size="md"
-                leftIcon={<FaSync />}
+                leftIcon={<RiRefreshLine />}
                 onClick={handleSyncNotion}
                 isLoading={isSyncing}
               >
@@ -202,7 +202,7 @@ export function TasksPage() {
               <Button
                 variant="primary"
                 size="md"
-                leftIcon={<FaPlay />}
+                leftIcon={<RiPlayFill />}
                 onClick={() => handleRunTask()}
                 isLoading={isLoading}
                 disabled={stats.pending === 0}
@@ -212,7 +212,7 @@ export function TasksPage() {
               <Button
                 variant="ghost"
                 size="md"
-                leftIcon={<FaSync />}
+                leftIcon={<RiRefreshLine />}
                 onClick={() => loadTasks()}
               >
                 Refresh
@@ -256,7 +256,7 @@ export function TasksPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <FaFilter className="w-4 h-4 text-gray-400" />
+                <RiFilterLine className="w-4 h-4 text-gray-400" />
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value as TaskStatus)}
@@ -274,7 +274,7 @@ export function TasksPage() {
                 <Button
                   variant="danger"
                   size="sm"
-                  leftIcon={<FaTrash />}
+                  leftIcon={<RiDeleteBinLine />}
                   onClick={handleDeleteSelected}
                 >
                   Delete ({selectedTasks.size})
@@ -330,7 +330,7 @@ export function TasksPage() {
             </p>
             <div className="mt-6">
               <Button variant="primary" onClick={handleSyncNotion} isLoading={isSyncing}>
-                <FaSync className="w-4 h-4 mr-2" />
+                <RiRefreshLine className="w-4 h-4 mr-2" />
                 Sync from Notion
               </Button>
             </div>
@@ -431,7 +431,7 @@ export function TasksPage() {
                               className="p-1.5 text-primary-600 hover:bg-blue-50 rounded"
                               title="Run task"
                             >
-                              <FaPlay className="w-3.5 h-3.5" />
+                              <RiPlayFill className="w-3.5 h-3.5" />
                             </button>
                           )}
                           <button
@@ -439,7 +439,7 @@ export function TasksPage() {
                             className="p-1.5 text-red-600 hover:bg-red-50 rounded"
                             title="Delete task"
                           >
-                            <FaTrash className="w-3.5 h-3.5" />
+                            <RiDeleteBinLine className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </td>

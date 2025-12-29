@@ -2,42 +2,42 @@ import { useState, useEffect, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { Button } from '@/components/common/Button'
 import {
-  FaSync,
-  FaFilter,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaTimesCircle,
-  FaInfoCircle,
-  FaTrash,
-  FaSearch,
-  FaChevronDown,
-  FaChevronUp,
-} from 'react-icons/fa'
+  RiRefreshLine,
+  RiFilterLine,
+  RiCheckboxCircleFill,
+  RiAlertLine,
+  RiCloseCircleFill,
+  RiInformationLine,
+  RiDeleteBinLine,
+  RiSearchLine,
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+} from '@remixicon/react'
 import { getLogs, getLogsSummary, cleanupOldLogs, getDevices } from '@/services/api'
 import type { Log, LogsSummary } from '@/types/log'
 import type { DeviceStatus } from '@/types/device'
 
 const STATUS_CONFIG: Record<string, { icon: React.ReactNode; color: string; bgColor: string; label: string }> = {
   success: {
-    icon: <FaCheckCircle className="w-4 h-4" />,
+    icon: <RiCheckboxCircleFill className="w-4 h-4" />,
     color: 'text-success-600',
     bgColor: 'bg-success-100',
     label: 'Success',
   },
   warning: {
-    icon: <FaExclamationTriangle className="w-4 h-4" />,
+    icon: <RiAlertLine className="w-4 h-4" />,
     color: 'text-warning-600',
     bgColor: 'bg-warning-100',
     label: 'Warning',
   },
   failed: {
-    icon: <FaTimesCircle className="w-4 h-4" />,
+    icon: <RiCloseCircleFill className="w-4 h-4" />,
     color: 'text-error-600',
     bgColor: 'bg-error-100',
     label: 'Failed',
   },
   info: {
-    icon: <FaInfoCircle className="w-4 h-4" />,
+    icon: <RiInformationLine className="w-4 h-4" />,
     color: 'text-primary-600',
     bgColor: 'bg-primary-100',
     label: 'Info',
@@ -192,7 +192,7 @@ export function LogsPage() {
               <Button
                 variant="ghost"
                 size="md"
-                leftIcon={<FaTrash />}
+                leftIcon={<RiDeleteBinLine />}
                 onClick={handleCleanup}
                 isLoading={isCleaning}
               >
@@ -201,7 +201,7 @@ export function LogsPage() {
               <Button
                 variant="secondary"
                 size="md"
-                leftIcon={<FaSync />}
+                leftIcon={<RiRefreshLine />}
                 onClick={() => loadData(true)}
                 isLoading={isRefreshing}
               >
@@ -247,7 +247,7 @@ export function LogsPage() {
             onClick={() => setShowFilters(!showFilters)}
           >
             <div className="flex items-center gap-2">
-              <FaFilter className="w-4 h-4 text-gray-500" />
+              <RiFilterLine className="w-4 h-4 text-gray-500" />
               <span className="font-medium text-gray-700">Filters</span>
               {(deviceFilter || statusFilter || actionFilter) && (
                 <span className="px-2 py-0.5 text-xs bg-primary-100 text-primary-700 rounded-full">
@@ -256,9 +256,9 @@ export function LogsPage() {
               )}
             </div>
             {showFilters ? (
-              <FaChevronUp className="w-4 h-4 text-gray-500" />
+              <RiArrowUpSLine className="w-4 h-4 text-gray-500" />
             ) : (
-              <FaChevronDown className="w-4 h-4 text-gray-500" />
+              <RiArrowDownSLine className="w-4 h-4 text-gray-500" />
             )}
           </div>
 
@@ -355,7 +355,7 @@ export function LogsPage() {
         {/* Search */}
         <div className="mb-6">
           <div className="relative">
-            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
               value={searchQuery}
@@ -370,7 +370,7 @@ export function LogsPage() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           {filteredLogs.length === 0 ? (
             <div className="p-12 text-center">
-              <FaInfoCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+              <RiInformationLine className="w-12 h-12 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900">No logs found</h3>
               <p className="mt-1 text-sm text-gray-500">
                 Try adjusting your filters or time range

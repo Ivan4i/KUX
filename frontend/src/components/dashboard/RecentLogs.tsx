@@ -1,6 +1,6 @@
 import { Card } from '@/components/common/Card'
 import type { Log } from '@/types/log'
-import { FaCheckCircle, FaExclamationTriangle, FaTimesCircle } from 'react-icons/fa'
+import { RiCheckboxCircleFill, RiAlertLine, RiCloseCircleFill } from '@remixicon/react'
 import { formatDistanceToNow } from 'date-fns'
 
 interface RecentLogsProps {
@@ -11,11 +11,11 @@ export function RecentLogs({ logs }: RecentLogsProps) {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'success':
-        return <FaCheckCircle className="text-success-500" />
+        return <RiCheckboxCircleFill className="text-success-500" />
       case 'warning':
-        return <FaExclamationTriangle className="text-warning-500" />
+        return <RiAlertLine className="text-warning-500" />
       case 'failed':
-        return <FaTimesCircle className="text-error-500" />
+        return <RiCloseCircleFill className="text-error-500" />
       default:
         return null
     }

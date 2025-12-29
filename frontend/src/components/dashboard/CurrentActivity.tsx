@@ -1,7 +1,7 @@
 import { Card } from '@/components/common/Card'
 import type { Task } from '@/types/task'
 import type { TaskProgress } from '@/types/task'
-import { FaWhatsapp, FaSpinner } from 'react-icons/fa'
+import { RiWhatsappLine, RiLoader4Line } from '@remixicon/react'
 
 interface CurrentActivityProps {
   task: Task | null
@@ -14,7 +14,7 @@ export function CurrentActivity({ task, progress }: CurrentActivityProps) {
       <Card title="Current Activity">
         <div className="flex flex-col items-center justify-center py-12 text-center">
           <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
-            <FaWhatsapp className="text-2xl text-gray-400" />
+            <RiWhatsappLine className="text-2xl text-gray-400" />
           </div>
           <h3 className="text-sm font-medium text-gray-900">No active tasks</h3>
           <p className="mt-1 text-sm text-gray-500">
@@ -34,7 +34,7 @@ export function CurrentActivity({ task, progress }: CurrentActivityProps) {
         {/* Task Info */}
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 w-10 h-10 bg-success-100 rounded-lg flex items-center justify-center">
-            <FaWhatsapp className="text-success-600 text-xl" />
+            <RiWhatsappLine className="text-success-600 text-xl" />
           </div>
           <div className="flex-1 min-w-0">
             <h4 className="text-sm font-medium text-gray-900 truncate">
@@ -52,7 +52,7 @@ export function CurrentActivity({ task, progress }: CurrentActivityProps) {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-600 flex items-center gap-2">
-                <FaSpinner className="animate-spin" />
+                <RiLoader4Line className="animate-spin" />
                 {progress.message}
               </span>
               {progress.progress_percent !== null && (

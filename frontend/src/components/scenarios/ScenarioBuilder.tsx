@@ -16,7 +16,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { FaPlus, FaPlay, FaPause, FaStop, FaSave, FaClock } from 'react-icons/fa'
+import { RiAddLine, RiPlayFill, RiPauseFill, RiStopFill, RiSaveLine, RiTimeLine } from '@remixicon/react'
 import { Button } from '@/components/common/Button'
 import { StepCard, StepCardOverlay } from './StepCard'
 import { StepEditor } from './StepEditor'
@@ -173,7 +173,7 @@ export function ScenarioBuilder({
                     autoFocus
                   />
                   <Button size="sm" onClick={handleSaveName} isLoading={isLoading}>
-                    <FaSave className="w-4 h-4" />
+                    <RiSaveLine className="w-4 h-4" />
                   </Button>
                 </div>
               ) : (
@@ -195,7 +195,7 @@ export function ScenarioBuilder({
                 <Button
                   variant="primary"
                   size="sm"
-                  leftIcon={<FaPlay className="w-3 h-3" />}
+                  leftIcon={<RiPlayFill className="w-3 h-3" />}
                   onClick={onRun}
                   isLoading={isLoading}
                   disabled={steps.length === 0}
@@ -209,7 +209,7 @@ export function ScenarioBuilder({
                   <Button
                     variant="secondary"
                     size="sm"
-                    leftIcon={<FaPause className="w-3 h-3" />}
+                    leftIcon={<RiPauseFill className="w-3 h-3" />}
                     onClick={onPause}
                     isLoading={isLoading}
                   >
@@ -218,7 +218,7 @@ export function ScenarioBuilder({
                   <Button
                     variant="danger"
                     size="sm"
-                    leftIcon={<FaStop className="w-3 h-3" />}
+                    leftIcon={<RiStopFill className="w-3 h-3" />}
                     onClick={onCancel}
                     isLoading={isLoading}
                   >
@@ -232,7 +232,7 @@ export function ScenarioBuilder({
                   <Button
                     variant="primary"
                     size="sm"
-                    leftIcon={<FaPlay className="w-3 h-3" />}
+                    leftIcon={<RiPlayFill className="w-3 h-3" />}
                     onClick={onResume}
                     isLoading={isLoading}
                   >
@@ -241,7 +241,7 @@ export function ScenarioBuilder({
                   <Button
                     variant="danger"
                     size="sm"
-                    leftIcon={<FaStop className="w-3 h-3" />}
+                    leftIcon={<RiStopFill className="w-3 h-3" />}
                     onClick={onCancel}
                     isLoading={isLoading}
                   >
@@ -253,7 +253,7 @@ export function ScenarioBuilder({
               <Button
                 variant="ghost"
                 size="sm"
-                leftIcon={<FaClock className="w-3 h-3" />}
+                leftIcon={<RiTimeLine className="w-3 h-3" />}
                 onClick={() => setShowScheduleModal(true)}
               >
                 Schedule
@@ -287,7 +287,7 @@ export function ScenarioBuilder({
           <Button
             variant="primary"
             size="sm"
-            leftIcon={<FaPlus className="w-3 h-3" />}
+            leftIcon={<RiAddLine className="w-3 h-3" />}
             onClick={handleAddStep}
           >
             Add Step
@@ -315,7 +315,7 @@ export function ScenarioBuilder({
             </p>
             <div className="mt-6">
               <Button variant="primary" onClick={handleAddStep}>
-                <FaPlus className="w-4 h-4 mr-2" />
+                <RiAddLine className="w-4 h-4 mr-2" />
                 Add First Step
               </Button>
             </div>
@@ -357,7 +357,7 @@ export function ScenarioBuilder({
               onClick={handleAddStep}
               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-500 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
             >
-              <FaPlus className="w-3 h-3" />
+              <RiAddLine className="w-3 h-3" />
               Add another step
             </button>
           </div>

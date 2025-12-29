@@ -2,16 +2,16 @@ import { useState, useEffect, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { Button } from '@/components/common/Button'
 import {
-  FaSync,
-  FaChartLine,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaTimesCircle,
-  FaMobileAlt,
-  FaTasks,
-  FaClock,
-  FaCalendarAlt,
-} from 'react-icons/fa'
+  RiRefreshLine,
+  RiLineChartLine,
+  RiCheckboxCircleFill,
+  RiAlertLine,
+  RiCloseCircleFill,
+  RiSmartphoneLine,
+  RiTaskLine,
+  RiTimeLine,
+  RiCalendarLine,
+} from '@remixicon/react'
 import { getLogsSummary, getDevices, getTasks } from '@/services/api'
 import type { LogsSummary } from '@/types/log'
 import type { DeviceStatus } from '@/types/device'
@@ -198,7 +198,7 @@ export function AnalyticsPage() {
               <Button
                 variant="secondary"
                 size="md"
-                leftIcon={<FaSync />}
+                leftIcon={<RiRefreshLine />}
                 onClick={() => loadData(true)}
                 isLoading={isRefreshing}
               >
@@ -216,7 +216,7 @@ export function AnalyticsPage() {
           <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-primary-100 rounded-xl">
-                <FaChartLine className="w-6 h-6 text-primary-600" />
+                <RiLineChartLine className="w-6 h-6 text-primary-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">
@@ -230,7 +230,7 @@ export function AnalyticsPage() {
           <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-success-100 rounded-xl">
-                <FaCheckCircle className="w-6 h-6 text-success-600" />
+                <RiCheckboxCircleFill className="w-6 h-6 text-success-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-success-600">
@@ -244,7 +244,7 @@ export function AnalyticsPage() {
           <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-error-100 rounded-xl">
-                <FaTimesCircle className="w-6 h-6 text-error-600" />
+                <RiCloseCircleFill className="w-6 h-6 text-error-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-error-600">
@@ -258,7 +258,7 @@ export function AnalyticsPage() {
           <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-warning-100 rounded-xl">
-                <FaExclamationTriangle className="w-6 h-6 text-warning-600" />
+                <RiAlertLine className="w-6 h-6 text-warning-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-warning-600">
@@ -321,7 +321,7 @@ export function AnalyticsPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
-                  <FaMobileAlt className="w-4 h-4 text-gray-500" />
+                  <RiSmartphoneLine className="w-4 h-4 text-gray-500" />
                   <span className="text-sm text-gray-600">Online Devices</span>
                 </div>
                 <p className="text-2xl font-bold text-gray-900">
@@ -331,7 +331,7 @@ export function AnalyticsPage() {
 
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
-                  <FaChartLine className="w-4 h-4 text-gray-500" />
+                  <RiLineChartLine className="w-4 h-4 text-gray-500" />
                   <span className="text-sm text-gray-600">Avg Battery</span>
                 </div>
                 <p className={`text-2xl font-bold ${avgBattery > 50 ? 'text-success-600' : avgBattery > 20 ? 'text-warning-600' : 'text-error-600'}`}>
@@ -341,7 +341,7 @@ export function AnalyticsPage() {
 
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
-                  <FaClock className="w-4 h-4 text-gray-500" />
+                  <RiTimeLine className="w-4 h-4 text-gray-500" />
                   <span className="text-sm text-gray-600">Avg Temperature</span>
                 </div>
                 <p className={`text-2xl font-bold ${Number(avgTemp) < 35 ? 'text-gray-900' : Number(avgTemp) < 40 ? 'text-warning-600' : 'text-error-600'}`}>
@@ -351,7 +351,7 @@ export function AnalyticsPage() {
 
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
-                  <FaTasks className="w-4 h-4 text-gray-500" />
+                  <RiTaskLine className="w-4 h-4 text-gray-500" />
                   <span className="text-sm text-gray-600">Tasks Today</span>
                 </div>
                 <p className="text-2xl font-bold text-primary-600">
@@ -377,7 +377,7 @@ export function AnalyticsPage() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <FaCalendarAlt className="w-4 h-4 text-gray-400" />
+                      <RiCalendarLine className="w-4 h-4 text-gray-400" />
                       <span className="font-medium text-gray-900">{range.label}</span>
                     </div>
                     <div className="flex items-center gap-4 text-sm">

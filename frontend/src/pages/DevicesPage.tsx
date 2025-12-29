@@ -2,21 +2,21 @@ import { useState, useEffect, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { Button } from '@/components/common/Button'
 import {
-  FaSync,
-  FaMobileAlt,
-  FaBatteryFull,
-  FaBatteryHalf,
-  FaBatteryQuarter,
-  FaTemperatureHigh,
-  FaSignal,
-  FaDesktop,
-  FaRedo,
-  FaCamera,
-  FaCheckCircle,
-  FaClock,
-  FaMapMarkerAlt,
-  FaGlobe,
-} from 'react-icons/fa'
+  RiRefreshLine,
+  RiSmartphoneLine,
+  RiBattery2ChargeLine,
+  RiBatteryLine,
+  RiBatteryLowLine,
+  RiTempHotLine,
+  RiSignalWifiLine,
+  RiComputerLine,
+  RiRestartLine,
+  RiCameraLine,
+  RiCheckboxCircleFill,
+  RiTimeLine,
+  RiMapPinLine,
+  RiGlobalLine,
+} from '@remixicon/react'
 import {
   getDevices,
   refreshDeviceStatus,
@@ -160,9 +160,9 @@ export function DevicesPage() {
   }
 
   const getBatteryIcon = (level: number) => {
-    if (level > 66) return <FaBatteryFull className="w-5 h-5 text-success-600" />
-    if (level > 33) return <FaBatteryHalf className="w-5 h-5 text-warning-600" />
-    return <FaBatteryQuarter className="w-5 h-5 text-error-600" />
+    if (level > 66) return <RiBattery2ChargeLine className="w-5 h-5 text-success-600" />
+    if (level > 33) return <RiBatteryLine className="w-5 h-5 text-warning-600" />
+    return <RiBatteryLowLine className="w-5 h-5 text-error-600" />
   }
 
   const getBatteryColor = (level: number) => {
@@ -222,7 +222,7 @@ export function DevicesPage() {
             <Button
               variant="secondary"
               size="md"
-              leftIcon={<FaSync />}
+              leftIcon={<RiRefreshLine />}
               onClick={() => loadDevices(true)}
               isLoading={isRefreshing}
             >
@@ -239,7 +239,7 @@ export function DevicesPage() {
           <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-success-100 rounded-lg">
-                <FaCheckCircle className="w-5 h-5 text-success-600" />
+                <RiCheckboxCircleFill className="w-5 h-5 text-success-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">{onlineCount}</p>
@@ -251,7 +251,7 @@ export function DevicesPage() {
           <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-warning-100 rounded-lg">
-                <FaClock className="w-5 h-5 text-warning-600" />
+                <RiTimeLine className="w-5 h-5 text-warning-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">{busyCount}</p>
@@ -263,7 +263,7 @@ export function DevicesPage() {
           <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-gray-100 rounded-lg">
-                <FaMobileAlt className="w-5 h-5 text-gray-600" />
+                <RiSmartphoneLine className="w-5 h-5 text-gray-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">{offlineCount}</p>
@@ -275,7 +275,7 @@ export function DevicesPage() {
           <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary-100 rounded-lg">
-                <FaCheckCircle className="w-5 h-5 text-primary-600" />
+                <RiCheckboxCircleFill className="w-5 h-5 text-primary-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">{totalTasks}</p>
@@ -288,7 +288,7 @@ export function DevicesPage() {
         {/* Devices List */}
         {devices.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-            <FaMobileAlt className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+            <RiSmartphoneLine className="w-12 h-12 text-gray-300 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900">No devices found</h3>
             <p className="mt-1 text-sm text-gray-500">
               Configure your devices in devices.yaml and restart the backend.
@@ -311,7 +311,7 @@ export function DevicesPage() {
                       {/* Device Info */}
                       <div className="flex items-start gap-4">
                         <div className="p-3 bg-gray-100 rounded-xl">
-                          <FaMobileAlt className="w-8 h-8 text-gray-600" />
+                          <RiSmartphoneLine className="w-8 h-8 text-gray-600" />
                         </div>
                         <div>
                           <div className="flex items-center gap-3">
@@ -327,15 +327,15 @@ export function DevicesPage() {
                           </div>
                           <div className="mt-2 flex items-center gap-4 text-sm text-gray-500">
                             <span className="flex items-center gap-1">
-                              <FaMapMarkerAlt className="w-3 h-3" />
+                              <RiMapPinLine className="w-3 h-3" />
                               {device.location}
                             </span>
                             <span className="flex items-center gap-1">
-                              <FaClock className="w-3 h-3" />
+                              <RiTimeLine className="w-3 h-3" />
                               {formatLastHeartbeat(device.last_heartbeat)}
                             </span>
                             <span className="flex items-center gap-1">
-                              <FaGlobe className="w-3 h-3" />
+                              <RiGlobalLine className="w-3 h-3" />
                               {device.id}
                             </span>
                           </div>
@@ -347,7 +347,7 @@ export function DevicesPage() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          leftIcon={<FaSync />}
+                          leftIcon={<RiRefreshLine />}
                           onClick={() => handleRefreshDevice(device.id)}
                           isLoading={currentAction === 'refresh'}
                           disabled={!!currentAction}
@@ -357,7 +357,7 @@ export function DevicesPage() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          leftIcon={<FaCamera />}
+                          leftIcon={<RiCameraLine />}
                           onClick={() => handleTakeScreenshot(device.id, device.name)}
                           isLoading={currentAction === 'screenshot'}
                           disabled={!isOnline || !!currentAction}
@@ -367,7 +367,7 @@ export function DevicesPage() {
                         <Button
                           variant="secondary"
                           size="sm"
-                          leftIcon={<FaDesktop />}
+                          leftIcon={<RiComputerLine />}
                           onClick={() => handleLaunchScrcpy(device.id, device.name)}
                           isLoading={currentAction === 'scrcpy'}
                           disabled={!isOnline || !!currentAction}
@@ -377,7 +377,7 @@ export function DevicesPage() {
                         <Button
                           variant="danger"
                           size="sm"
-                          leftIcon={<FaRedo />}
+                          leftIcon={<RiRestartLine />}
                           onClick={() => handleRebootDevice(device.id, device.name)}
                           isLoading={currentAction === 'reboot'}
                           disabled={!isOnline || !!currentAction}
@@ -402,7 +402,7 @@ export function DevicesPage() {
 
                       {/* Temperature */}
                       <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                        <FaTemperatureHigh className={`w-5 h-5 ${getTemperatureColor(device.temperature)}`} />
+                        <RiTempHotLine className={`w-5 h-5 ${getTemperatureColor(device.temperature)}`} />
                         <div>
                           <p className={`text-lg font-semibold ${getTemperatureColor(device.temperature)}`}>
                             {device.temperature}°C
@@ -413,7 +413,7 @@ export function DevicesPage() {
 
                       {/* Signal */}
                       <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                        <FaSignal className="w-5 h-5 text-gray-600" />
+                        <RiSignalWifiLine className="w-5 h-5 text-gray-600" />
                         <div>
                           <p className="text-lg font-semibold text-gray-700">
                             {device.signal_strength}%
@@ -424,7 +424,7 @@ export function DevicesPage() {
 
                       {/* Tasks Today */}
                       <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                        <FaCheckCircle className="w-5 h-5 text-primary-600" />
+                        <RiCheckboxCircleFill className="w-5 h-5 text-primary-600" />
                         <div>
                           <p className="text-lg font-semibold text-primary-600">
                             {device.tasks_completed_today}
@@ -435,7 +435,7 @@ export function DevicesPage() {
 
                       {/* Active Task */}
                       <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                        <FaClock className="w-5 h-5 text-warning-600" />
+                        <RiTimeLine className="w-5 h-5 text-warning-600" />
                         <div>
                           <p className="text-lg font-semibold text-gray-700">
                             {device.active_task_id ? `#${device.active_task_id}` : '-'}

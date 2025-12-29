@@ -1,4 +1,4 @@
-import { FaPlay, FaPause, FaStop, FaCopy, FaTrash, FaClock, FaEdit } from 'react-icons/fa'
+import { RiPlayFill, RiPauseFill, RiStopFill, RiFileCopyLine, RiDeleteBinLine, RiTimeLine, RiEditLine } from '@remixicon/react'
 import { Button } from '@/components/common/Button'
 import type { ScenarioListItem } from '@/types/scenario'
 import { STATUS_CONFIG } from '@/types/scenario'
@@ -79,7 +79,7 @@ export function ScenarioCard({
 
           {scenario.cron_expression && (
             <span className="flex items-center gap-1">
-              <FaClock className="w-3 h-3" />
+              <RiTimeLine className="w-3 h-3" />
               <span className="font-mono text-xs">{scenario.cron_expression}</span>
             </span>
           )}
@@ -95,7 +95,7 @@ export function ScenarioCard({
             <Button
               variant="primary"
               size="sm"
-              leftIcon={<FaPlay className="w-3 h-3" />}
+              leftIcon={<RiPlayFill className="w-3 h-3" />}
               onClick={() => onRun(scenario.id)}
               isLoading={isLoading}
               disabled={scenario.total_steps === 0}
@@ -109,7 +109,7 @@ export function ScenarioCard({
               <Button
                 variant="secondary"
                 size="sm"
-                leftIcon={<FaPause className="w-3 h-3" />}
+                leftIcon={<RiPauseFill className="w-3 h-3" />}
                 onClick={() => onPause(scenario.id)}
                 isLoading={isLoading}
               >
@@ -118,7 +118,7 @@ export function ScenarioCard({
               <Button
                 variant="danger"
                 size="sm"
-                leftIcon={<FaStop className="w-3 h-3" />}
+                leftIcon={<RiStopFill className="w-3 h-3" />}
                 onClick={() => onCancel(scenario.id)}
                 isLoading={isLoading}
               >
@@ -132,7 +132,7 @@ export function ScenarioCard({
               <Button
                 variant="primary"
                 size="sm"
-                leftIcon={<FaPlay className="w-3 h-3" />}
+                leftIcon={<RiPlayFill className="w-3 h-3" />}
                 onClick={() => onRun(scenario.id)}
                 isLoading={isLoading}
               >
@@ -141,7 +141,7 @@ export function ScenarioCard({
               <Button
                 variant="danger"
                 size="sm"
-                leftIcon={<FaStop className="w-3 h-3" />}
+                leftIcon={<RiStopFill className="w-3 h-3" />}
                 onClick={() => onCancel(scenario.id)}
                 isLoading={isLoading}
               >
@@ -155,7 +155,7 @@ export function ScenarioCard({
           <Button
             variant="ghost"
             size="sm"
-            leftIcon={<FaEdit className="w-3 h-3" />}
+            leftIcon={<RiEditLine className="w-3 h-3" />}
             onClick={() => onEdit(scenario.id)}
           >
             Edit
@@ -164,7 +164,7 @@ export function ScenarioCard({
           <Button
             variant="ghost"
             size="sm"
-            leftIcon={<FaCopy className="w-3 h-3" />}
+            leftIcon={<RiFileCopyLine className="w-3 h-3" />}
             onClick={() => onDuplicate(scenario.id)}
           >
             Copy
@@ -173,7 +173,7 @@ export function ScenarioCard({
           <Button
             variant="ghost"
             size="sm"
-            leftIcon={<FaTrash className="w-3 h-3 text-red-500" />}
+            leftIcon={<RiDeleteBinLine className="w-3 h-3 text-red-500" />}
             onClick={() => onDelete(scenario.id)}
             className="text-red-500 hover:text-red-600 hover:bg-red-50"
           />

@@ -3,7 +3,7 @@ import toast from 'react-hot-toast'
 import { Card } from '@/components/common/Card'
 import { Button } from '@/components/common/Button'
 import type { DeviceStatus } from '@/types/device'
-import { FaBatteryFull, FaBatteryHalf, FaBatteryQuarter, FaTemperatureHigh, FaSignal, FaDesktop } from 'react-icons/fa'
+import { RiBattery2ChargeLine, RiBatteryLine, RiBatteryLowLine, RiTempHotLine, RiSignalWifiLine, RiComputerLine } from '@remixicon/react'
 import { launchScrcpy } from '@/services/api'
 
 interface DeviceCardProps {
@@ -37,9 +37,9 @@ export function DeviceCard({ device }: DeviceCardProps) {
   }
 
   const getBatteryIcon = (level: number) => {
-    if (level > 66) return <FaBatteryFull className="text-success-600" />
-    if (level > 33) return <FaBatteryHalf className="text-warning-600" />
-    return <FaBatteryQuarter className="text-error-600" />
+    if (level > 66) return <RiBattery2ChargeLine className="text-success-600" />
+    if (level > 33) return <RiBatteryLine className="text-warning-600" />
+    return <RiBatteryLowLine className="text-error-600" />
   }
 
   const getBatteryColor = (level: number) => {
@@ -86,7 +86,7 @@ export function DeviceCard({ device }: DeviceCardProps) {
 
           {/* Temperature */}
           <div className="flex items-center gap-2">
-            <FaTemperatureHigh className={getTemperatureColor(device.temperature)} />
+            <RiTempHotLine className={getTemperatureColor(device.temperature)} />
             <div>
               <p className={`text-lg font-semibold ${getTemperatureColor(device.temperature)}`}>
                 {device.temperature}°C
@@ -97,7 +97,7 @@ export function DeviceCard({ device }: DeviceCardProps) {
 
           {/* Signal */}
           <div className="flex items-center gap-2">
-            <FaSignal className="text-gray-600" />
+            <RiSignalWifiLine className="text-gray-600" />
             <div>
               <p className="text-lg font-semibold text-gray-700">
                 {device.signal_strength}%
@@ -119,7 +119,7 @@ export function DeviceCard({ device }: DeviceCardProps) {
             <Button
               variant="secondary"
               size="sm"
-              leftIcon={<FaDesktop />}
+              leftIcon={<RiComputerLine />}
               onClick={handleLaunchScrcpy}
               isLoading={isLaunching}
               disabled={device.current_status === 'offline'}

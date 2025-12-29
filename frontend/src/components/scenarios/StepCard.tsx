@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { FaGripVertical, FaEdit, FaTrash, FaWhatsapp, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa'
+import { RiDraggable, RiEditLine, RiDeleteBinLine, RiWhatsappLine, RiInstagramLine, RiLinkedinLine, RiTelegramLine } from '@remixicon/react'
 import type { ScenarioStep, AgentType } from '@/types/scenario'
 import { STEP_STATUS_CONFIG, AGENT_ACTIONS } from '@/types/scenario'
 
@@ -13,10 +13,10 @@ interface StepCardProps {
 }
 
 const AGENT_ICONS: Record<AgentType, React.ReactNode> = {
-  whatsapp: <FaWhatsapp className="w-4 h-4 text-green-500" />,
-  instagram: <FaInstagram className="w-4 h-4 text-pink-500" />,
-  linkedin: <FaLinkedin className="w-4 h-4 text-blue-600" />,
-  telegram: <FaTelegram className="w-4 h-4 text-blue-400" />,
+  whatsapp: <RiWhatsappLine className="w-4 h-4 text-green-500" />,
+  instagram: <RiInstagramLine className="w-4 h-4 text-pink-500" />,
+  linkedin: <RiLinkedinLine className="w-4 h-4 text-blue-600" />,
+  telegram: <RiTelegramLine className="w-4 h-4 text-blue-400" />,
 }
 
 const AGENT_COLORS: Record<AgentType, string> = {
@@ -63,7 +63,7 @@ export function StepCard({ step, index, onEdit, onDelete, isDragging = false }: 
             {...attributes}
             {...listeners}
           >
-            <FaGripVertical className="w-4 h-4" />
+            <RiDraggable className="w-4 h-4" />
           </button>
 
           {/* Step Number */}
@@ -137,14 +137,14 @@ export function StepCard({ step, index, onEdit, onDelete, isDragging = false }: 
               className="p-1.5 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded"
               title="Edit step"
             >
-              <FaEdit className="w-3.5 h-3.5" />
+              <RiEditLine className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => onDelete(step.id)}
               className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
               title="Delete step"
             >
-              <FaTrash className="w-3.5 h-3.5" />
+              <RiDeleteBinLine className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
@@ -165,7 +165,7 @@ export function StepCardOverlay({ step, index }: { step: ScenarioStep; index: nu
       <div className="p-3">
         <div className="flex items-start gap-3">
           <div className="p-1 text-gray-400">
-            <FaGripVertical className="w-4 h-4" />
+            <RiDraggable className="w-4 h-4" />
           </div>
 
           <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">

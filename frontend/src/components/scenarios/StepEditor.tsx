@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FaTimes, FaWhatsapp, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa'
+import { RiCloseLine, RiWhatsappLine, RiInstagramLine, RiLinkedinLine, RiTelegramLine } from '@remixicon/react'
 import { Button } from '@/components/common/Button'
 import type { ScenarioStep, AgentType, CreateStepRequest, UpdateStepRequest } from '@/types/scenario'
 import { AGENT_ACTIONS } from '@/types/scenario'
@@ -13,10 +13,10 @@ interface StepEditorProps {
 }
 
 const AGENT_OPTIONS: { type: AgentType; label: string; icon: React.ReactNode }[] = [
-  { type: 'whatsapp', label: 'WhatsApp', icon: <FaWhatsapp className="w-5 h-5 text-green-500" /> },
-  { type: 'instagram', label: 'Instagram', icon: <FaInstagram className="w-5 h-5 text-pink-500" /> },
-  { type: 'linkedin', label: 'LinkedIn', icon: <FaLinkedin className="w-5 h-5 text-primary-600" /> },
-  { type: 'telegram', label: 'Telegram', icon: <FaTelegram className="w-5 h-5 text-blue-400" /> },
+  { type: 'whatsapp', label: 'WhatsApp', icon: <RiWhatsappLine className="w-5 h-5 text-green-500" /> },
+  { type: 'instagram', label: 'Instagram', icon: <RiInstagramLine className="w-5 h-5 text-pink-500" /> },
+  { type: 'linkedin', label: 'LinkedIn', icon: <RiLinkedinLine className="w-5 h-5 text-primary-600" /> },
+  { type: 'telegram', label: 'Telegram', icon: <RiTelegramLine className="w-5 h-5 text-blue-400" /> },
 ]
 
 // Parameter definitions for each action
@@ -183,7 +183,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
               onClick={onClose}
               className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
             >
-              <FaTimes className="w-5 h-5" />
+              <RiCloseLine className="w-5 h-5" />
             </button>
           </div>
 

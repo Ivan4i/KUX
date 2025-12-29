@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FaWhatsapp, FaInstagram, FaLinkedin, FaTelegram, FaSave, FaPlay, FaCog, FaCode } from 'react-icons/fa'
+import { RiWhatsappLine, RiInstagramLine, RiLinkedinLine, RiTelegramLine, RiSaveLine, RiPlayFill, RiSettingsLine, RiCodeLine } from '@remixicon/react'
 import toast from 'react-hot-toast'
 import { Button } from '@/components/common/Button'
 import type { AgentType } from '@/types/scenario'
@@ -34,7 +34,7 @@ const DEFAULT_AGENTS: AgentConfig[] = [
   {
     type: 'whatsapp',
     name: 'WhatsApp',
-    icon: <FaWhatsapp className="w-8 h-8" />,
+    icon: <RiWhatsappLine className="w-8 h-8" />,
     color: 'text-green-500',
     bgColor: 'bg-green-100',
     description: 'Send WhatsApp messages with human-like behavior',
@@ -99,7 +99,7 @@ Return JSON with:
   {
     type: 'instagram',
     name: 'Instagram',
-    icon: <FaInstagram className="w-8 h-8" />,
+    icon: <RiInstagramLine className="w-8 h-8" />,
     color: 'text-pink-500',
     bgColor: 'bg-pink-100',
     description: 'Automate Instagram DMs and interactions',
@@ -110,7 +110,7 @@ Return JSON with:
   {
     type: 'linkedin',
     name: 'LinkedIn',
-    icon: <FaLinkedin className="w-8 h-8" />,
+    icon: <RiLinkedinLine className="w-8 h-8" />,
     color: 'text-primary-600',
     bgColor: 'bg-blue-100',
     description: 'Send LinkedIn messages and connection requests',
@@ -121,7 +121,7 @@ Return JSON with:
   {
     type: 'telegram',
     name: 'Telegram',
-    icon: <FaTelegram className="w-8 h-8" />,
+    icon: <RiTelegramLine className="w-8 h-8" />,
     color: 'text-blue-400',
     bgColor: 'bg-blue-50',
     description: 'Automate Telegram messaging',
@@ -209,7 +209,7 @@ export function AgentsPage() {
             {selectedAgent && hasChanges && (
               <Button
                 variant="primary"
-                leftIcon={<FaSave />}
+                leftIcon={<RiSaveLine />}
                 onClick={handleSave}
                 isLoading={isLoading}
               >
@@ -266,7 +266,7 @@ export function AgentsPage() {
             {!selectedAgent ? (
               <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
                 <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                  <FaCog className="w-8 h-8 text-gray-400" />
+                  <RiSettingsLine className="w-8 h-8 text-gray-400" />
                 </div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Select an Agent</h3>
                 <p className="text-sm text-gray-500">
@@ -290,9 +290,9 @@ export function AgentsPage() {
                 <div className="border-b border-gray-200">
                   <nav className="flex px-6">
                     {[
-                      { key: 'prompts', label: 'Prompts', icon: <FaCode className="w-4 h-4" /> },
-                      { key: 'settings', label: 'Settings', icon: <FaCog className="w-4 h-4" /> },
-                      { key: 'actions', label: 'Available Actions', icon: <FaPlay className="w-4 h-4" /> },
+                      { key: 'prompts', label: 'Prompts', icon: <RiCodeLine className="w-4 h-4" /> },
+                      { key: 'settings', label: 'Settings', icon: <RiSettingsLine className="w-4 h-4" /> },
+                      { key: 'actions', label: 'Available Actions', icon: <RiPlayFill className="w-4 h-4" /> },
                     ].map((tab) => (
                       <button
                         key={tab.key}
@@ -332,7 +332,7 @@ export function AgentsPage() {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                leftIcon={<FaPlay className="w-3 h-3" />}
+                                leftIcon={<RiPlayFill className="w-3 h-3" />}
                                 onClick={() => handleTestPrompt(prompt.key)}
                               >
                                 Test
