@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { Button } from '@/components/common/Button'
+import * as Badge from '@/components/alignui/components-reference/badge'
 import {
   RiRefreshLine,
   RiSmartphoneLine,
@@ -28,21 +29,15 @@ import type { DeviceStatus } from '@/types/device'
 
 const STATUS_CONFIG = {
   online: {
-    color: 'bg-success-500',
-    textColor: 'text-success-600',
-    bgColor: 'bg-success-100',
+    badgeColor: 'green' as const,
     label: 'Online',
   },
   offline: {
-    color: 'bg-gray-400',
-    textColor: 'text-gray-600',
-    bgColor: 'bg-gray-100',
+    badgeColor: 'gray' as const,
     label: 'Offline',
   },
   busy: {
-    color: 'bg-warning-500',
-    textColor: 'text-warning-600',
-    bgColor: 'bg-warning-100',
+    badgeColor: 'orange' as const,
     label: 'Busy',
   },
 }
@@ -318,12 +313,10 @@ export function DevicesPage() {
                             <h3 className="text-xl font-semibold text-gray-900">
                               {device.name}
                             </h3>
-                            <span
-                              className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ${statusConfig.bgColor} ${statusConfig.textColor}`}
-                            >
-                              <span className={`w-1.5 h-1.5 rounded-full ${statusConfig.color}`} />
+                            <Badge.Root variant="light" color={statusConfig.badgeColor} size="medium">
+                              <Badge.Dot />
                               {statusConfig.label}
-                            </span>
+                            </Badge.Root>
                           </div>
                           <div className="mt-2 flex items-center gap-4 text-sm text-gray-500">
                             <span className="flex items-center gap-1">
