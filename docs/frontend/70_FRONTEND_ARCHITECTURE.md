@@ -10,7 +10,8 @@ Frontend Stack:
 │  Web Framework: React 18            │
 │  Build Tool: Vite                   │
 │  State Management: Zustand          │
-│  UI Library: Shadcn/ui + Tailwind   │
+│  UI Library: AlignUI + Tailwind     │
+│  Icons: @remixicon/react            │
 │  Real-time: WebSocket (Socket.IO)   │
 │  Charts: Recharts                   │
 │  Database ORM: TanStack Query       │
@@ -20,7 +21,7 @@ Why these tools?
 ✅ React: Industry standard, large ecosystem
 ✅ Vite: Fast build, great DX
 ✅ Zustand: Lightweight state (vs Redux bloat)
-✅ Shadcn/ui: Pre-built, customizable components
+✅ AlignUI: Design system with Radix primitives
 ✅ Socket.IO: Real-time updates (not polling)
 ✅ Recharts: Beautiful, React-native charts
 ```
@@ -104,9 +105,9 @@ npm install -D @types/react @types/react-dom typescript
 # Setup Tailwind
 npx tailwindcss init -p
 
-# Install Shadcn/ui components
-npm install @radix-ui/react-slot clsx class-variance-authority lucide-react
-npx shadcn-ui@latest init
+# Install AlignUI dependencies
+npm install @radix-ui/react-slot clsx tailwind-variants @remixicon/react
+# AlignUI components are located in src/components/alignui/
 
 # Install charting library
 npm install recharts
