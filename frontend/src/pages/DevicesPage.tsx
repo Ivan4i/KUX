@@ -30,15 +30,15 @@ import type { DeviceStatus } from '@/types/device'
 const STATUS_CONFIG = {
   online: {
     badgeColor: 'green' as const,
-    label: 'Online',
+    label: 'В сети',
   },
   offline: {
     badgeColor: 'gray' as const,
-    label: 'Offline',
+    label: 'Не в сети',
   },
   busy: {
     badgeColor: 'orange' as const,
-    label: 'Busy',
+    label: 'Занят',
   },
 }
 
@@ -54,11 +54,11 @@ export function DevicesPage() {
       const data = await getDevices()
       setDevices(data)
       if (showToast) {
-        toast.success('Devices refreshed')
+        toast.success('Устройства обновлены')
       }
     } catch (error) {
       console.error('Error loading devices:', error)
-      toast.error('Failed to load devices')
+      toast.error('Не удалось загрузить устройства')
     } finally {
       setIsLoading(false)
       setIsRefreshing(false)
@@ -83,10 +83,10 @@ export function DevicesPage() {
       setDevices((prev) =>
         prev.map((d) => (d.id === deviceId ? updatedStatus : d))
       )
-      toast.success('Device status refreshed')
+      toast.success('Статус устройства обновлён')
     } catch (error) {
       console.error('Error refreshing device:', error)
-      toast.error('Failed to refresh device status')
+      toast.error('Не удалось обновить статус устройства')
     } finally {
       setActionInProgress((prev) => {
         const { [deviceId]: _, ...rest } = prev
@@ -96,14 +96,14 @@ export function DevicesPage() {
   }
 
   const handleRebootDevice = async (deviceId: string, deviceName: string) => {
-    if (!confirm(`Are you sure you want to reboot ${deviceName}? This will interrupt any running tasks.`)) {
+    if (!confirm(`Вы уверены, что хотите перезагрузить ${deviceName}? Это прервёт все выполняющиеся задачи.`)) {
       return
     }
 
     try {
       setActionInProgress((prev) => ({ ...prev, [deviceId]: 'reboot' }))
       await rebootDevice(deviceId)
-      toast.success(`${deviceName} is rebooting...`)
+      toast.success(`${deviceName} перезагружается...`)
 
       // Update device status to offline temporarily
       setDevices((prev) =>
@@ -113,7 +113,7 @@ export function DevicesPage() {
       )
     } catch (error) {
       console.error('Error rebooting device:', error)
-      toast.error('Failed to reboot device')
+      toast.error('Не удалось перезагрузить устройство')
     } finally {
       setActionInProgress((prev) => {
         const { [deviceId]: _, ...rest } = prev
@@ -126,10 +126,10 @@ export function DevicesPage() {
     try {
       setActionInProgress((prev) => ({ ...prev, [deviceId]: 'screenshot' }))
       const result = await takeDeviceScreenshot(deviceId)
-      toast.success(`Screenshot saved: ${result.screenshot_path}`)
+      toast.success(`Скриншот сохранён: ${result.screenshot_path}`)
     } catch (error) {
       console.error('Error taking screenshot:', error)
-      toast.error('Failed to take screenshot')
+      toast.error('Не удалось сделать скриншот')
     } finally {
       setActionInProgress((prev) => {
         const { [deviceId]: _, ...rest } = prev
@@ -142,10 +142,10 @@ export function DevicesPage() {
     try {
       setActionInProgress((prev) => ({ ...prev, [deviceId]: 'scrcpy' }))
       await launchScrcpy(deviceId)
-      toast.success(`Screen mirror launched for ${deviceName}`)
+      toast.success(`Трансляция экрана запущена для ${deviceName}`)
     } catch (error: any) {
       console.error('Error launching scrcpy:', error)
-      toast.error(error?.response?.data?.detail || 'Failed to launch scrcpy')
+      toast.error(error?.response?.data?.detail || 'Не удалось запустить scrcpy')
     } finally {
       setActionInProgress((prev) => {
         const { [deviceId]: _, ...rest } = prev
@@ -173,15 +173,15 @@ export function DevicesPage() {
   }
 
   const formatLastHeartbeat = (heartbeat: string | null) => {
-    if (!heartbeat) return 'Never'
+    if (!heartbeat) return 'Никогда'
     const date = new Date(heartbeat)
     const now = new Date()
     const diffMs = now.getTime() - date.getTime()
     const diffSec = Math.floor(diffMs / 1000)
     const diffMin = Math.floor(diffSec / 60)
 
-    if (diffSec < 60) return `${diffSec}s ago`
-    if (diffMin < 60) return `${diffMin}m ago`
+    if (diffSec < 60) return `${diffSec} сек назад`
+    if (diffMin < 60) return `${diffMin} мин назад`
     return date.toLocaleTimeString('ru-RU')
   }
 
@@ -196,7 +196,7 @@ export function DevicesPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-          <p className="mt-4 text-sm text-gray-600">Loading devices...</p>
+          <p className="mt-4 text-sm text-gray-600">Загрузка устройств...</p>
         </div>
       </div>
     )
@@ -209,9 +209,9 @@ export function DevicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Devices</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Устройства</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Manage and monitor your Android devices
+                Управление и мониторинг Android устройств
               </p>
             </div>
             <Button
@@ -221,7 +221,7 @@ export function DevicesPage() {
               onClick={() => loadDevices(true)}
               isLoading={isRefreshing}
             >
-              Refresh All
+              Обновить все
             </Button>
           </div>
         </div>
@@ -238,7 +238,7 @@ export function DevicesPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">{onlineCount}</p>
-                <p className="text-sm text-gray-500">Online</p>
+                <p className="text-sm text-gray-500">В сети</p>
               </div>
             </div>
           </div>
@@ -250,7 +250,7 @@ export function DevicesPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">{busyCount}</p>
-                <p className="text-sm text-gray-500">Busy</p>
+                <p className="text-sm text-gray-500">Занято</p>
               </div>
             </div>
           </div>
@@ -262,7 +262,7 @@ export function DevicesPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">{offlineCount}</p>
-                <p className="text-sm text-gray-500">Offline</p>
+                <p className="text-sm text-gray-500">Не в сети</p>
               </div>
             </div>
           </div>
@@ -274,7 +274,7 @@ export function DevicesPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900">{totalTasks}</p>
-                <p className="text-sm text-gray-500">Tasks Today</p>
+                <p className="text-sm text-gray-500">Задач сегодня</p>
               </div>
             </div>
           </div>
@@ -284,9 +284,9 @@ export function DevicesPage() {
         {devices.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
             <RiSmartphoneLine className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900">No devices found</h3>
+            <h3 className="text-lg font-medium text-gray-900">Устройства не найдены</h3>
             <p className="mt-1 text-sm text-gray-500">
-              Configure your devices in devices.yaml and restart the backend.
+              Настройте устройства в devices.yaml и перезапустите бэкенд.
             </p>
           </div>
         ) : (
@@ -345,7 +345,7 @@ export function DevicesPage() {
                           isLoading={currentAction === 'refresh'}
                           disabled={!!currentAction}
                         >
-                          Refresh
+                          Обновить
                         </Button>
                         <Button
                           variant="ghost"
@@ -355,7 +355,7 @@ export function DevicesPage() {
                           isLoading={currentAction === 'screenshot'}
                           disabled={!isOnline || !!currentAction}
                         >
-                          Screenshot
+                          Скриншот
                         </Button>
                         <Button
                           variant="secondary"
@@ -365,7 +365,7 @@ export function DevicesPage() {
                           isLoading={currentAction === 'scrcpy'}
                           disabled={!isOnline || !!currentAction}
                         >
-                          Screen
+                          Экран
                         </Button>
                         <Button
                           variant="danger"
@@ -375,7 +375,7 @@ export function DevicesPage() {
                           isLoading={currentAction === 'reboot'}
                           disabled={!isOnline || !!currentAction}
                         >
-                          Reboot
+                          Перезагрузка
                         </Button>
                       </div>
                     </div>
@@ -389,7 +389,7 @@ export function DevicesPage() {
                           <p className={`text-lg font-semibold ${getBatteryColor(device.battery_level)}`}>
                             {device.battery_level}%
                           </p>
-                          <p className="text-xs text-gray-500">Battery</p>
+                          <p className="text-xs text-gray-500">Батарея</p>
                         </div>
                       </div>
 
@@ -400,7 +400,7 @@ export function DevicesPage() {
                           <p className={`text-lg font-semibold ${getTemperatureColor(device.temperature)}`}>
                             {device.temperature}°C
                           </p>
-                          <p className="text-xs text-gray-500">Temperature</p>
+                          <p className="text-xs text-gray-500">Температура</p>
                         </div>
                       </div>
 
@@ -411,7 +411,7 @@ export function DevicesPage() {
                           <p className="text-lg font-semibold text-gray-700">
                             {device.signal_strength}%
                           </p>
-                          <p className="text-xs text-gray-500">Signal</p>
+                          <p className="text-xs text-gray-500">Сигнал</p>
                         </div>
                       </div>
 
@@ -422,7 +422,7 @@ export function DevicesPage() {
                           <p className="text-lg font-semibold text-primary-600">
                             {device.tasks_completed_today}
                           </p>
-                          <p className="text-xs text-gray-500">Tasks Today</p>
+                          <p className="text-xs text-gray-500">Задач сегодня</p>
                         </div>
                       </div>
 
@@ -433,7 +433,7 @@ export function DevicesPage() {
                           <p className="text-lg font-semibold text-gray-700">
                             {device.active_task_id ? `#${device.active_task_id}` : '-'}
                           </p>
-                          <p className="text-xs text-gray-500">Active Task</p>
+                          <p className="text-xs text-gray-500">Активная задача</p>
                         </div>
                       </div>
                     </div>

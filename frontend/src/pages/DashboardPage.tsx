@@ -41,17 +41,17 @@ export function DashboardPage() {
 
       // Show success toast if requested
       if (showSuccessToast) {
-        toast.success('Dashboard refreshed successfully', {
+        toast.success('Панель обновлена', {
           icon: '🔄',
         })
       }
     } catch (error: any) {
       console.error('Error loading data:', error)
-      const errorMessage = error?.response?.data?.error || error?.message || 'Failed to load data'
-      setError(`Failed to load dashboard: ${errorMessage}`)
+      const errorMessage = error?.response?.data?.error || error?.message || 'Не удалось загрузить данные'
+      setError(`Ошибка загрузки панели: ${errorMessage}`)
 
       // Show error toast
-      toast.error(`Failed to load dashboard: ${errorMessage}`, {
+      toast.error(`Ошибка загрузки панели: ${errorMessage}`, {
         icon: '❌',
       })
     } finally {
@@ -72,7 +72,7 @@ export function DashboardPage() {
       console.log('Synced tasks:', result)
 
       // Show success toast
-      toast.success(`Successfully synced ${result.tasks_synced} task(s) from Notion`, {
+      toast.success(`Синхронизировано ${result.tasks_synced} задач из Notion`, {
         icon: '✅',
       })
 
@@ -83,11 +83,11 @@ export function DashboardPage() {
       const errorMessage = error?.response?.data?.error || error?.message || 'Failed to sync'
 
       // Show error toast
-      toast.error(`Failed to sync Notion: ${errorMessage}`, {
+      toast.error(`Ошибка синхронизации Notion: ${errorMessage}`, {
         icon: '❌',
       })
 
-      setError(`Failed to sync Notion tasks: ${errorMessage}`)
+      setError(`Ошибка синхронизации задач Notion: ${errorMessage}`)
     } finally {
       setIsSyncing(false)
     }
@@ -102,7 +102,7 @@ export function DashboardPage() {
       console.log('Task started:', result)
 
       // Show success toast
-      toast.success('Task started successfully!', {
+      toast.success('Задача запущена!', {
         icon: '🚀',
       })
 
@@ -110,14 +110,14 @@ export function DashboardPage() {
       await loadData()
     } catch (error: any) {
       console.error('Error running task:', error)
-      const errorMessage = error?.response?.data?.error || error?.message || 'Failed to run task'
+      const errorMessage = error?.response?.data?.error || error?.message || 'Не удалось запустить задачу'
 
       // Show error toast
-      toast.error(`Failed to start task: ${errorMessage}`, {
+      toast.error(`Ошибка запуска задачи: ${errorMessage}`, {
         icon: '❌',
       })
 
-      setError(`Failed to start task: ${errorMessage}`)
+      setError(`Ошибка запуска задачи: ${errorMessage}`)
     } finally {
       setIsLoading(false)
     }
@@ -158,7 +158,7 @@ export function DashboardPage() {
     setTaskProgress(null)
 
     // Show success toast
-    toast.success('WhatsApp message sent successfully!', {
+    toast.success('Сообщение WhatsApp отправлено!', {
       icon: '✅',
       duration: 5000,
     })
@@ -172,8 +172,8 @@ export function DashboardPage() {
     setTaskProgress(null)
 
     // Show error toast
-    const errorMsg = message?.error || 'Task execution failed'
-    toast.error(`Task failed: ${errorMsg}`, {
+    const errorMsg = message?.error || 'Ошибка выполнения задачи'
+    toast.error(`Задача не выполнена: ${errorMsg}`, {
       icon: '❌',
       duration: 6000,
     })
@@ -193,9 +193,9 @@ export function DashboardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Панель управления</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Android Agent Platform - WhatsApp Automation
+                Android Agent Platform - Автоматизация WhatsApp
               </p>
             </div>
 
@@ -207,7 +207,7 @@ export function DashboardPage() {
                 onClick={handleSyncNotion}
                 isLoading={isSyncing}
               >
-                Sync Notion
+                Синхр. Notion
               </Button>
               <Button
                 variant="primary"
@@ -217,7 +217,7 @@ export function DashboardPage() {
                 isLoading={isLoading}
                 disabled={activeTask !== null}
               >
-                Run Task
+                Запустить
               </Button>
               <Button
                 variant="ghost"
@@ -225,7 +225,7 @@ export function DashboardPage() {
                 leftIcon={<RiRefreshLine className="size-4" />}
                 onClick={() => loadData(true)}
               >
-                Refresh
+                Обновить
               </Button>
             </div>
           </div>
@@ -242,7 +242,7 @@ export function DashboardPage() {
                 <RiCloseCircleLine className="h-5 w-5 text-red-400" />
               </div>
               <div className="ml-3 flex-1">
-                <h3 className="text-sm font-medium text-red-800">Error</h3>
+                <h3 className="text-sm font-medium text-red-800">Ошибка</h3>
                 <p className="mt-1 text-sm text-red-700">{error}</p>
                 <div className="mt-3">
                   <Button
@@ -253,7 +253,7 @@ export function DashboardPage() {
                       loadData(true)
                     }}
                   >
-                    Try Again
+                    Повторить
                   </Button>
                 </div>
               </div>
@@ -275,7 +275,7 @@ export function DashboardPage() {
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-              <p className="mt-4 text-sm text-gray-600">Loading dashboard...</p>
+              <p className="mt-4 text-sm text-gray-600">Загрузка панели...</p>
             </div>
           </div>
         )}
@@ -284,13 +284,13 @@ export function DashboardPage() {
         {!isLoading && !error && devices.length === 0 && (
           <div className="text-center py-12">
             <RiSmartphoneLine className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No devices found</h3>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">Устройства не найдены</h3>
             <p className="mt-1 text-sm text-gray-500">
-              Configure your devices in devices.yaml and restart the backend.
+              Настройте устройства в devices.yaml и перезапустите бэкенд.
             </p>
             <div className="mt-6">
               <Button variant="primary" onClick={() => loadData(true)}>
-                Retry
+                Повторить
               </Button>
             </div>
           </div>
@@ -301,7 +301,7 @@ export function DashboardPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Devices */}
             <div className="lg:col-span-3">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Devices</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Устройства</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {devices.map((device) => (
                   <DeviceCard key={device.id} device={device} />

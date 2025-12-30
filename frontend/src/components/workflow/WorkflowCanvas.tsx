@@ -37,6 +37,9 @@ const nodeTypes: NodeTypes = {
   condition: ConditionNode,
 }
 
+// Generate unique ID
+const generateId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+
 // Default empty canvas nodes for new workflow
 const defaultNodes: Node[] = []
 const defaultEdges: Edge[] = []
@@ -44,120 +47,131 @@ const defaultEdges: Edge[] = []
 // Demo nodes for when no workflow is loaded
 const demoNodes: Node[] = [
   {
-    id: 'trigger-1',
+    id: `trigger-${generateId()}`,
     type: 'trigger',
     position: { x: 250, y: 50 },
     data: {
-      label: 'Fetch from Notion',
-      description: 'Get pending leads',
+      label: 'Загрузить из Notion',
+      description: 'Получить ожидающие лиды',
       icon: 'notion',
     },
   },
   {
-    id: 'action-1',
+    id: `action-${generateId()}`,
     type: 'action',
     position: { x: 250, y: 180 },
     data: {
-      label: 'Analyze with Gemini',
-      description: 'Generate personalized message',
+      label: 'Анализ через Gemini',
+      description: 'Сгенерировать персональное сообщение',
       icon: 'gemini',
       agent: 'gemini',
     },
   },
   {
-    id: 'condition-1',
+    id: `condition-${generateId()}`,
     type: 'condition',
     position: { x: 250, y: 320 },
     data: {
-      label: 'Has Phone?',
-      description: 'Check if lead has phone number',
+      label: 'Есть телефон?',
+      description: 'Проверить наличие номера телефона',
       condition: 'lead.phone != null',
     },
   },
   {
-    id: 'action-2',
+    id: `action-wa-${generateId()}`,
     type: 'action',
     position: { x: 100, y: 460 },
     data: {
-      label: 'Send WhatsApp',
-      description: 'Send message via WhatsApp',
+      label: 'Отправить WhatsApp',
+      description: 'Отправить сообщение через WhatsApp',
       icon: 'whatsapp',
       agent: 'whatsapp',
     },
   },
   {
-    id: 'action-3',
+    id: `action-sms-${generateId()}`,
     type: 'action',
     position: { x: 400, y: 460 },
     data: {
-      label: 'Send SMS',
-      description: 'Send message via SMS',
+      label: 'Отправить SMS',
+      description: 'Отправить сообщение через SMS',
       icon: 'sms',
       agent: 'sms',
     },
   },
 ]
 
-const demoEdges: Edge[] = [
-  {
-    id: 'e1-2',
-    source: 'trigger-1',
-    target: 'action-1',
-    animated: true,
-  },
-  {
-    id: 'e2-3',
-    source: 'action-1',
-    target: 'condition-1',
-  },
-  {
-    id: 'e3-4',
-    source: 'condition-1',
-    target: 'action-2',
-    sourceHandle: 'yes',
-    label: 'Yes',
-    style: { stroke: '#10b981' },
-  },
-  {
-    id: 'e3-5',
-    source: 'condition-1',
-    target: 'action-3',
-    sourceHandle: 'no',
-    label: 'No',
-    style: { stroke: '#ef4444' },
-  },
-]
+// Generate demo edges with connections
+const createDemoEdges = (nodes: Node[]): Edge[] => {
+  if (nodes.length < 5) return []
+  return [
+    {
+      id: `edge-${generateId()}`,
+      source: nodes[0].id,
+      target: nodes[1].id,
+      animated: true,
+    },
+    {
+      id: `edge-${generateId()}`,
+      source: nodes[1].id,
+      target: nodes[2].id,
+    },
+    {
+      id: `edge-${generateId()}`,
+      source: nodes[2].id,
+      target: nodes[3].id,
+      sourceHandle: 'yes',
+      label: 'Да',
+      style: { stroke: '#10b981' },
+    },
+    {
+      id: `edge-${generateId()}`,
+      source: nodes[2].id,
+      target: nodes[4].id,
+      sourceHandle: 'no',
+      label: 'Нет',
+      style: { stroke: '#ef4444' },
+    },
+  ]
+}
 
 interface WorkflowCanvasProps {
-  /** Workflow ID to load (for editing existing workflow) */
+  /** ID workflow для загрузки (редактирование существующего) */
   workflowId?: string
-  /** Name for new workflow (when creating) */
+  /** Название нового workflow */
   workflowName?: string
-  /** Description for new workflow */
+  /** Описание нового workflow */
   workflowDescription?: string
-  /** Show demo nodes when no workflow loaded */
+  /** Показывать демо-узлы когда workflow не загружен */
   showDemo?: boolean
-  /** Callback when workflow is saved (returns workflow ID) */
+  /** Callback при сохранении */
   onSave?: (nodes: Node[], edges: Edge[]) => void
-  /** Callback when workflow run is triggered */
+  /** Callback при запуске */
   onRun?: () => void
-  /** Callback when workflow is created/updated (returns workflow data) */
+  /** Callback при создании/обновлении workflow */
   onWorkflowSaved?: (workflow: { id: string; name: string }) => void
 }
 
 export function WorkflowCanvas({
   workflowId,
-  workflowName = 'Untitled Workflow',
+  workflowName = 'Новый Workflow',
   workflowDescription,
   showDemo = true,
   onSave,
   onRun,
   onWorkflowSaved,
 }: WorkflowCanvasProps) {
+  // Create initial demo data once
+  const [initialDemo] = useState(() => {
+    const nodes = showDemo ? demoNodes : defaultNodes
+    const edges = showDemo ? createDemoEdges(nodes) : defaultEdges
+    return { nodes, edges }
+  })
+
   const [currentWorkflowId, setCurrentWorkflowId] = useState<string | null>(workflowId || null)
   const [currentWorkflowName, setCurrentWorkflowName] = useState(workflowName)
-  const [nodes, setNodes, onNodesChange] = useNodesState(showDemo ? demoNodes : defaultNodes)
-  const [edges, setEdges, onEdgesChange] = useEdgesState(showDemo ? demoEdges : defaultEdges)
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialDemo.nodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialDemo.edges)
   const [selectedNodes, setSelectedNodes] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -207,10 +221,10 @@ export function WorkflowCanvas({
       setCurrentWorkflowName(workflow.name)
       setHasUnsavedChanges(false)
 
-      toast.success(`Loaded workflow: ${workflow.name}`)
+      toast.success(`Загружен workflow: ${workflow.name}`)
     } catch (error) {
-      console.error('Error loading workflow:', error)
-      toast.error('Failed to load workflow')
+      console.error('Ошибка загрузки workflow:', error)
+      toast.error('Не удалось загрузить workflow')
     } finally {
       setIsLoading(false)
     }
@@ -219,7 +233,12 @@ export function WorkflowCanvas({
   // Handle new connections
   const onConnect = useCallback(
     (params: Connection) => {
-      setEdges((eds) => addEdge({ ...params, animated: true }, eds))
+      const newEdge = {
+        ...params,
+        id: `edge-${generateId()}`,
+        animated: true,
+      }
+      setEdges((eds) => addEdge(newEdge, eds))
     },
     [setEdges]
   )
@@ -250,7 +269,7 @@ export function WorkflowCanvas({
       }
 
       const newNode: Node = {
-        id: `${type}-${Date.now()}`,
+        id: `${type}-${generateId()}`,
         type,
         position,
         data: nodeData,
@@ -281,17 +300,27 @@ export function WorkflowCanvas({
       setIsSaving(true)
 
       // Convert ReactFlow format to API format
+      // For NEW workflows, regenerate IDs to ensure uniqueness
+      const isNew = !currentWorkflowId
+      const idPrefix = isNew ? generateId() : ''
+
       const apiNodes: WorkflowNode[] = nodes.map((n) => ({
-        id: n.id,
+        id: isNew ? `${idPrefix}-${n.id}` : n.id,
         type: n.type || 'action',
         position: n.position,
         data: n.data || {},
       }))
 
+      // Create a mapping of old to new IDs for edges
+      const nodeIdMap: Record<string, string> = {}
+      nodes.forEach((n, i) => {
+        nodeIdMap[n.id] = apiNodes[i].id
+      })
+
       const apiEdges: WorkflowEdge[] = edges.map((e) => ({
-        id: e.id,
-        source: e.source,
-        target: e.target,
+        id: isNew ? `${idPrefix}-${e.id}` : e.id,
+        source: isNew ? nodeIdMap[e.source] || e.source : e.source,
+        target: isNew ? nodeIdMap[e.target] || e.target : e.target,
         sourceHandle: e.sourceHandle || null,
         targetHandle: e.targetHandle || null,
         label: typeof e.label === 'string' ? e.label : null,
@@ -307,7 +336,7 @@ export function WorkflowCanvas({
           nodes: apiNodes,
           edges: apiEdges,
         })
-        toast.success('Workflow saved!')
+        toast.success('Workflow сохранён!')
       } else {
         // Create new workflow
         savedWorkflow = await createWorkflow({
@@ -317,7 +346,26 @@ export function WorkflowCanvas({
           edges: apiEdges,
         })
         setCurrentWorkflowId(savedWorkflow.id)
-        toast.success('Workflow created!')
+
+        // Update local IDs to match saved ones
+        setNodes(savedWorkflow.nodes.map((n: WorkflowNode) => ({
+          id: n.id,
+          type: n.type,
+          position: n.position,
+          data: n.data,
+        })))
+        setEdges(savedWorkflow.edges.map((e: WorkflowEdge) => ({
+          id: e.id,
+          source: e.source,
+          target: e.target,
+          sourceHandle: e.sourceHandle || undefined,
+          targetHandle: e.targetHandle || undefined,
+          label: e.label || undefined,
+          animated: e.animated || false,
+          style: e.style || undefined,
+        })))
+
+        toast.success('Workflow создан!')
       }
 
       setHasUnsavedChanges(false)
@@ -330,12 +378,12 @@ export function WorkflowCanvas({
         onWorkflowSaved({ id: savedWorkflow.id, name: savedWorkflow.name })
       }
     } catch (error) {
-      console.error('Error saving workflow:', error)
-      toast.error('Failed to save workflow')
+      console.error('Ошибка сохранения workflow:', error)
+      toast.error('Не удалось сохранить workflow')
     } finally {
       setIsSaving(false)
     }
-  }, [nodes, edges, currentWorkflowId, currentWorkflowName, workflowDescription, onSave, onWorkflowSaved])
+  }, [nodes, edges, currentWorkflowId, currentWorkflowName, workflowDescription, onSave, onWorkflowSaved, setNodes, setEdges])
 
   // Run workflow
   const handleRun = useCallback(async () => {
@@ -345,21 +393,21 @@ export function WorkflowCanvas({
     }
 
     if (!currentWorkflowId) {
-      toast.error('Please save the workflow first')
+      toast.error('Сначала сохраните workflow')
       return
     }
 
     try {
       setIsRunning(true)
       await runWorkflow(currentWorkflowId)
-      toast.success('Workflow started!')
+      toast.success('Workflow запущен!')
 
       if (onRun) {
         onRun()
       }
     } catch (error) {
-      console.error('Error running workflow:', error)
-      toast.error('Failed to start workflow')
+      console.error('Ошибка запуска workflow:', error)
+      toast.error('Не удалось запустить workflow')
     } finally {
       setIsRunning(false)
     }
@@ -370,7 +418,7 @@ export function WorkflowCanvas({
       <div className="flex h-[calc(100vh-200px)] bg-gray-50 rounded-lg border border-gray-200 items-center justify-center">
         <div className="flex items-center gap-2 text-gray-500">
           <RiLoader4Line className="size-5 animate-spin" />
-          Loading workflow...
+          Загрузка workflow...
         </div>
       </div>
     )
@@ -378,10 +426,10 @@ export function WorkflowCanvas({
 
   return (
     <div className="flex h-[calc(100vh-200px)] bg-gray-50 rounded-lg border border-gray-200 overflow-hidden">
-      {/* Node Palette Sidebar */}
+      {/* Палитра узлов */}
       <NodePalette />
 
-      {/* Canvas */}
+      {/* Холст */}
       <div className="flex-1" onDrop={onDrop} onDragOver={onDragOver}>
         <ReactFlow
           nodes={nodes}
@@ -413,7 +461,7 @@ export function WorkflowCanvas({
           />
           <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
 
-          {/* Top Panel with Actions */}
+          {/* Панель действий */}
           <Panel position="top-right" className="flex gap-2">
             {selectedNodes.length > 0 && (
               <button
@@ -421,7 +469,7 @@ export function WorkflowCanvas({
                 className="flex items-center gap-2 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm"
               >
                 <RiDeleteBinLine className="size-4" />
-                Delete ({selectedNodes.length})
+                Удалить ({selectedNodes.length})
               </button>
             )}
             <button
@@ -434,7 +482,7 @@ export function WorkflowCanvas({
               ) : (
                 <RiSaveLine className="size-4" />
               )}
-              {hasUnsavedChanges ? 'Save*' : 'Save'}
+              {hasUnsavedChanges ? 'Сохранить*' : 'Сохранить'}
             </button>
             <button
               onClick={handleRun}
@@ -446,17 +494,17 @@ export function WorkflowCanvas({
               ) : (
                 <RiPlayLine className="size-4" />
               )}
-              Run
+              Запустить
             </button>
           </Panel>
 
-          {/* Top-left info panel */}
+          {/* Информационная панель */}
           <Panel position="top-left" className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm border border-gray-200">
             <div className="text-sm font-medium text-gray-900">{currentWorkflowName}</div>
             <div className="text-xs text-gray-500">
-              {nodes.length} nodes, {edges.length} connections
-              {currentWorkflowId && <span className="ml-2 text-green-600">(saved)</span>}
-              {!currentWorkflowId && <span className="ml-2 text-amber-600">(unsaved)</span>}
+              {nodes.length} узлов, {edges.length} связей
+              {currentWorkflowId && <span className="ml-2 text-green-600">(сохранено)</span>}
+              {!currentWorkflowId && <span className="ml-2 text-amber-600">(не сохранено)</span>}
             </div>
           </Panel>
         </ReactFlow>

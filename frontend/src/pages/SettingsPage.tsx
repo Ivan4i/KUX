@@ -115,7 +115,7 @@ export function SettingsPage() {
       setConfigStatus(status)
     } catch (error) {
       console.error('Error loading settings:', error)
-      toast.error('Failed to load settings')
+      toast.error('Не удалось загрузить настройки')
     } finally {
       setIsLoading(false)
     }
@@ -133,13 +133,13 @@ export function SettingsPage() {
         puter_api_url: puterApiUrl,
         puter_default_model: puterModel,
       })
-      toast.success('Integration settings saved')
+      toast.success('Настройки интеграций сохранены')
       // Reload config status
       const status = await getConfigStatus()
       setConfigStatus(status)
     } catch (error) {
       console.error('Error saving integrations:', error)
-      toast.error('Failed to save integration settings')
+      toast.error('Не удалось сохранить настройки интеграций')
     } finally {
       setIsSaving(false)
     }
@@ -159,10 +159,10 @@ export function SettingsPage() {
         max_messages_per_day: maxMessagesPerDay,
         cooldown_after_batch_min: cooldownAfterBatch,
       })
-      toast.success('Behavior settings saved')
+      toast.success('Настройки поведения сохранены')
     } catch (error) {
       console.error('Error saving behavior:', error)
-      toast.error('Failed to save behavior settings')
+      toast.error('Не удалось сохранить настройки поведения')
     } finally {
       setIsSaving(false)
     }
@@ -179,7 +179,7 @@ export function SettingsPage() {
       }
     } catch (error) {
       console.error('Notion test error:', error)
-      toast.error('Failed to test Notion connection')
+      toast.error('Не удалось проверить подключение к Notion')
     } finally {
       setTestingNotion(false)
     }
@@ -196,7 +196,7 @@ export function SettingsPage() {
       }
     } catch (error) {
       console.error('Telegram test error:', error)
-      toast.error('Failed to test Telegram connection')
+      toast.error('Не удалось проверить подключение к Telegram')
     } finally {
       setTestingTelegram(false)
     }
@@ -213,12 +213,12 @@ export function SettingsPage() {
       {configured ? (
         <>
           <RiCheckboxCircleFill className="w-3 h-3" />
-          Configured
+          Настроено
         </>
       ) : (
         <>
           <RiCloseCircleFill className="w-3 h-3" />
-          Not configured
+          Не настроено
         </>
       )}
     </span>
@@ -229,7 +229,7 @@ export function SettingsPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-          <p className="mt-4 text-sm text-gray-600">Loading settings...</p>
+          <p className="mt-4 text-sm text-gray-600">Загрузка настроек...</p>
         </div>
       </div>
     )
@@ -242,9 +242,9 @@ export function SettingsPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Настройки</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Configure API keys, behavior settings, and integrations
+                Настройка API-ключей, поведения и интеграций
               </p>
             </div>
             <Button
@@ -253,7 +253,7 @@ export function SettingsPage() {
               leftIcon={<RiRefreshLine />}
               onClick={loadSettings}
             >
-              Refresh
+              Обновить
             </Button>
           </div>
         </div>
@@ -267,11 +267,11 @@ export function SettingsPage() {
             <div className="flex items-center gap-2">
               <RiKeyLine className="w-5 h-5 text-primary-600" />
               <h2 className="text-lg font-semibold text-gray-900">
-                API Integrations
+                API интеграции
               </h2>
             </div>
             <p className="mt-1 text-sm text-gray-500">
-              Configure external service API keys
+              Настройка API-ключей внешних сервисов
             </p>
           </div>
 
@@ -291,7 +291,7 @@ export function SettingsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    API Key
+                    API-ключ
                   </label>
                   <div className="relative">
                     <input
@@ -330,7 +330,7 @@ export function SettingsPage() {
                 onClick={handleTestNotion}
                 isLoading={testingNotion}
               >
-                Test Connection
+                Проверить подключение
               </Button>
             </div>
 
@@ -390,7 +390,7 @@ export function SettingsPage() {
                 onClick={handleTestTelegram}
                 isLoading={testingTelegram}
               >
-                Test Connection
+                Проверить подключение
               </Button>
             </div>
 
@@ -411,7 +411,7 @@ export function SettingsPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    API Key
+                    API-ключ
                   </label>
                   <div className="relative">
                     <input
@@ -444,7 +444,7 @@ export function SettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Default Model
+                    Модель по умолчанию
                   </label>
                   <select
                     value={puterModel}
@@ -468,7 +468,7 @@ export function SettingsPage() {
               onClick={handleSaveIntegrations}
               isLoading={isSaving}
             >
-              Save Integration Settings
+              Сохранить настройки интеграций
             </Button>
           </div>
         </div>
@@ -479,22 +479,22 @@ export function SettingsPage() {
             <div className="flex items-center gap-2">
               <RiSettingsLine className="w-5 h-5 text-primary-600" />
               <h2 className="text-lg font-semibold text-gray-900">
-                Behavior Settings
+                Настройки поведения
               </h2>
             </div>
             <p className="mt-1 text-sm text-gray-500">
-              Configure human-like behavior simulation for automation
+              Настройка человекоподобного поведения для автоматизации
             </p>
           </div>
 
           <div className="p-6 space-y-6">
             {/* Typing Delays */}
             <div>
-              <h3 className="font-medium text-gray-900 mb-3">Typing Delays</h3>
+              <h3 className="font-medium text-gray-900 mb-3">Задержки набора</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Min Delay (ms)
+                    Мин. задержка (мс)
                   </label>
                   <input
                     type="number"
@@ -507,7 +507,7 @@ export function SettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Max Delay (ms)
+                    Макс. задержка (мс)
                   </label>
                   <input
                     type="number"
@@ -520,7 +520,7 @@ export function SettingsPage() {
                 </div>
               </div>
               <p className="mt-2 text-xs text-gray-500">
-                Random delay between keystrokes to simulate human typing
+                Случайная задержка между нажатиями клавиш для имитации человека
               </p>
             </div>
 
@@ -528,11 +528,11 @@ export function SettingsPage() {
 
             {/* Action Delays */}
             <div>
-              <h3 className="font-medium text-gray-900 mb-3">Action Delays</h3>
+              <h3 className="font-medium text-gray-900 mb-3">Задержки действий</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Min Delay (ms)
+                    Мин. задержка (мс)
                   </label>
                   <input
                     type="number"
@@ -545,7 +545,7 @@ export function SettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Max Delay (ms)
+                    Макс. задержка (мс)
                   </label>
                   <input
                     type="number"
@@ -558,7 +558,7 @@ export function SettingsPage() {
                 </div>
               </div>
               <p className="mt-2 text-xs text-gray-500">
-                Random delay between actions (clicks, scrolls, etc.)
+                Случайная задержка между действиями (клики, прокрутка и т.д.)
               </p>
             </div>
 
@@ -566,11 +566,11 @@ export function SettingsPage() {
 
             {/* Typo Simulation */}
             <div>
-              <h3 className="font-medium text-gray-900 mb-3">Typo Simulation</h3>
+              <h3 className="font-medium text-gray-900 mb-3">Симуляция опечаток</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Typo Probability (0-1)
+                    Вероятность опечатки (0-1)
                   </label>
                   <input
                     type="number"
@@ -584,7 +584,7 @@ export function SettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Typo Fix Probability (0-1)
+                    Вероятность исправления (0-1)
                   </label>
                   <input
                     type="number"
@@ -598,7 +598,7 @@ export function SettingsPage() {
                 </div>
               </div>
               <p className="mt-2 text-xs text-gray-500">
-                Simulate typos and corrections to appear more human
+                Имитация опечаток и их исправления для большей реалистичности
               </p>
             </div>
 
@@ -606,11 +606,11 @@ export function SettingsPage() {
 
             {/* Rate Limits */}
             <div>
-              <h3 className="font-medium text-gray-900 mb-3">Rate Limits</h3>
+              <h3 className="font-medium text-gray-900 mb-3">Лимиты</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Max Messages/Hour
+                    Макс. сообщений/час
                   </label>
                   <input
                     type="number"
@@ -623,7 +623,7 @@ export function SettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Max Messages/Day
+                    Макс. сообщений/день
                   </label>
                   <input
                     type="number"
@@ -636,7 +636,7 @@ export function SettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Cooldown After Batch (min)
+                    Пауза после пакета (мин)
                   </label>
                   <input
                     type="number"
@@ -649,7 +649,7 @@ export function SettingsPage() {
                 </div>
               </div>
               <p className="mt-2 text-xs text-gray-500">
-                Limit message frequency to avoid detection and account bans
+                Ограничение частоты сообщений для избежания блокировки аккаунта
               </p>
             </div>
           </div>
@@ -661,7 +661,7 @@ export function SettingsPage() {
               onClick={handleSaveBehavior}
               isLoading={isSaving}
             >
-              Save Behavior Settings
+              Сохранить настройки поведения
             </Button>
           </div>
         </div>
@@ -672,7 +672,7 @@ export function SettingsPage() {
             <div className="flex items-center gap-2">
               <RiDatabase2Line className="w-5 h-5 text-primary-600" />
               <h2 className="text-lg font-semibold text-gray-900">
-                Configuration Status
+                Статус конфигурации
               </h2>
             </div>
           </div>

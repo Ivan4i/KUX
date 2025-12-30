@@ -52,7 +52,7 @@ export function ScenarioCard({
               </h3>
               {scenario.is_template && (
                 <span className="px-2 py-0.5 text-xs font-medium text-purple-600 bg-purple-100 rounded-full">
-                  Template
+                  Шаблон
                 </span>
               )}
             </div>
@@ -74,7 +74,7 @@ export function ScenarioCard({
         {/* Info */}
         <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
           <span className="flex items-center gap-1">
-            <span className="font-medium">{scenario.total_steps}</span> steps
+            <span className="font-medium">{scenario.total_steps}</span> шагов
           </span>
 
           {scenario.cron_expression && (
@@ -100,7 +100,7 @@ export function ScenarioCard({
               isLoading={isLoading}
               disabled={scenario.total_steps === 0}
             >
-              Run
+              Запустить
             </Button>
           )}
 
@@ -113,7 +113,7 @@ export function ScenarioCard({
                 onClick={() => onPause(scenario.id)}
                 isLoading={isLoading}
               >
-                Pause
+                Пауза
               </Button>
               <Button
                 variant="danger"
@@ -122,7 +122,7 @@ export function ScenarioCard({
                 onClick={() => onCancel(scenario.id)}
                 isLoading={isLoading}
               >
-                Cancel
+                Отмена
               </Button>
             </>
           )}
@@ -136,7 +136,7 @@ export function ScenarioCard({
                 onClick={() => onRun(scenario.id)}
                 isLoading={isLoading}
               >
-                Resume
+                Продолжить
               </Button>
               <Button
                 variant="danger"
@@ -145,7 +145,7 @@ export function ScenarioCard({
                 onClick={() => onCancel(scenario.id)}
                 isLoading={isLoading}
               >
-                Cancel
+                Отмена
               </Button>
             </>
           )}
@@ -158,7 +158,7 @@ export function ScenarioCard({
             leftIcon={<RiEditLine className="w-3 h-3" />}
             onClick={() => onEdit(scenario.id)}
           >
-            Edit
+            Изменить
           </Button>
 
           <Button
@@ -167,7 +167,7 @@ export function ScenarioCard({
             leftIcon={<RiFileCopyLine className="w-3 h-3" />}
             onClick={() => onDuplicate(scenario.id)}
           >
-            Copy
+            Копировать
           </Button>
 
           <Button

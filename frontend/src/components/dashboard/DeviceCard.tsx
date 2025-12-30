@@ -17,9 +17,9 @@ export function DeviceCard({ device }: DeviceCardProps) {
     try {
       setIsLaunching(true)
       await launchScrcpy(device.id)
-      toast.success(`Screen mirror launched for ${device.name}`)
+      toast.success(`Трансляция экрана запущена для ${device.name}`)
     } catch (error: any) {
-      toast.error(error?.response?.data?.detail || 'Failed to launch scrcpy')
+      toast.error(error?.response?.data?.detail || 'Не удалось запустить scrcpy')
     } finally {
       setIsLaunching(false)
     }
@@ -31,9 +31,9 @@ export function DeviceCard({ device }: DeviceCardProps) {
   }
 
   const statusText = {
-    online: 'Online',
-    offline: 'Offline',
-    busy: 'Busy',
+    online: 'В сети',
+    offline: 'Не в сети',
+    busy: 'Занят',
   }
 
   const getBatteryIcon = (level: number) => {
@@ -80,7 +80,7 @@ export function DeviceCard({ device }: DeviceCardProps) {
               <p className={`text-lg font-semibold ${getBatteryColor(device.battery_level)}`}>
                 {device.battery_level}%
               </p>
-              <p className="text-xs text-gray-500">Battery</p>
+              <p className="text-xs text-gray-500">Батарея</p>
             </div>
           </div>
 
@@ -91,7 +91,7 @@ export function DeviceCard({ device }: DeviceCardProps) {
               <p className={`text-lg font-semibold ${getTemperatureColor(device.temperature)}`}>
                 {device.temperature}°C
               </p>
-              <p className="text-xs text-gray-500">Temp</p>
+              <p className="text-xs text-gray-500">Темп.</p>
             </div>
           </div>
 
@@ -102,7 +102,7 @@ export function DeviceCard({ device }: DeviceCardProps) {
               <p className="text-lg font-semibold text-gray-700">
                 {device.signal_strength}%
               </p>
-              <p className="text-xs text-gray-500">Signal</p>
+              <p className="text-xs text-gray-500">Сигнал</p>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@ export function DeviceCard({ device }: DeviceCardProps) {
         <div className="pt-3 border-t border-gray-100">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-sm text-gray-600">Tasks today: </span>
+              <span className="text-sm text-gray-600">Задач сегодня: </span>
               <span className="text-sm font-semibold text-primary-600">
                 {device.tasks_completed_today}
               </span>
@@ -124,7 +124,7 @@ export function DeviceCard({ device }: DeviceCardProps) {
               isLoading={isLaunching}
               disabled={device.current_status === 'offline'}
             >
-              Screen
+              Экран
             </Button>
           </div>
         </div>

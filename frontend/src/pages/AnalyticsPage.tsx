@@ -29,10 +29,10 @@ export function AnalyticsPage() {
   const [devices, setDevices] = useState<DeviceStatus[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
   const [timeRangeStats, setTimeRangeStats] = useState<TimeRangeStats[]>([
-    { label: 'Last Hour', hours: 1, stats: null },
-    { label: 'Last 24 Hours', hours: 24, stats: null },
-    { label: 'Last Week', hours: 168, stats: null },
-    { label: 'Last Month', hours: 720, stats: null },
+    { label: 'За час', hours: 1, stats: null },
+    { label: 'За 24 часа', hours: 24, stats: null },
+    { label: 'За неделю', hours: 168, stats: null },
+    { label: 'За месяц', hours: 720, stats: null },
   ])
   const [selectedRange, setSelectedRange] = useState(24)
 
@@ -53,18 +53,18 @@ export function AnalyticsPage() {
       setDevices(devicesData)
       setTasks(tasksData)
       setTimeRangeStats([
-        { label: 'Last Hour', hours: 1, stats: statsData[0] },
-        { label: 'Last 24 Hours', hours: 24, stats: statsData[1] },
-        { label: 'Last Week', hours: 168, stats: statsData[2] },
-        { label: 'Last Month', hours: 720, stats: statsData[3] },
+        { label: 'За час', hours: 1, stats: statsData[0] },
+        { label: 'За 24 часа', hours: 24, stats: statsData[1] },
+        { label: 'За неделю', hours: 168, stats: statsData[2] },
+        { label: 'За месяц', hours: 720, stats: statsData[3] },
       ])
 
       if (showToast) {
-        toast.success('Analytics refreshed')
+        toast.success('Аналитика обновлена')
       }
     } catch (error) {
       console.error('Error loading analytics:', error)
-      toast.error('Failed to load analytics')
+      toast.error('Не удалось загрузить аналитику')
     } finally {
       setIsLoading(false)
       setIsRefreshing(false)
@@ -163,7 +163,7 @@ export function AnalyticsPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-          <p className="mt-4 text-sm text-gray-600">Loading analytics...</p>
+          <p className="mt-4 text-sm text-gray-600">Загрузка аналитики...</p>
         </div>
       </div>
     )
@@ -176,9 +176,9 @@ export function AnalyticsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Аналитика</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Platform statistics and performance metrics
+                Статистика платформы и метрики производительности
               </p>
             </div>
             <div className="flex items-center gap-4">
@@ -202,7 +202,7 @@ export function AnalyticsPage() {
                 onClick={() => loadData(true)}
                 isLoading={isRefreshing}
               >
-                Refresh
+                Обновить
               </Button>
             </div>
           </div>
@@ -222,7 +222,7 @@ export function AnalyticsPage() {
                 <p className="text-2xl font-bold text-gray-900">
                   {currentStats?.total_logs || 0}
                 </p>
-                <p className="text-sm text-gray-500">Total Actions</p>
+                <p className="text-sm text-gray-500">Всего действий</p>
               </div>
             </div>
           </div>
@@ -236,7 +236,7 @@ export function AnalyticsPage() {
                 <p className="text-2xl font-bold text-success-600">
                   {currentStats?.success_count || 0}
                 </p>
-                <p className="text-sm text-gray-500">Successful</p>
+                <p className="text-sm text-gray-500">Успешно</p>
               </div>
             </div>
           </div>
@@ -250,7 +250,7 @@ export function AnalyticsPage() {
                 <p className="text-2xl font-bold text-error-600">
                   {currentStats?.failed_count || 0}
                 </p>
-                <p className="text-sm text-gray-500">Failed</p>
+                <p className="text-sm text-gray-500">Ошибки</p>
               </div>
             </div>
           </div>
@@ -264,7 +264,7 @@ export function AnalyticsPage() {
                 <p className="text-2xl font-bold text-warning-600">
                   {currentStats?.warning_count || 0}
                 </p>
-                <p className="text-sm text-gray-500">Warnings</p>
+                <p className="text-sm text-gray-500">Предупреждения</p>
               </div>
             </div>
           </div>
@@ -274,16 +274,16 @@ export function AnalyticsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Success Rate */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Success Rate</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Успешность</h3>
             <SuccessRateGauge rate={currentStats?.success_rate || 0} />
             <p className="text-center mt-4 text-sm text-gray-500">
-              {currentStats?.success_count || 0} of {currentStats?.total_logs || 0} actions succeeded
+              {currentStats?.success_count || 0} из {currentStats?.total_logs || 0} действий успешно
             </p>
           </div>
 
           {/* Action Types */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Actions by Type</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Действия по типам</h3>
             {currentStats?.action_counts && Object.keys(currentStats.action_counts).length > 0 ? (
               <BarChart
                 data={Object.entries(currentStats.action_counts).map(([key, value]) => ({
@@ -294,19 +294,19 @@ export function AnalyticsPage() {
                 maxValue={Math.max(...Object.values(currentStats.action_counts))}
               />
             ) : (
-              <p className="text-gray-500 text-center py-8">No actions recorded</p>
+              <p className="text-gray-500 text-center py-8">Нет записанных действий</p>
             )}
           </div>
 
           {/* Tasks Overview */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Tasks Overview</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Обзор задач</h3>
             <BarChart
               data={[
-                { label: 'Completed', value: completedTasks, color: 'bg-success-500' },
-                { label: 'Running', value: runningTasks, color: 'bg-primary-500' },
-                { label: 'Pending', value: pendingTasks, color: 'bg-warning-500' },
-                { label: 'Failed', value: failedTasks, color: 'bg-error-500' },
+                { label: 'Завершено', value: completedTasks, color: 'bg-success-500' },
+                { label: 'Выполняется', value: runningTasks, color: 'bg-primary-500' },
+                { label: 'Ожидает', value: pendingTasks, color: 'bg-warning-500' },
+                { label: 'Ошибки', value: failedTasks, color: 'bg-error-500' },
               ]}
               maxValue={Math.max(completedTasks, runningTasks, pendingTasks, failedTasks, 1)}
             />
@@ -317,12 +317,12 @@ export function AnalyticsPage() {
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Device Health */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Device Health</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Состояние устройств</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <RiSmartphoneLine className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Online Devices</span>
+                  <span className="text-sm text-gray-600">Устройства онлайн</span>
                 </div>
                 <p className="text-2xl font-bold text-gray-900">
                   {onlineDevices} / {totalDevices}
@@ -332,7 +332,7 @@ export function AnalyticsPage() {
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <RiLineChartLine className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Avg Battery</span>
+                  <span className="text-sm text-gray-600">Ср. заряд</span>
                 </div>
                 <p className={`text-2xl font-bold ${avgBattery > 50 ? 'text-success-600' : avgBattery > 20 ? 'text-warning-600' : 'text-error-600'}`}>
                   {avgBattery}%
@@ -342,7 +342,7 @@ export function AnalyticsPage() {
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <RiTimeLine className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Avg Temperature</span>
+                  <span className="text-sm text-gray-600">Ср. температура</span>
                 </div>
                 <p className={`text-2xl font-bold ${Number(avgTemp) < 35 ? 'text-gray-900' : Number(avgTemp) < 40 ? 'text-warning-600' : 'text-error-600'}`}>
                   {avgTemp}°C
@@ -352,7 +352,7 @@ export function AnalyticsPage() {
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <RiTaskLine className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Tasks Today</span>
+                  <span className="text-sm text-gray-600">Задач сегодня</span>
                 </div>
                 <p className="text-2xl font-bold text-primary-600">
                   {devices.reduce((sum, d) => sum + d.tasks_completed_today, 0)}
@@ -363,7 +363,7 @@ export function AnalyticsPage() {
 
           {/* Time Range Comparison */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance Over Time</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Производительность</h3>
             <div className="space-y-4">
               {timeRangeStats.map((range) => (
                 <div
@@ -382,7 +382,7 @@ export function AnalyticsPage() {
                     </div>
                     <div className="flex items-center gap-4 text-sm">
                       <span className="text-gray-500">
-                        {range.stats?.total_logs || 0} actions
+                        {range.stats?.total_logs || 0} действий
                       </span>
                       <span
                         className={`font-medium ${
@@ -393,7 +393,7 @@ export function AnalyticsPage() {
                             : 'text-error-600'
                         }`}
                       >
-                        {range.stats?.success_rate || 0}% success
+                        {range.stats?.success_rate || 0}% успешно
                       </span>
                     </div>
                   </div>

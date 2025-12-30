@@ -54,8 +54,8 @@ export const ConditionNode = memo(({ data, selected }: NodeProps<ConditionNodeDa
 
       {/* Labels for handles */}
       <div className="flex justify-between text-[10px] mt-2 px-2">
-        <span className="text-green-200">Yes</span>
-        <span className="text-red-200">No</span>
+        <span className="text-green-200">Да</span>
+        <span className="text-red-200">Нет</span>
       </div>
     </div>
   )

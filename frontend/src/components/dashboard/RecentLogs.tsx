@@ -36,7 +36,7 @@ export function RecentLogs({ logs }: RecentLogsProps) {
 
   if (logs.length === 0) {
     return (
-      <Card title="Recent Logs" subtitle="Last 10 entries">
+      <Card title="Последние логи" subtitle="Последние 10 записей">
         <div className="py-12 text-center">
           <svg
             className="mx-auto h-12 w-12 text-gray-400"
@@ -51,9 +51,9 @@ export function RecentLogs({ logs }: RecentLogsProps) {
               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             />
           </svg>
-          <h3 className="mt-2 text-sm font-medium text-gray-900">No activity logs</h3>
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Нет логов активности</h3>
           <p className="mt-1 text-sm text-gray-500">
-            Logs will appear here when tasks are executed
+            Логи появятся здесь при выполнении задач
           </p>
         </div>
       </Card>
@@ -61,7 +61,7 @@ export function RecentLogs({ logs }: RecentLogsProps) {
   }
 
   return (
-    <Card title="Recent Logs" subtitle="Last 10 entries" padding="none">
+    <Card title="Последние логи" subtitle="Последние 10 записей" padding="none">
       <div className="divide-y divide-gray-100">
         {logs.map((log) => (
           <div
@@ -99,7 +99,7 @@ export function RecentLogs({ logs }: RecentLogsProps) {
                     <>
                       <span className="text-gray-300">•</span>
                       <span className="text-xs text-gray-500">
-                        Task #{log.task_id}
+                        Задача #{log.task_id}
                       </span>
                     </>
                   )}

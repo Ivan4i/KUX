@@ -21,18 +21,18 @@ interface PaletteItem {
 const triggers: PaletteItem[] = [
   {
     type: 'trigger',
-    label: 'Notion Trigger',
-    description: 'Fetch leads from Notion',
+    label: 'Notion триггер',
+    description: 'Получить лиды из Notion',
     icon: RiNotionFill,
-    data: { label: 'Fetch from Notion', description: 'Get pending leads', icon: 'notion' },
+    data: { label: 'Загрузить из Notion', description: 'Получить ожидающие лиды', icon: 'notion' },
     color: 'bg-purple-500',
   },
   {
     type: 'trigger',
-    label: 'Schedule',
-    description: 'Run on schedule',
+    label: 'Расписание',
+    description: 'Запуск по расписанию',
     icon: RiTimeLine,
-    data: { label: 'Scheduled Run', description: 'CRON trigger', icon: 'schedule' },
+    data: { label: 'Запуск по расписанию', description: 'CRON триггер', icon: 'schedule' },
     color: 'bg-purple-500',
   },
 ]
@@ -41,41 +41,41 @@ const actions: PaletteItem[] = [
   {
     type: 'action',
     label: 'Gemini AI',
-    description: 'Analyze with LLM',
+    description: 'Анализ через ИИ',
     icon: RiSparklingLine,
-    data: { label: 'Analyze Lead', description: 'Generate personalized message', icon: 'gemini', agent: 'gemini' },
+    data: { label: 'Анализ лида', description: 'Сгенерировать персональное сообщение', icon: 'gemini', agent: 'gemini' },
     color: 'bg-indigo-500',
   },
   {
     type: 'action',
     label: 'WhatsApp',
-    description: 'Send WhatsApp message',
+    description: 'Отправить сообщение WhatsApp',
     icon: RiWhatsappLine,
-    data: { label: 'Send WhatsApp', description: 'Send via WhatsApp', icon: 'whatsapp', agent: 'whatsapp' },
+    data: { label: 'Отправить WhatsApp', description: 'Отправить через WhatsApp', icon: 'whatsapp', agent: 'whatsapp' },
     color: 'bg-green-500',
   },
   {
     type: 'action',
     label: 'SMS',
-    description: 'Send SMS message',
+    description: 'Отправить SMS сообщение',
     icon: RiMessage2Line,
-    data: { label: 'Send SMS', description: 'Send via SMS', icon: 'sms', agent: 'sms' },
+    data: { label: 'Отправить SMS', description: 'Отправить через SMS', icon: 'sms', agent: 'sms' },
     color: 'bg-blue-500',
   },
   {
     type: 'action',
     label: 'MAX',
-    description: 'Send MAX message',
+    description: 'Отправить сообщение MAX',
     icon: RiRobotLine,
-    data: { label: 'Send MAX', description: 'Send via MAX app', icon: 'max', agent: 'max' },
+    data: { label: 'Отправить MAX', description: 'Отправить через MAX', icon: 'max', agent: 'max' },
     color: 'bg-orange-500',
   },
   {
     type: 'action',
     label: 'Telegram',
-    description: 'Send Telegram message',
+    description: 'Отправить сообщение Telegram',
     icon: RiTelegramLine,
-    data: { label: 'Send Telegram', description: 'Send via Telegram', icon: 'telegram', agent: 'telegram' },
+    data: { label: 'Отправить Telegram', description: 'Отправить через Telegram', icon: 'telegram', agent: 'telegram' },
     color: 'bg-sky-500',
   },
 ]
@@ -83,10 +83,10 @@ const actions: PaletteItem[] = [
 const conditions: PaletteItem[] = [
   {
     type: 'condition',
-    label: 'Condition',
-    description: 'Branch based on condition',
+    label: 'Условие',
+    description: 'Ветвление по условию',
     icon: RiQuestionLine,
-    data: { label: 'Check Condition', description: 'If/else branch' },
+    data: { label: 'Проверка условия', description: 'Ветка если/иначе' },
     color: 'bg-amber-500',
   },
 ]
@@ -115,12 +115,12 @@ function DraggableNode({ item }: { item: PaletteItem }) {
 export function NodePalette() {
   return (
     <div className="w-56 bg-white border-r border-gray-200 p-4 overflow-y-auto">
-      <h3 className="text-sm font-semibold text-gray-900 mb-4">Node Palette</h3>
-      <p className="text-xs text-gray-500 mb-4">Drag nodes to the canvas</p>
+      <h3 className="text-sm font-semibold text-gray-900 mb-4">Палитра узлов</h3>
+      <p className="text-xs text-gray-500 mb-4">Перетащите узлы на холст</p>
 
-      {/* Triggers */}
+      {/* Триггеры */}
       <div className="mb-4">
-        <h4 className="text-xs font-medium text-gray-600 mb-2 uppercase tracking-wider">Triggers</h4>
+        <h4 className="text-xs font-medium text-gray-600 mb-2 uppercase tracking-wider">Триггеры</h4>
         <div className="space-y-2">
           {triggers.map((item) => (
             <DraggableNode key={item.label} item={item} />
@@ -128,9 +128,9 @@ export function NodePalette() {
         </div>
       </div>
 
-      {/* Actions */}
+      {/* Действия */}
       <div className="mb-4">
-        <h4 className="text-xs font-medium text-gray-600 mb-2 uppercase tracking-wider">Actions</h4>
+        <h4 className="text-xs font-medium text-gray-600 mb-2 uppercase tracking-wider">Действия</h4>
         <div className="space-y-2">
           {actions.map((item) => (
             <DraggableNode key={item.label} item={item} />
@@ -138,9 +138,9 @@ export function NodePalette() {
         </div>
       </div>
 
-      {/* Conditions */}
+      {/* Логика */}
       <div className="mb-4">
-        <h4 className="text-xs font-medium text-gray-600 mb-2 uppercase tracking-wider">Logic</h4>
+        <h4 className="text-xs font-medium text-gray-600 mb-2 uppercase tracking-wider">Логика</h4>
         <div className="space-y-2">
           {conditions.map((item) => (
             <DraggableNode key={item.label} item={item} />

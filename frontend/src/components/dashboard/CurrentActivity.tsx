@@ -11,14 +11,14 @@ interface CurrentActivityProps {
 export function CurrentActivity({ task, progress }: CurrentActivityProps) {
   if (!task) {
     return (
-      <Card title="Current Activity">
+      <Card title="Текущая активность">
         <div className="flex flex-col items-center justify-center py-12 text-center">
           <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
             <RiWhatsappLine className="text-2xl text-gray-400" />
           </div>
-          <h3 className="text-sm font-medium text-gray-900">No active tasks</h3>
+          <h3 className="text-sm font-medium text-gray-900">Нет активных задач</h3>
           <p className="mt-1 text-sm text-gray-500">
-            Click "Run Task" to start sending messages
+            Нажмите «Запустить» для отправки сообщений
           </p>
         </div>
       </Card>
@@ -27,8 +27,8 @@ export function CurrentActivity({ task, progress }: CurrentActivityProps) {
 
   return (
     <Card
-      title="Current Activity"
-      subtitle={`Task #${task.id}`}
+      title="Текущая активность"
+      subtitle={`Задача #${task.id}`}
     >
       <div className="space-y-4">
         {/* Task Info */}
@@ -77,7 +77,7 @@ export function CurrentActivity({ task, progress }: CurrentActivityProps) {
         {task.device_id && (
           <div className="pt-3 border-t border-gray-100">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Device</span>
+              <span className="text-gray-600">Устройство</span>
               <span className="font-medium text-gray-900">{task.device_id}</span>
             </div>
           </div>

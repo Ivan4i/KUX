@@ -37,8 +37,8 @@ export function TasksPage() {
       setIsInitialLoad(false)
     } catch (error: any) {
       console.error('Error loading tasks:', error)
-      setError(error?.response?.data?.error || error?.message || 'Failed to load tasks')
-      toast.error('Failed to load tasks')
+      setError(error?.response?.data?.error || error?.message || 'Не удалось загрузить задачи')
+      toast.error('Не удалось загрузить задачи')
     } finally {
       setIsLoading(false)
     }
@@ -66,12 +66,12 @@ export function TasksPage() {
 
   useWebSocketMessages('task_completed', (_message: any) => {
     loadTasks()
-    toast.success('Task completed!')
+    toast.success('Задача выполнена!')
   })
 
   useWebSocketMessages('task_failed', (message: any) => {
     loadTasks()
-    toast.error(`Task failed: ${message.error || 'Unknown error'}`)
+    toast.error(`Задача не выполнена: ${message.error || 'Неизвестная ошибка'}`)
   })
 
   // Actions
@@ -79,10 +79,10 @@ export function TasksPage() {
     try {
       setIsSyncing(true)
       const result = await syncNotionTasks(20)
-      toast.success(`Synced ${result.tasks_synced} tasks from Notion`)
+      toast.success(`Синхронизировано ${result.tasks_synced} задач из Notion`)
       loadTasks()
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to sync Notion')
+      toast.error(error?.response?.data?.error || 'Ошибка синхронизации Notion')
     } finally {
       setIsSyncing(false)
     }
@@ -92,25 +92,25 @@ export function TasksPage() {
     try {
       setIsLoading(true)
       await runTask(taskId)
-      toast.success(taskId ? 'Task started!' : 'Next task started!')
+      toast.success(taskId ? 'Задача запущена!' : 'Следующая задача запущена!')
       loadTasks()
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to start task')
+      toast.error(error?.response?.data?.error || 'Не удалось запустить задачу')
     } finally {
       setIsLoading(false)
     }
   }
 
   const handleDeleteTask = async (taskId: number) => {
-    if (!window.confirm('Are you sure you want to delete this task?')) return
+    if (!window.confirm('Вы уверены, что хотите удалить эту задачу?')) return
 
     try {
       setIsLoading(true)
       await deleteTask(taskId)
-      toast.success('Task deleted')
+      toast.success('Задача удалена')
       setTasks(prev => prev.filter(t => t.id !== taskId))
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to delete task')
+      toast.error(error?.response?.data?.error || 'Не удалось удалить задачу')
     } finally {
       setIsLoading(false)
     }
@@ -118,18 +118,18 @@ export function TasksPage() {
 
   const handleDeleteSelected = async () => {
     if (selectedTasks.size === 0) return
-    if (!window.confirm(`Delete ${selectedTasks.size} selected tasks?`)) return
+    if (!window.confirm(`Удалить ${selectedTasks.size} выбранных задач?`)) return
 
     try {
       setIsLoading(true)
       for (const taskId of selectedTasks) {
         await deleteTask(taskId)
       }
-      toast.success(`Deleted ${selectedTasks.size} tasks`)
+      toast.success(`Удалено ${selectedTasks.size} задач`)
       setSelectedTasks(new Set())
       loadTasks()
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to delete tasks')
+      toast.error(error?.response?.data?.error || 'Не удалось удалить задачи')
     } finally {
       setIsLoading(false)
     }
@@ -183,9 +183,9 @@ export function TasksPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Tasks</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Задачи</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Manage WhatsApp message tasks
+                Управление задачами WhatsApp сообщений
               </p>
             </div>
 
@@ -197,7 +197,7 @@ export function TasksPage() {
                 onClick={handleSyncNotion}
                 isLoading={isSyncing}
               >
-                Sync Notion
+                Синхр. Notion
               </Button>
               <Button
                 variant="primary"
@@ -207,7 +207,7 @@ export function TasksPage() {
                 isLoading={isLoading}
                 disabled={stats.pending === 0}
               >
-                Run Next
+                Запустить
               </Button>
               <Button
                 variant="ghost"
@@ -215,7 +215,7 @@ export function TasksPage() {
                 leftIcon={<RiRefreshLine />}
                 onClick={() => loadTasks()}
               >
-                Refresh
+                Обновить
               </Button>
             </div>
           </div>
@@ -228,23 +228,23 @@ export function TasksPage() {
           <div className="grid grid-cols-5 gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-gray-900">{stats.total}</div>
-              <div className="text-xs text-gray-500">Total</div>
+              <div className="text-xs text-gray-500">Всего</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-yellow-600">{stats.pending}</div>
-              <div className="text-xs text-gray-500">Pending</div>
+              <div className="text-xs text-gray-500">Ожидает</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-primary-600">{stats.running}</div>
-              <div className="text-xs text-gray-500">Running</div>
+              <div className="text-xs text-gray-500">Выполняется</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-green-600">{stats.sent}</div>
-              <div className="text-xs text-gray-500">Sent</div>
+              <div className="text-xs text-gray-500">Отправлено</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-red-600">{stats.failed}</div>
-              <div className="text-xs text-gray-500">Failed</div>
+              <div className="text-xs text-gray-500">Ошибка</div>
             </div>
           </div>
         </div>
@@ -262,11 +262,11 @@ export function TasksPage() {
                   onChange={(e) => setFilterStatus(e.target.value as TaskStatus)}
                   className="text-sm border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
                 >
-                  <option value="all">All Status</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Running">Running</option>
-                  <option value="Sent">Sent</option>
-                  <option value="Failed">Failed</option>
+                  <option value="all">Все статусы</option>
+                  <option value="Pending">Ожидает</option>
+                  <option value="Running">Выполняется</option>
+                  <option value="Sent">Отправлено</option>
+                  <option value="Failed">Ошибка</option>
                 </select>
               </div>
 
@@ -277,13 +277,13 @@ export function TasksPage() {
                   leftIcon={<RiDeleteBinLine />}
                   onClick={handleDeleteSelected}
                 >
-                  Delete ({selectedTasks.size})
+                  Удалить ({selectedTasks.size})
                 </Button>
               )}
             </div>
 
             <span className="text-sm text-gray-500">
-              {tasks.length} task(s)
+              {tasks.length} задач
             </span>
           </div>
         </div>
@@ -303,7 +303,7 @@ export function TasksPage() {
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-              <p className="mt-4 text-sm text-gray-600">Loading tasks...</p>
+              <p className="mt-4 text-sm text-gray-600">Загрузка задач...</p>
             </div>
           </div>
         )}
@@ -324,14 +324,14 @@ export function TasksPage() {
                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
               />
             </svg>
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No tasks</h3>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">Нет задач</h3>
             <p className="mt-1 text-sm text-gray-500">
-              Sync tasks from Notion or create them manually.
+              Синхронизируйте задачи из Notion или создайте вручную.
             </p>
             <div className="mt-6">
               <Button variant="primary" onClick={handleSyncNotion} isLoading={isSyncing}>
                 <RiRefreshLine className="w-4 h-4 mr-2" />
-                Sync from Notion
+                Синхронизировать из Notion
               </Button>
             </div>
           </div>
@@ -352,22 +352,22 @@ export function TasksPage() {
                     />
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Status
+                    Статус
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Recipient
+                    Получатель
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Message
+                    Сообщение
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Device
+                    Устройство
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Scheduled
+                    Запланировано
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Actions
+                    Действия
                   </th>
                 </tr>
               </thead>
@@ -429,7 +429,7 @@ export function TasksPage() {
                             <button
                               onClick={() => handleRunTask(task.id)}
                               className="p-1.5 text-primary-600 hover:bg-blue-50 rounded"
-                              title="Run task"
+                              title="Запустить"
                             >
                               <RiPlayFill className="w-3.5 h-3.5" />
                             </button>
@@ -437,7 +437,7 @@ export function TasksPage() {
                           <button
                             onClick={() => handleDeleteTask(task.id)}
                             className="p-1.5 text-red-600 hover:bg-red-50 rounded"
-                            title="Delete task"
+                            title="Удалить"
                           >
                             <RiDeleteBinLine className="w-3.5 h-3.5" />
                           </button>

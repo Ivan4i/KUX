@@ -23,52 +23,52 @@ const AGENT_OPTIONS: { type: AgentType; label: string; icon: React.ReactNode }[]
 const ACTION_PARAMETERS: Record<string, { key: string; label: string; type: 'string' | 'number' | 'boolean' | 'json'; required?: boolean; placeholder?: string }[]> = {
   // WhatsApp
   'whatsapp:send_message': [
-    { key: 'recipient', label: 'Phone Number', type: 'string', required: true, placeholder: '+66812345678' },
-    { key: 'message', label: 'Message', type: 'string', required: true, placeholder: 'Hello!' },
-    { key: 'recipient_name', label: 'Recipient Name', type: 'string', placeholder: 'John Doe' },
-    { key: 'personalize', label: 'Personalize with AI', type: 'boolean' },
-    { key: 'use_typos', label: 'Add Realistic Typos', type: 'boolean' },
+    { key: 'recipient', label: 'Номер телефона', type: 'string', required: true, placeholder: '+66812345678' },
+    { key: 'message', label: 'Сообщение', type: 'string', required: true, placeholder: 'Привет!' },
+    { key: 'recipient_name', label: 'Имя получателя', type: 'string', placeholder: 'Иван Иванов' },
+    { key: 'personalize', label: 'Персонализировать с ИИ', type: 'boolean' },
+    { key: 'use_typos', label: 'Добавить опечатки', type: 'boolean' },
   ],
   'whatsapp:warmup': [
-    { key: 'duration_seconds', label: 'Duration (seconds)', type: 'number', placeholder: '60' },
+    { key: 'duration_seconds', label: 'Длительность (секунд)', type: 'number', placeholder: '60' },
   ],
   'whatsapp:send_batch_messages': [
-    { key: 'recipients', label: 'Recipients (JSON)', type: 'json', required: true, placeholder: '[{"phone": "+66...", "name": "John", "message": "Hi!"}]' },
-    { key: 'delay_between', label: 'Delay Between (seconds)', type: 'number', placeholder: '30' },
+    { key: 'recipients', label: 'Получатели (JSON)', type: 'json', required: true, placeholder: '[{"phone": "+66...", "name": "Иван", "message": "Привет!"}]' },
+    { key: 'delay_between', label: 'Задержка между (секунд)', type: 'number', placeholder: '30' },
   ],
   'whatsapp:check_delivery': [
-    { key: 'recipient', label: 'Phone Number', type: 'string', required: true, placeholder: '+66812345678' },
+    { key: 'recipient', label: 'Номер телефона', type: 'string', required: true, placeholder: '+66812345678' },
   ],
   // Instagram
   'instagram:send_dm': [
-    { key: 'username', label: 'Username', type: 'string', required: true, placeholder: '@username' },
-    { key: 'message', label: 'Message', type: 'string', required: true },
+    { key: 'username', label: 'Имя пользователя', type: 'string', required: true, placeholder: '@username' },
+    { key: 'message', label: 'Сообщение', type: 'string', required: true },
   ],
   'instagram:follow_user': [
-    { key: 'username', label: 'Username', type: 'string', required: true, placeholder: '@username' },
+    { key: 'username', label: 'Имя пользователя', type: 'string', required: true, placeholder: '@username' },
   ],
   'instagram:like_post': [
-    { key: 'post_url', label: 'Post URL', type: 'string', required: true },
+    { key: 'post_url', label: 'URL поста', type: 'string', required: true },
   ],
   // LinkedIn
   'linkedin:send_message': [
-    { key: 'profile_url', label: 'Profile URL', type: 'string', required: true },
-    { key: 'message', label: 'Message', type: 'string', required: true },
+    { key: 'profile_url', label: 'URL профиля', type: 'string', required: true },
+    { key: 'message', label: 'Сообщение', type: 'string', required: true },
   ],
   'linkedin:connect': [
-    { key: 'profile_url', label: 'Profile URL', type: 'string', required: true },
-    { key: 'note', label: 'Connection Note', type: 'string' },
+    { key: 'profile_url', label: 'URL профиля', type: 'string', required: true },
+    { key: 'note', label: 'Заметка к запросу', type: 'string' },
   ],
   'linkedin:view_profile': [
-    { key: 'profile_url', label: 'Profile URL', type: 'string', required: true },
+    { key: 'profile_url', label: 'URL профиля', type: 'string', required: true },
   ],
   // Telegram
   'telegram:send_message': [
-    { key: 'chat_id', label: 'Chat ID / Username', type: 'string', required: true },
-    { key: 'message', label: 'Message', type: 'string', required: true },
+    { key: 'chat_id', label: 'ID чата / Username', type: 'string', required: true },
+    { key: 'message', label: 'Сообщение', type: 'string', required: true },
   ],
   'telegram:join_group': [
-    { key: 'group_link', label: 'Group Link', type: 'string', required: true },
+    { key: 'group_link', label: 'Ссылка на группу', type: 'string', required: true },
   ],
 }
 
@@ -177,7 +177,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">
-              {isEditing ? 'Edit Step' : 'Add New Step'}
+              {isEditing ? 'Редактировать шаг' : 'Добавить новый шаг'}
             </h2>
             <button
               onClick={onClose}
@@ -193,13 +193,13 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
               {/* Step Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Step Name
+                  Название шага
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g., Send welcome message"
+                  placeholder="например, Отправить приветственное сообщение"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
@@ -207,7 +207,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
               {/* Agent Type */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Agent
+                  Агент
                 </label>
                 <div className="grid grid-cols-4 gap-2">
                   {AGENT_OPTIONS.map((agent) => (
@@ -233,7 +233,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
               {/* Action */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Action
+                  Действие
                 </label>
                 <select
                   value={action}
@@ -241,7 +241,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   required
                 >
-                  <option value="">Select an action...</option>
+                  <option value="">Выберите действие...</option>
                   {availableActions.map((act) => (
                     <option key={act.action} value={act.action}>
                       {act.label} - {act.description}
@@ -254,7 +254,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
               {action && parameterDefs.length > 0 && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Parameters
+                    Параметры
                   </label>
                   <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
                     {parameterDefs.map((param) => (
@@ -272,7 +272,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
                               onChange={(e) => handleParameterChange(param.key, e.target.checked, param.type)}
                               className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                             />
-                            <span className="text-sm text-gray-600">Enable</span>
+                            <span className="text-sm text-gray-600">Включить</span>
                           </label>
                         ) : param.type === 'json' ? (
                           <textarea
@@ -320,7 +320,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
               {/* Advanced Settings */}
               <details className="group">
                 <summary className="flex items-center gap-2 cursor-pointer text-sm font-medium text-gray-700">
-                  <span>Advanced Settings</span>
+                  <span>Дополнительные настройки</span>
                   <span className="text-gray-400 group-open:rotate-90 transition-transform">▶</span>
                 </summary>
 
@@ -328,7 +328,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
                   {/* Delay Before */}
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">
-                      Delay Before (seconds)
+                      Задержка перед (секунд)
                     </label>
                     <input
                       type="number"
@@ -337,13 +337,13 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
                       min={0}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
-                    <p className="mt-1 text-xs text-gray-500">Wait before executing this step</p>
+                    <p className="mt-1 text-xs text-gray-500">Подождать перед выполнением этого шага</p>
                   </div>
 
                   {/* Timeout */}
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">
-                      Timeout (seconds)
+                      Таймаут (секунд)
                     </label>
                     <input
                       type="number"
@@ -357,7 +357,7 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
                   {/* Max Retries */}
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">
-                      Max Retries
+                      Макс. повторов
                     </label>
                     <input
                       type="number"
@@ -372,17 +372,17 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
                   {/* Condition */}
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">
-                      Condition (optional)
+                      Условие (опционально)
                     </label>
                     <input
                       type="text"
                       value={condition}
                       onChange={(e) => setCondition(e.target.value)}
-                      placeholder="e.g., previous_step.success == true"
+                      placeholder="например, previous_step.success == true"
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                     <p className="mt-1 text-xs text-gray-500">
-                      Python expression to evaluate. Step runs only if condition is true.
+                      Python-выражение. Шаг выполняется только если условие истинно.
                     </p>
                   </div>
                 </div>
@@ -392,10 +392,10 @@ export function StepEditor({ isOpen, onClose, onSave, step, isLoading = false }:
             {/* Footer */}
             <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50">
               <Button variant="secondary" onClick={onClose} disabled={isLoading}>
-                Cancel
+                Отмена
               </Button>
               <Button type="submit" variant="primary" isLoading={isLoading} disabled={!action}>
-                {isEditing ? 'Save Changes' : 'Add Step'}
+                {isEditing ? 'Сохранить изменения' : 'Добавить шаг'}
               </Button>
             </div>
           </form>

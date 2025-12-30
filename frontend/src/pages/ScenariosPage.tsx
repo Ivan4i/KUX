@@ -67,8 +67,8 @@ export function ScenariosPage() {
       setIsInitialLoad(false)
     } catch (error: any) {
       console.error('Error loading scenarios:', error)
-      setError(error?.response?.data?.error || error?.message || 'Failed to load scenarios')
-      toast.error('Failed to load scenarios')
+      setError(error?.response?.data?.error || error?.message || 'Не удалось загрузить сценарии')
+      toast.error('Не удалось загрузить сценарии')
     } finally {
       setIsLoading(false)
     }
@@ -82,7 +82,7 @@ export function ScenariosPage() {
       setSelectedScenario(data)
     } catch (error: any) {
       console.error('Error loading scenario:', error)
-      toast.error('Failed to load scenario')
+      toast.error('Не удалось загрузить сценарий')
       navigate('/scenarios')
     } finally {
       setIsLoading(false)
@@ -115,7 +115,7 @@ export function ScenariosPage() {
   })
 
   useWebSocketMessages('scenario_completed', (message: any) => {
-    toast.success('Scenario completed successfully!')
+    toast.success('Сценарий успешно выполнен!')
     loadScenarios()
     if (selectedScenario?.id === message.scenario_id) {
       loadScenario(message.scenario_id)
@@ -123,7 +123,7 @@ export function ScenariosPage() {
   })
 
   useWebSocketMessages('scenario_failed', (message: any) => {
-    toast.error(`Scenario failed: ${message.error || 'Unknown error'}`)
+    toast.error(`Сценарий не выполнен: ${message.error || 'Неизвестная ошибка'}`)
     loadScenarios()
     if (selectedScenario?.id === message.scenario_id) {
       loadScenario(message.scenario_id)
@@ -133,7 +133,7 @@ export function ScenariosPage() {
   // Actions
   const handleCreateScenario = async () => {
     if (!newScenarioName.trim()) {
-      toast.error('Please enter a scenario name')
+      toast.error('Введите название сценария')
       return
     }
 
@@ -144,13 +144,13 @@ export function ScenariosPage() {
         description: newScenarioDescription || undefined,
       })
 
-      toast.success('Scenario created!')
+      toast.success('Сценарий создан!')
       setShowCreateModal(false)
       setNewScenarioName('')
       setNewScenarioDescription('')
       navigate(`/scenarios/${scenario.id}`)
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to create scenario')
+      toast.error(error?.response?.data?.error || 'Не удалось создать сценарий')
     } finally {
       setIsLoading(false)
     }
@@ -160,10 +160,10 @@ export function ScenariosPage() {
     try {
       setIsLoading(true)
       await runScenario(id)
-      toast.success('Scenario started!')
+      toast.success('Сценарий запущен!')
       loadScenarios()
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to start scenario')
+      toast.error(error?.response?.data?.error || 'Не удалось запустить сценарий')
     } finally {
       setIsLoading(false)
     }
@@ -173,10 +173,10 @@ export function ScenariosPage() {
     try {
       setIsLoading(true)
       await pauseScenario(id)
-      toast.success('Scenario paused')
+      toast.success('Сценарий приостановлен')
       loadScenarios()
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to pause scenario')
+      toast.error(error?.response?.data?.error || 'Не удалось приостановить сценарий')
     } finally {
       setIsLoading(false)
     }
@@ -186,10 +186,10 @@ export function ScenariosPage() {
     try {
       setIsLoading(true)
       await cancelScenario(id)
-      toast.success('Scenario cancelled')
+      toast.success('Сценарий отменён')
       loadScenarios()
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to cancel scenario')
+      toast.error(error?.response?.data?.error || 'Не удалось отменить сценарий')
     } finally {
       setIsLoading(false)
     }
@@ -203,26 +203,26 @@ export function ScenariosPage() {
     try {
       setIsLoading(true)
       const scenario = await duplicateScenario(id)
-      toast.success('Scenario duplicated!')
+      toast.success('Сценарий продублирован!')
       loadScenarios()
       navigate(`/scenarios/${scenario.id}`)
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to duplicate scenario')
+      toast.error(error?.response?.data?.error || 'Не удалось продублировать сценарий')
     } finally {
       setIsLoading(false)
     }
   }
 
   const handleDeleteScenario = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this scenario?')) return
+    if (!window.confirm('Вы уверены, что хотите удалить этот сценарий?')) return
 
     try {
       setIsLoading(true)
       await deleteScenario(id)
-      toast.success('Scenario deleted')
+      toast.success('Сценарий удалён')
       loadScenarios()
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to delete scenario')
+      toast.error(error?.response?.data?.error || 'Не удалось удалить сценарий')
     } finally {
       setIsLoading(false)
     }
@@ -236,9 +236,9 @@ export function ScenariosPage() {
       setIsLoading(true)
       const updated = await updateScenario(selectedScenario.id, data)
       setSelectedScenario(updated)
-      toast.success('Scenario updated')
+      toast.success('Сценарий обновлён')
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to update scenario')
+      toast.error(error?.response?.data?.error || 'Не удалось обновить сценарий')
     } finally {
       setIsLoading(false)
     }
@@ -251,9 +251,9 @@ export function ScenariosPage() {
       setIsLoading(true)
       await addScenarioStep(selectedScenario.id, data)
       await loadScenario(selectedScenario.id)
-      toast.success('Step added')
+      toast.success('Шаг добавлен')
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to add step')
+      toast.error(error?.response?.data?.error || 'Не удалось добавить шаг')
     } finally {
       setIsLoading(false)
     }
@@ -266,9 +266,9 @@ export function ScenariosPage() {
       setIsLoading(true)
       await updateScenarioStep(selectedScenario.id, stepId, data)
       await loadScenario(selectedScenario.id)
-      toast.success('Step updated')
+      toast.success('Шаг обновлён')
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to update step')
+      toast.error(error?.response?.data?.error || 'Не удалось обновить шаг')
     } finally {
       setIsLoading(false)
     }
@@ -281,9 +281,9 @@ export function ScenariosPage() {
       setIsLoading(true)
       await deleteScenarioStep(selectedScenario.id, stepId)
       await loadScenario(selectedScenario.id)
-      toast.success('Step deleted')
+      toast.success('Шаг удалён')
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to delete step')
+      toast.error(error?.response?.data?.error || 'Не удалось удалить шаг')
     } finally {
       setIsLoading(false)
     }
@@ -295,7 +295,7 @@ export function ScenariosPage() {
     try {
       await reorderScenarioSteps(selectedScenario.id, stepIds)
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to reorder steps')
+      toast.error(error?.response?.data?.error || 'Не удалось изменить порядок шагов')
       await loadScenario(selectedScenario.id) // Reload to restore order
     }
   }
@@ -307,9 +307,9 @@ export function ScenariosPage() {
       setIsLoading(true)
       await scheduleScenario(selectedScenario.id, { cron_expression: cron })
       await loadScenario(selectedScenario.id)
-      toast.success('Schedule saved')
+      toast.success('Расписание сохранено')
     } catch (error: any) {
-      toast.error(error?.response?.data?.error || 'Failed to save schedule')
+      toast.error(error?.response?.data?.error || 'Не удалось сохранить расписание')
     } finally {
       setIsLoading(false)
     }
@@ -344,9 +344,9 @@ export function ScenariosPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Scenarios</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Сценарии</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Create and manage automation workflows
+                Создание и управление сценариями автоматизации
               </p>
             </div>
 
@@ -357,7 +357,7 @@ export function ScenariosPage() {
                 leftIcon={<RiFlowChart className="size-4" />}
                 onClick={() => setShowWorkflowBuilder(!showWorkflowBuilder)}
               >
-                {showWorkflowBuilder ? 'List View' : 'Workflow Builder'}
+                {showWorkflowBuilder ? 'Список' : 'Конструктор'}
               </Button>
               <Button
                 variant="ghost"
@@ -366,7 +366,7 @@ export function ScenariosPage() {
                 onClick={() => loadScenarios()}
                 isLoading={isLoading}
               >
-                Refresh
+                Обновить
               </Button>
               <Button
                 variant="primary"
@@ -374,7 +374,7 @@ export function ScenariosPage() {
                 leftIcon={<RiAddLine className="size-4" />}
                 onClick={() => setShowCreateModal(true)}
               >
-                New Scenario
+                Новый сценарий
               </Button>
             </div>
           </div>
@@ -393,12 +393,12 @@ export function ScenariosPage() {
                   onChange={(e) => setFilterStatus(e.target.value as FilterStatus)}
                   className="text-sm border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
                 >
-                  <option value="all">All Status</option>
-                  <option value="draft">Draft</option>
-                  <option value="running">Running</option>
-                  <option value="paused">Paused</option>
-                  <option value="completed">Completed</option>
-                  <option value="failed">Failed</option>
+                  <option value="all">Все статусы</option>
+                  <option value="draft">Черновик</option>
+                  <option value="running">Выполняется</option>
+                  <option value="paused">Приостановлен</option>
+                  <option value="completed">Завершён</option>
+                  <option value="failed">Ошибка</option>
                 </select>
               </div>
 
@@ -409,7 +409,7 @@ export function ScenariosPage() {
                   onChange={(e) => setShowTemplatesOnly(e.target.checked)}
                   className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                 />
-                Templates only
+                Только шаблоны
               </label>
             </div>
 
@@ -437,16 +437,16 @@ export function ScenariosPage() {
         {showWorkflowBuilder ? (
           <div>
             <div className="mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Visual Workflow Builder</h2>
-              <p className="text-sm text-gray-500">Drag and drop nodes to create automation workflows</p>
+              <h2 className="text-lg font-semibold text-gray-900">Визуальный конструктор</h2>
+              <p className="text-sm text-gray-500">Перетаскивайте узлы для создания сценариев автоматизации</p>
             </div>
             <WorkflowCanvas
               onSave={(nodes, edges) => {
                 console.log('Saving workflow:', { nodes, edges })
-                toast.success('Workflow saved!')
+                toast.success('Workflow сохранён!')
               }}
               onRun={() => {
-                toast.success('Workflow started!')
+                toast.success('Workflow запущен!')
               }}
             />
           </div>
@@ -464,7 +464,7 @@ export function ScenariosPage() {
               <div className="flex items-center justify-center py-12">
                 <div className="text-center">
                   <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-                  <p className="mt-4 text-sm text-gray-600">Loading scenarios...</p>
+                  <p className="mt-4 text-sm text-gray-600">Загрузка сценариев...</p>
                 </div>
               </div>
             )}
@@ -485,14 +485,14 @@ export function ScenariosPage() {
                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
                   />
                 </svg>
-                <h3 className="mt-2 text-sm font-medium text-gray-900">No scenarios</h3>
+                <h3 className="mt-2 text-sm font-medium text-gray-900">Нет сценариев</h3>
                 <p className="mt-1 text-sm text-gray-500">
-                  Get started by creating your first automation scenario.
+                  Начните с создания первого сценария автоматизации.
                 </p>
                 <div className="mt-6">
                   <Button variant="primary" onClick={() => setShowCreateModal(true)}>
                     <RiAddLine className="size-4 mr-2" />
-                    Create Scenario
+                    Создать сценарий
                   </Button>
                 </div>
               </div>
@@ -526,18 +526,18 @@ export function ScenariosPage() {
           <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setShowCreateModal(false)} />
           <div className="relative min-h-screen flex items-center justify-center p-4">
             <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Create New Scenario</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Создать новый сценарий</h2>
 
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Name <span className="text-red-500">*</span>
+                    Название <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
                     value={newScenarioName}
                     onChange={(e) => setNewScenarioName(e.target.value)}
-                    placeholder="e.g., Morning outreach"
+                    placeholder="например, Утренняя рассылка"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     autoFocus
                   />
@@ -545,12 +545,12 @@ export function ScenariosPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Description
+                    Описание
                   </label>
                   <textarea
                     value={newScenarioDescription}
                     onChange={(e) => setNewScenarioDescription(e.target.value)}
-                    placeholder="What does this scenario do?"
+                    placeholder="Что делает этот сценарий?"
                     rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   />
@@ -559,7 +559,7 @@ export function ScenariosPage() {
 
               <div className="flex items-center justify-end gap-3 mt-6">
                 <Button variant="secondary" onClick={() => setShowCreateModal(false)}>
-                  Cancel
+                  Отмена
                 </Button>
                 <Button
                   variant="primary"
@@ -567,7 +567,7 @@ export function ScenariosPage() {
                   isLoading={isLoading}
                   disabled={!newScenarioName.trim()}
                 >
-                  Create
+                  Создать
                 </Button>
               </div>
             </div>

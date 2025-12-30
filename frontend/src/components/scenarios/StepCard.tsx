@@ -95,14 +95,14 @@ export function StepCard({ step, index, onEdit, onDelete, isDragging = false }: 
               {step.delay_before_seconds > 0 && (
                 <>
                   <span>•</span>
-                  <span>Delay: {step.delay_before_seconds}s</span>
+                  <span>Задержка: {step.delay_before_seconds}с</span>
                 </>
               )}
 
               {step.condition && (
                 <>
                   <span>•</span>
-                  <span className="text-purple-600">Conditional</span>
+                  <span className="text-purple-600">Условно</span>
                 </>
               )}
             </div>
@@ -117,7 +117,7 @@ export function StepCard({ step, index, onEdit, onDelete, isDragging = false }: 
                   </span>
                 ))}
                 {Object.keys(step.parameters).length > 2 && (
-                  <span className="text-gray-400">+{Object.keys(step.parameters).length - 2} more</span>
+                  <span className="text-gray-400">+{Object.keys(step.parameters).length - 2} ещё</span>
                 )}
               </div>
             )}
@@ -135,14 +135,14 @@ export function StepCard({ step, index, onEdit, onDelete, isDragging = false }: 
             <button
               onClick={() => onEdit(step)}
               className="p-1.5 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded"
-              title="Edit step"
+              title="Изменить шаг"
             >
               <RiEditLine className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => onDelete(step.id)}
               className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
-              title="Delete step"
+              title="Удалить шаг"
             >
               <RiDeleteBinLine className="w-3.5 h-3.5" />
             </button>

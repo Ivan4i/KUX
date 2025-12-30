@@ -22,45 +22,45 @@ const STATUS_CONFIG: Record<string, { icon: React.ReactNode; color: string; bgCo
     icon: <RiCheckboxCircleFill className="w-4 h-4" />,
     color: 'text-success-600',
     bgColor: 'bg-success-100',
-    label: 'Success',
+    label: 'Успешно',
   },
   warning: {
     icon: <RiAlertLine className="w-4 h-4" />,
     color: 'text-warning-600',
     bgColor: 'bg-warning-100',
-    label: 'Warning',
+    label: 'Внимание',
   },
   failed: {
     icon: <RiCloseCircleFill className="w-4 h-4" />,
     color: 'text-error-600',
     bgColor: 'bg-error-100',
-    label: 'Failed',
+    label: 'Ошибка',
   },
   info: {
     icon: <RiInformationLine className="w-4 h-4" />,
     color: 'text-primary-600',
     bgColor: 'bg-primary-100',
-    label: 'Info',
+    label: 'Инфо',
   },
 }
 
 const ACTION_TYPES = [
-  { value: '', label: 'All Actions' },
-  { value: 'whatsapp_send', label: 'WhatsApp Send' },
-  { value: 'device_check', label: 'Device Check' },
-  { value: 'app_restart', label: 'App Restart' },
-  { value: 'device_reboot', label: 'Device Reboot' },
-  { value: 'screenshot', label: 'Screenshot' },
-  { value: 'system', label: 'System' },
+  { value: '', label: 'Все действия' },
+  { value: 'whatsapp_send', label: 'Отправка WhatsApp' },
+  { value: 'device_check', label: 'Проверка устройства' },
+  { value: 'app_restart', label: 'Перезапуск приложения' },
+  { value: 'device_reboot', label: 'Перезагрузка устройства' },
+  { value: 'screenshot', label: 'Скриншот' },
+  { value: 'system', label: 'Система' },
 ]
 
 const TIME_RANGES = [
-  { value: 1, label: 'Last Hour' },
-  { value: 6, label: 'Last 6 Hours' },
-  { value: 24, label: 'Last 24 Hours' },
-  { value: 48, label: 'Last 2 Days' },
-  { value: 168, label: 'Last Week' },
-  { value: 720, label: 'Last Month' },
+  { value: 1, label: 'За час' },
+  { value: 6, label: 'За 6 часов' },
+  { value: 24, label: 'За 24 часа' },
+  { value: 48, label: 'За 2 дня' },
+  { value: 168, label: 'За неделю' },
+  { value: 720, label: 'За месяц' },
 ]
 
 export function LogsPage() {
@@ -103,11 +103,11 @@ export function LogsPage() {
       setDevices(devicesData)
 
       if (showToast) {
-        toast.success('Logs refreshed')
+        toast.success('Логи обновлены')
       }
     } catch (error) {
       console.error('Error loading logs:', error)
-      toast.error('Failed to load logs')
+      toast.error('Не удалось загрузить логи')
     } finally {
       setIsLoading(false)
       setIsRefreshing(false)
@@ -119,18 +119,18 @@ export function LogsPage() {
   }, [loadData])
 
   const handleCleanup = async () => {
-    if (!confirm('Are you sure you want to delete logs older than 30 days? This cannot be undone.')) {
+    if (!confirm('Вы уверены, что хотите удалить логи старше 30 дней? Это действие нельзя отменить.')) {
       return
     }
 
     try {
       setIsCleaning(true)
       const result = await cleanupOldLogs(30)
-      toast.success(`Deleted ${result.deleted_count} old log entries`)
+      toast.success(`Удалено ${result.deleted_count} старых записей`)
       loadData()
     } catch (error) {
       console.error('Error cleaning logs:', error)
-      toast.error('Failed to clean up logs')
+      toast.error('Не удалось очистить логи')
     } finally {
       setIsCleaning(false)
     }
@@ -170,7 +170,7 @@ export function LogsPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-          <p className="mt-4 text-sm text-gray-600">Loading logs...</p>
+          <p className="mt-4 text-sm text-gray-600">Загрузка логов...</p>
         </div>
       </div>
     )
@@ -183,9 +183,9 @@ export function LogsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Activity Logs</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Журнал активности</h1>
               <p className="mt-1 text-sm text-gray-500">
-                View and analyze system activity logs
+                Просмотр и анализ системных логов
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -196,7 +196,7 @@ export function LogsPage() {
                 onClick={handleCleanup}
                 isLoading={isCleaning}
               >
-                Cleanup
+                Очистка
               </Button>
               <Button
                 variant="secondary"
@@ -205,7 +205,7 @@ export function LogsPage() {
                 onClick={() => loadData(true)}
                 isLoading={isRefreshing}
               >
-                Refresh
+                Обновить
               </Button>
             </div>
           </div>
@@ -218,23 +218,23 @@ export function LogsPage() {
         {summary && (
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500">Total Logs</p>
+              <p className="text-sm text-gray-500">Всего логов</p>
               <p className="text-2xl font-bold text-gray-900">{summary.total_logs}</p>
             </div>
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500">Success</p>
+              <p className="text-sm text-gray-500">Успешно</p>
               <p className="text-2xl font-bold text-success-600">{summary.success_count}</p>
             </div>
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500">Warnings</p>
+              <p className="text-sm text-gray-500">Предупреждения</p>
               <p className="text-2xl font-bold text-warning-600">{summary.warning_count}</p>
             </div>
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500">Failed</p>
+              <p className="text-sm text-gray-500">Ошибки</p>
               <p className="text-2xl font-bold text-error-600">{summary.failed_count}</p>
             </div>
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500">Success Rate</p>
+              <p className="text-sm text-gray-500">Успешность</p>
               <p className="text-2xl font-bold text-primary-600">{summary.success_rate}%</p>
             </div>
           </div>
@@ -248,10 +248,10 @@ export function LogsPage() {
           >
             <div className="flex items-center gap-2">
               <RiFilterLine className="w-4 h-4 text-gray-500" />
-              <span className="font-medium text-gray-700">Filters</span>
+              <span className="font-medium text-gray-700">Фильтры</span>
               {(deviceFilter || statusFilter || actionFilter) && (
                 <span className="px-2 py-0.5 text-xs bg-primary-100 text-primary-700 rounded-full">
-                  Active
+                  Активны
                 </span>
               )}
             </div>
@@ -267,14 +267,14 @@ export function LogsPage() {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Device
+                    Устройство
                   </label>
                   <select
                     value={deviceFilter}
                     onChange={(e) => setDeviceFilter(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   >
-                    <option value="">All Devices</option>
+                    <option value="">Все устройства</option>
                     {devices.map((device) => (
                       <option key={device.id} value={device.id}>
                         {device.name}
@@ -285,23 +285,23 @@ export function LogsPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Status
+                    Статус
                   </label>
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   >
-                    <option value="">All Statuses</option>
-                    <option value="success">Success</option>
-                    <option value="warning">Warning</option>
-                    <option value="failed">Failed</option>
+                    <option value="">Все статусы</option>
+                    <option value="success">Успешно</option>
+                    <option value="warning">Предупреждение</option>
+                    <option value="failed">Ошибка</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Action Type
+                    Тип действия
                   </label>
                   <select
                     value={actionFilter}
@@ -318,7 +318,7 @@ export function LogsPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Time Range
+                    Период
                   </label>
                   <select
                     value={hoursFilter}
@@ -345,7 +345,7 @@ export function LogsPage() {
                     setHoursFilter(24)
                   }}
                 >
-                  Clear Filters
+                  Сбросить фильтры
                 </Button>
               </div>
             </div>
@@ -360,7 +360,7 @@ export function LogsPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search logs..."
+              placeholder="Поиск логов..."
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
@@ -371,9 +371,9 @@ export function LogsPage() {
           {filteredLogs.length === 0 ? (
             <div className="p-12 text-center">
               <RiInformationLine className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900">No logs found</h3>
+              <h3 className="text-lg font-medium text-gray-900">Логи не найдены</h3>
               <p className="mt-1 text-sm text-gray-500">
-                Try adjusting your filters or time range
+                Попробуйте изменить фильтры или период
               </p>
             </div>
           ) : (
@@ -382,22 +382,22 @@ export function LogsPage() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
+                      Статус
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Timestamp
+                      Время
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Device
+                      Устройство
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Action
+                      Действие
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Details
+                      Детали
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Task ID
+                      ID задачи
                     </th>
                   </tr>
                 </thead>
@@ -445,16 +445,16 @@ export function LogsPage() {
                               <div className="space-y-3">
                                 <div>
                                   <span className="text-xs font-medium text-gray-500 uppercase">
-                                    Full Details:
+                                    Полные детали:
                                   </span>
                                   <p className="mt-1 text-sm text-gray-700 whitespace-pre-wrap">
-                                    {log.details || 'No details available'}
+                                    {log.details || 'Нет деталей'}
                                   </p>
                                 </div>
                                 {log.screenshot_path && (
                                   <div>
                                     <span className="text-xs font-medium text-gray-500 uppercase">
-                                      Screenshot:
+                                      Скриншот:
                                     </span>
                                     <p className="mt-1 text-sm text-primary-600 font-mono">
                                       {log.screenshot_path}
@@ -463,19 +463,19 @@ export function LogsPage() {
                                 )}
                                 <div className="grid grid-cols-4 gap-4 text-xs">
                                   <div>
-                                    <span className="text-gray-500">Log ID:</span>
+                                    <span className="text-gray-500">ID лога:</span>
                                     <span className="ml-1 font-medium">{log.id}</span>
                                   </div>
                                   <div>
-                                    <span className="text-gray-500">Device ID:</span>
+                                    <span className="text-gray-500">ID устройства:</span>
                                     <span className="ml-1 font-medium">{log.device_id}</span>
                                   </div>
                                   <div>
-                                    <span className="text-gray-500">Task ID:</span>
-                                    <span className="ml-1 font-medium">{log.task_id || 'N/A'}</span>
+                                    <span className="text-gray-500">ID задачи:</span>
+                                    <span className="ml-1 font-medium">{log.task_id || 'Н/Д'}</span>
                                   </div>
                                   <div>
-                                    <span className="text-gray-500">Status:</span>
+                                    <span className="text-gray-500">Статус:</span>
                                     <span className={`ml-1 font-medium ${statusConfig.color}`}>
                                       {log.status}
                                     </span>
@@ -496,8 +496,8 @@ export function LogsPage() {
           {filteredLogs.length > 0 && (
             <div className="px-4 py-3 bg-gray-50 border-t border-gray-200">
               <p className="text-sm text-gray-500">
-                Showing {filteredLogs.length} of {logs.length} logs
-                {searchQuery && ` (filtered by "${searchQuery}")`}
+                Показано {filteredLogs.length} из {logs.length} логов
+                {searchQuery && ` (фильтр: "${searchQuery}")`}
               </p>
             </div>
           )}

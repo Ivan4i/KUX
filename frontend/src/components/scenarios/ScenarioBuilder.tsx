@@ -131,7 +131,7 @@ export function ScenarioBuilder({
   }
 
   const handleDeleteStep = async (stepId: string) => {
-    if (window.confirm('Are you sure you want to delete this step?')) {
+    if (window.confirm('Вы уверены, что хотите удалить этот шаг?')) {
       await onDeleteStep(stepId)
       setSteps((prev) => prev.filter((s) => s.id !== stepId))
     }
@@ -160,7 +160,7 @@ export function ScenarioBuilder({
                 onClick={onBack}
                 className="text-gray-500 hover:text-gray-700"
               >
-                ← Back
+                ← Назад
               </button>
 
               {isEditingName ? (
@@ -200,7 +200,7 @@ export function ScenarioBuilder({
                   isLoading={isLoading}
                   disabled={steps.length === 0}
                 >
-                  Run
+                  Запустить
                 </Button>
               )}
 
@@ -213,7 +213,7 @@ export function ScenarioBuilder({
                     onClick={onPause}
                     isLoading={isLoading}
                   >
-                    Pause
+                    Пауза
                   </Button>
                   <Button
                     variant="danger"
@@ -222,7 +222,7 @@ export function ScenarioBuilder({
                     onClick={onCancel}
                     isLoading={isLoading}
                   >
-                    Cancel
+                    Отмена
                   </Button>
                 </>
               )}
@@ -236,7 +236,7 @@ export function ScenarioBuilder({
                     onClick={onResume}
                     isLoading={isLoading}
                   >
-                    Resume
+                    Продолжить
                   </Button>
                   <Button
                     variant="danger"
@@ -245,7 +245,7 @@ export function ScenarioBuilder({
                     onClick={onCancel}
                     isLoading={isLoading}
                   >
-                    Cancel
+                    Отмена
                   </Button>
                 </>
               )}
@@ -256,7 +256,7 @@ export function ScenarioBuilder({
                 leftIcon={<RiTimeLine className="w-3 h-3" />}
                 onClick={() => setShowScheduleModal(true)}
               >
-                Schedule
+                Расписание
               </Button>
             </div>
           </div>
@@ -266,7 +266,7 @@ export function ScenarioBuilder({
             <textarea
               value={editedDescription}
               onChange={(e) => setEditedDescription(e.target.value)}
-              placeholder="Add a description..."
+              placeholder="Добавить описание..."
               className="mt-2 w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
               rows={2}
             />
@@ -282,7 +282,7 @@ export function ScenarioBuilder({
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold text-gray-900">
-            Steps ({steps.length})
+            Шаги ({steps.length})
           </h2>
           <Button
             variant="primary"
@@ -290,7 +290,7 @@ export function ScenarioBuilder({
             leftIcon={<RiAddLine className="w-3 h-3" />}
             onClick={handleAddStep}
           >
-            Add Step
+            Добавить шаг
           </Button>
         </div>
 
@@ -309,14 +309,14 @@ export function ScenarioBuilder({
                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
               />
             </svg>
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No steps yet</h3>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">Шагов пока нет</h3>
             <p className="mt-1 text-sm text-gray-500">
-              Add your first step to start building the scenario.
+              Добавьте первый шаг, чтобы начать построение сценария.
             </p>
             <div className="mt-6">
               <Button variant="primary" onClick={handleAddStep}>
                 <RiAddLine className="w-4 h-4 mr-2" />
-                Add First Step
+                Добавить первый шаг
               </Button>
             </div>
           </div>
@@ -358,7 +358,7 @@ export function ScenarioBuilder({
               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-500 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
             >
               <RiAddLine className="w-3 h-3" />
-              Add another step
+              Добавить ещё шаг
             </button>
           </div>
         )}
@@ -382,33 +382,33 @@ export function ScenarioBuilder({
           <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setShowScheduleModal(false)} />
           <div className="relative min-h-screen flex items-center justify-center p-4">
             <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Schedule Scenario</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Расписание сценария</h2>
 
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    CRON Expression
+                    CRON-выражение
                   </label>
                   <input
                     type="text"
                     value={cronExpression}
                     onChange={(e) => setCronExpression(e.target.value)}
-                    placeholder="0 9 * * * (Every day at 9 AM)"
+                    placeholder="0 9 * * * (Каждый день в 9 утра)"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   />
                   <p className="mt-1 text-xs text-gray-500">
-                    Format: minute hour day month weekday
+                    Формат: минута час день месяц день_недели
                   </p>
                 </div>
 
                 <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="text-xs font-medium text-gray-700 mb-2">Quick presets:</p>
+                  <p className="text-xs font-medium text-gray-700 mb-2">Быстрые шаблоны:</p>
                   <div className="flex flex-wrap gap-2">
                     {[
-                      { label: 'Every hour', value: '0 * * * *' },
-                      { label: 'Daily 9 AM', value: '0 9 * * *' },
-                      { label: 'Mon-Fri 9 AM', value: '0 9 * * 1-5' },
-                      { label: 'Weekly Mon', value: '0 9 * * 1' },
+                      { label: 'Каждый час', value: '0 * * * *' },
+                      { label: 'Ежедневно 9:00', value: '0 9 * * *' },
+                      { label: 'Пн-Пт 9:00', value: '0 9 * * 1-5' },
+                      { label: 'Еженедельно Пн', value: '0 9 * * 1' },
                     ].map((preset) => (
                       <button
                         key={preset.value}
@@ -424,10 +424,10 @@ export function ScenarioBuilder({
 
               <div className="flex items-center justify-end gap-3 mt-6">
                 <Button variant="secondary" onClick={() => setShowScheduleModal(false)}>
-                  Cancel
+                  Отмена
                 </Button>
                 <Button variant="primary" onClick={handleScheduleSave} isLoading={isLoading}>
-                  Save Schedule
+                  Сохранить расписание
                 </Button>
               </div>
             </div>

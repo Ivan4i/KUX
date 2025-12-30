@@ -37,13 +37,13 @@ const DEFAULT_AGENTS: AgentConfig[] = [
     icon: <RiWhatsappLine className="w-8 h-8" />,
     color: 'text-green-500',
     bgColor: 'bg-green-100',
-    description: 'Send WhatsApp messages with human-like behavior',
+    description: 'Отправка сообщений WhatsApp с человеческим поведением',
     status: 'active',
     prompts: [
       {
         key: 'screen_analysis',
-        label: 'Screen Analysis Prompt',
-        description: 'Prompt used to analyze WhatsApp screens',
+        label: 'Промпт анализа экрана',
+        description: 'Промпт для анализа экранов WhatsApp',
         value: `Analyze this WhatsApp screenshot and identify:
 1. Current screen type (home, chat, search, etc.)
 2. Visible UI elements and their positions
@@ -51,12 +51,12 @@ const DEFAULT_AGENTS: AgentConfig[] = [
 4. Suggested next action
 
 Return JSON with screen_type, elements[], errors[], and suggested_action.`,
-        placeholder: 'Enter screen analysis prompt...',
+        placeholder: 'Введите промпт анализа экрана...',
       },
       {
         key: 'message_personalization',
-        label: 'Message Personalization Prompt',
-        description: 'Prompt used to personalize messages',
+        label: 'Промпт персонализации сообщений',
+        description: 'Промпт для персонализации сообщений',
         value: `You are a friendly person sending a WhatsApp message.
 Personalize the following message template for the recipient.
 Keep it natural, casual, and appropriate for WhatsApp.
@@ -66,12 +66,12 @@ Template: {{message_template}}
 Context: {{context}}
 
 Return ONLY the personalized message, nothing else.`,
-        placeholder: 'Enter personalization prompt...',
+        placeholder: 'Введите промпт персонализации...',
       },
       {
         key: 'element_location',
-        label: 'Element Location Prompt',
-        description: 'Prompt used to find UI elements',
+        label: 'Промпт поиска элементов',
+        description: 'Промпт для поиска элементов интерфейса',
         value: `Find the UI element: "{{element_description}}"
 
 Return JSON with:
@@ -81,19 +81,19 @@ Return JSON with:
   "y": center_y_coordinate,
   "confidence": 0-100
 }`,
-        placeholder: 'Enter element location prompt...',
+        placeholder: 'Введите промпт поиска элементов...',
       },
     ],
     settings: [
-      { key: 'max_retries', label: 'Max Retries', type: 'number', value: 3, description: 'Maximum retry attempts per action' },
-      { key: 'typing_speed', label: 'Typing Speed', type: 'select', value: 'normal', options: [
-        { value: 'slow', label: 'Slow (human-like)' },
-        { value: 'normal', label: 'Normal' },
-        { value: 'fast', label: 'Fast' },
+      { key: 'max_retries', label: 'Макс. повторов', type: 'number', value: 3, description: 'Максимальное количество попыток на действие' },
+      { key: 'typing_speed', label: 'Скорость набора', type: 'select', value: 'normal', options: [
+        { value: 'slow', label: 'Медленно (как человек)' },
+        { value: 'normal', label: 'Нормально' },
+        { value: 'fast', label: 'Быстро' },
       ]},
-      { key: 'add_typos', label: 'Add Realistic Typos', type: 'boolean', value: false, description: 'Add and correct typos for realism' },
-      { key: 'warmup_enabled', label: 'Enable Warmup', type: 'boolean', value: true, description: 'Perform warmup actions before tasks' },
-      { key: 'warmup_duration', label: 'Warmup Duration (sec)', type: 'number', value: 60 },
+      { key: 'add_typos', label: 'Добавлять опечатки', type: 'boolean', value: false, description: 'Добавлять и исправлять опечатки для реалистичности' },
+      { key: 'warmup_enabled', label: 'Включить прогрев', type: 'boolean', value: true, description: 'Выполнять прогревающие действия перед задачами' },
+      { key: 'warmup_duration', label: 'Длительность прогрева (сек)', type: 'number', value: 60 },
     ],
   },
   {
@@ -102,7 +102,7 @@ Return JSON with:
     icon: <RiInstagramLine className="w-8 h-8" />,
     color: 'text-pink-500',
     bgColor: 'bg-pink-100',
-    description: 'Automate Instagram DMs and interactions',
+    description: 'Автоматизация Instagram сообщений и взаимодействий',
     status: 'coming_soon',
     prompts: [],
     settings: [],
@@ -113,7 +113,7 @@ Return JSON with:
     icon: <RiLinkedinLine className="w-8 h-8" />,
     color: 'text-primary-600',
     bgColor: 'bg-blue-100',
-    description: 'Send LinkedIn messages and connection requests',
+    description: 'Отправка сообщений LinkedIn и запросов на подключение',
     status: 'coming_soon',
     prompts: [],
     settings: [],
@@ -124,7 +124,7 @@ Return JSON with:
     icon: <RiTelegramLine className="w-8 h-8" />,
     color: 'text-blue-400',
     bgColor: 'bg-blue-50',
-    description: 'Automate Telegram messaging',
+    description: 'Автоматизация сообщений Telegram',
     status: 'coming_soon',
     prompts: [],
     settings: [],
@@ -142,7 +142,7 @@ export function AgentsPage() {
 
   const handleAgentSelect = (type: AgentType) => {
     if (hasChanges) {
-      if (!window.confirm('You have unsaved changes. Discard them?')) return
+      if (!window.confirm('У вас есть несохранённые изменения. Отменить их?')) return
     }
     setSelectedAgent(type)
     setHasChanges(false)
@@ -179,17 +179,17 @@ export function AgentsPage() {
     try {
       // TODO: Save to backend
       await new Promise(resolve => setTimeout(resolve, 500))
-      toast.success('Agent configuration saved!')
+      toast.success('Настройки агента сохранены!')
       setHasChanges(false)
     } catch (error) {
-      toast.error('Failed to save configuration')
+      toast.error('Не удалось сохранить настройки')
     } finally {
       setIsLoading(false)
     }
   }
 
   const handleTestPrompt = async (promptKey: string) => {
-    toast.success(`Testing prompt: ${promptKey}`)
+    toast.success(`Тестирование промпта: ${promptKey}`)
     // TODO: Implement prompt testing
   }
 
@@ -200,9 +200,9 @@ export function AgentsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Agents</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Агенты</h1>
               <p className="mt-1 text-sm text-gray-500">
-                Configure AI agents and their prompts
+                Настройка ИИ агентов и их промптов
               </p>
             </div>
 
@@ -213,7 +213,7 @@ export function AgentsPage() {
                 onClick={handleSave}
                 isLoading={isLoading}
               >
-                Save Changes
+                Сохранить
               </Button>
             )}
           </div>
@@ -226,7 +226,7 @@ export function AgentsPage() {
           <div className="col-span-3">
             <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
               <div className="px-4 py-3 border-b border-gray-200">
-                <h2 className="text-sm font-semibold text-gray-900">Available Agents</h2>
+                <h2 className="text-sm font-semibold text-gray-900">Доступные агенты</h2>
               </div>
               <div className="divide-y divide-gray-100">
                 {agents.map((agent) => (
@@ -250,7 +250,7 @@ export function AgentsPage() {
                           <span className="w-2 h-2 rounded-full bg-green-500" />
                         )}
                         {agent.status === 'coming_soon' && (
-                          <span className="text-xs text-gray-400">Soon</span>
+                          <span className="text-xs text-gray-400">Скоро</span>
                         )}
                       </div>
                       <p className="text-xs text-gray-500 truncate">{agent.description}</p>
@@ -268,9 +268,9 @@ export function AgentsPage() {
                 <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                   <RiSettingsLine className="w-8 h-8 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Select an Agent</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Выберите агента</h3>
                 <p className="text-sm text-gray-500">
-                  Choose an agent from the sidebar to configure its prompts and settings.
+                  Выберите агента из боковой панели для настройки его промптов и параметров.
                 </p>
               </div>
             ) : currentAgent ? (
@@ -281,7 +281,7 @@ export function AgentsPage() {
                     {currentAgent.icon}
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900">{currentAgent.name} Agent</h2>
+                    <h2 className="text-xl font-semibold text-gray-900">Агент {currentAgent.name}</h2>
                     <p className="text-sm text-gray-500">{currentAgent.description}</p>
                   </div>
                 </div>
@@ -290,9 +290,9 @@ export function AgentsPage() {
                 <div className="border-b border-gray-200">
                   <nav className="flex px-6">
                     {[
-                      { key: 'prompts', label: 'Prompts', icon: <RiCodeLine className="w-4 h-4" /> },
-                      { key: 'settings', label: 'Settings', icon: <RiSettingsLine className="w-4 h-4" /> },
-                      { key: 'actions', label: 'Available Actions', icon: <RiPlayFill className="w-4 h-4" /> },
+                      { key: 'prompts', label: 'Промпты', icon: <RiCodeLine className="w-4 h-4" /> },
+                      { key: 'settings', label: 'Настройки', icon: <RiSettingsLine className="w-4 h-4" /> },
+                      { key: 'actions', label: 'Доступные действия', icon: <RiPlayFill className="w-4 h-4" /> },
                     ].map((tab) => (
                       <button
                         key={tab.key}
@@ -319,7 +319,7 @@ export function AgentsPage() {
                     <div className="space-y-6">
                       {currentAgent.prompts.length === 0 ? (
                         <div className="text-center py-8 text-gray-500">
-                          No prompts configured for this agent yet.
+                          Промпты для этого агента пока не настроены.
                         </div>
                       ) : (
                         currentAgent.prompts.map((prompt) => (
@@ -335,7 +335,7 @@ export function AgentsPage() {
                                 leftIcon={<RiPlayFill className="w-3 h-3" />}
                                 onClick={() => handleTestPrompt(prompt.key)}
                               >
-                                Test
+                                Тест
                               </Button>
                             </div>
                             <textarea
@@ -356,7 +356,7 @@ export function AgentsPage() {
                     <div className="space-y-6">
                       {currentAgent.settings.length === 0 ? (
                         <div className="text-center py-8 text-gray-500">
-                          No settings available for this agent yet.
+                          Настройки для этого агента пока недоступны.
                         </div>
                       ) : (
                         currentAgent.settings.map((setting) => (
@@ -379,7 +379,7 @@ export function AgentsPage() {
                                     className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                                   />
                                   <span className="ml-2 text-sm text-gray-600">
-                                    {setting.value ? 'Enabled' : 'Disabled'}
+                                    {setting.value ? 'Включено' : 'Выключено'}
                                   </span>
                                 </label>
                               ) : setting.type === 'select' ? (
@@ -421,7 +421,7 @@ export function AgentsPage() {
                     <div className="space-y-4">
                       {AGENT_ACTIONS[currentAgent.type]?.length === 0 ? (
                         <div className="text-center py-8 text-gray-500">
-                          No actions available for this agent yet.
+                          Действия для этого агента пока недоступны.
                         </div>
                       ) : (
                         <div className="grid grid-cols-2 gap-4">
