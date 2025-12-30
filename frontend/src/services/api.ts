@@ -347,4 +347,125 @@ export const testTelegramConnection = async (): Promise<{ success: boolean; mess
   return response.data
 }
 
+// ============================================================================
+// Workflows API (Visual Builder)
+// ============================================================================
+
+export interface WorkflowNode {
+  id: string
+  type: string
+  position: { x: number; y: number }
+  data: Record<string, any>
+}
+
+export interface WorkflowEdge {
+  id: string
+  source: string
+  target: string
+  sourceHandle?: string | null
+  targetHandle?: string | null
+  label?: string | null
+  animated?: boolean
+  style?: Record<string, any> | null
+}
+
+export interface Workflow {
+  id: string
+  name: string
+  description?: string | null
+  status: 'draft' | 'active' | 'running' | 'completed' | 'failed' | 'archived'
+  device_id?: string | null
+  run_count: number
+  success_count: number
+  failure_count: number
+  last_run_at?: string | null
+  created_at: string
+  updated_at: string
+  nodes: WorkflowNode[]
+  edges: WorkflowEdge[]
+}
+
+export interface WorkflowListItem {
+  id: string
+  name: string
+  description?: string | null
+  status: string
+  device_id?: string | null
+  run_count: number
+  success_count: number
+  failure_count: number
+  node_count: number
+  last_run_at?: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface CreateWorkflowRequest {
+  name: string
+  description?: string
+  device_id?: string
+  nodes: WorkflowNode[]
+  edges: WorkflowEdge[]
+}
+
+export interface UpdateWorkflowRequest {
+  name?: string
+  description?: string
+  device_id?: string
+  nodes?: WorkflowNode[]
+  edges?: WorkflowEdge[]
+}
+
+export interface RunWorkflowRequest {
+  device_id?: string
+  dry_run?: boolean
+}
+
+export const getWorkflows = async (
+  filters: {
+    status?: string
+    device_id?: string
+    limit?: number
+    offset?: number
+  } = {}
+): Promise<{ workflows: WorkflowListItem[]; total: number }> => {
+  const params = new URLSearchParams()
+  if (filters.status) params.append('status', filters.status)
+  if (filters.device_id) params.append('device_id', filters.device_id)
+  if (filters.limit) params.append('limit', filters.limit.toString())
+  if (filters.offset) params.append('offset', filters.offset.toString())
+
+  const response = await api.get(`/api/workflows?${params.toString()}`)
+  return response.data
+}
+
+export const getWorkflow = async (workflowId: string): Promise<Workflow> => {
+  const response = await api.get(`/api/workflows/${workflowId}`)
+  return response.data
+}
+
+export const createWorkflow = async (data: CreateWorkflowRequest): Promise<Workflow> => {
+  const response = await api.post('/api/workflows', data)
+  return response.data
+}
+
+export const updateWorkflow = async (workflowId: string, data: UpdateWorkflowRequest): Promise<Workflow> => {
+  const response = await api.put(`/api/workflows/${workflowId}`, data)
+  return response.data
+}
+
+export const deleteWorkflow = async (workflowId: string): Promise<void> => {
+  await api.delete(`/api/workflows/${workflowId}`)
+}
+
+export const duplicateWorkflow = async (workflowId: string): Promise<Workflow> => {
+  const response = await api.post(`/api/workflows/${workflowId}/duplicate`)
+  return response.data
+}
+
+export const runWorkflow = async (workflowId: string, data?: RunWorkflowRequest): Promise<{ message: string; workflow_id: string }> => {
+  const response = await api.post(`/api/workflows/${workflowId}/run`, data || {})
+  return response.data
+}
+
 export default api

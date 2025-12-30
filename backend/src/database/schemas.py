@@ -370,3 +370,166 @@ class SchedulerStatusResponse(BaseModel):
     completed_today: int
     failed_today: int
     next_scheduled_job: Optional[Dict[str, Any]] = None
+
+
+# ============================================
+# WORKFLOW SCHEMAS (Visual Builder)
+# ============================================
+
+class WorkflowStatusEnum(str, Enum):
+    """Workflow status enumeration"""
+    DRAFT = "draft"
+    ACTIVE = "active"
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    ARCHIVED = "archived"
+
+
+# Node schemas
+class WorkflowNodeBase(BaseModel):
+    """Base schema for workflow node"""
+    id: str = Field(..., description="ReactFlow node ID")
+    type: str = Field(..., alias="node_type", description="Node type (trigger, action, condition)")
+    position: Dict[str, float] = Field(..., description="Node position {x, y}")
+    data: Dict[str, Any] = Field(default_factory=dict, description="Node data (label, description, etc.)")
+
+
+class WorkflowNodeCreate(BaseModel):
+    """Schema for creating a workflow node"""
+    id: str
+    type: str
+    position: Dict[str, float]
+    data: Dict[str, Any] = Field(default_factory=dict)
+
+
+class WorkflowNodeResponse(BaseModel):
+    """Response schema for workflow node"""
+    id: str
+    type: str
+    position: Dict[str, float]
+    data: Dict[str, Any]
+
+    @classmethod
+    def from_orm_model(cls, node) -> "WorkflowNodeResponse":
+        return cls(
+            id=node.id,
+            type=node.node_type,
+            position={"x": node.position_x, "y": node.position_y},
+            data=node.data or {}
+        )
+
+
+# Edge schemas
+class WorkflowEdgeBase(BaseModel):
+    """Base schema for workflow edge"""
+    id: str = Field(..., description="ReactFlow edge ID")
+    source: str = Field(..., description="Source node ID")
+    target: str = Field(..., description="Target node ID")
+    sourceHandle: Optional[str] = Field(None, description="Source handle (for branching)")
+    targetHandle: Optional[str] = Field(None, description="Target handle")
+    label: Optional[str] = Field(None, description="Edge label")
+    animated: bool = Field(default=False, description="Animated edge")
+    style: Optional[Dict[str, Any]] = Field(None, description="Edge style")
+
+
+class WorkflowEdgeCreate(BaseModel):
+    """Schema for creating a workflow edge"""
+    id: str
+    source: str
+    target: str
+    sourceHandle: Optional[str] = None
+    targetHandle: Optional[str] = None
+    label: Optional[str] = None
+    animated: bool = False
+    style: Optional[Dict[str, Any]] = None
+
+
+class WorkflowEdgeResponse(BaseModel):
+    """Response schema for workflow edge"""
+    id: str
+    source: str
+    target: str
+    sourceHandle: Optional[str] = None
+    targetHandle: Optional[str] = None
+    label: Optional[str] = None
+    animated: bool = False
+    style: Optional[Dict[str, Any]] = None
+
+    @classmethod
+    def from_orm_model(cls, edge) -> "WorkflowEdgeResponse":
+        return cls(
+            id=edge.id,
+            source=edge.source_node_id,
+            target=edge.target_node_id,
+            sourceHandle=edge.source_handle,
+            targetHandle=edge.target_handle,
+            label=edge.label,
+            animated=edge.animated or False,
+            style=edge.style
+        )
+
+
+# Workflow schemas
+class WorkflowBase(BaseModel):
+    """Base schema for workflow"""
+    name: str = Field(..., min_length=1, max_length=200, description="Workflow name")
+    description: Optional[str] = Field(None, max_length=2000, description="Workflow description")
+    device_id: Optional[str] = Field(None, description="Default device ID")
+
+
+class WorkflowCreate(WorkflowBase):
+    """Schema for creating a workflow"""
+    nodes: list[WorkflowNodeCreate] = Field(default_factory=list, description="Workflow nodes")
+    edges: list[WorkflowEdgeCreate] = Field(default_factory=list, description="Workflow edges")
+
+
+class WorkflowUpdate(BaseModel):
+    """Schema for updating a workflow"""
+    name: Optional[str] = Field(None, min_length=1, max_length=200)
+    description: Optional[str] = Field(None, max_length=2000)
+    device_id: Optional[str] = None
+    nodes: Optional[list[WorkflowNodeCreate]] = None
+    edges: Optional[list[WorkflowEdgeCreate]] = None
+
+
+class WorkflowResponse(WorkflowBase):
+    """Response schema for workflow"""
+    id: str
+    status: WorkflowStatusEnum = Field(default=WorkflowStatusEnum.DRAFT)
+    run_count: int = Field(default=0)
+    success_count: int = Field(default=0)
+    failure_count: int = Field(default=0)
+    last_run_at: Optional[datetime] = None
+    created_at: datetime
+    updated_at: datetime
+    nodes: list[WorkflowNodeResponse] = Field(default_factory=list)
+    edges: list[WorkflowEdgeResponse] = Field(default_factory=list)
+
+    class Config:
+        from_attributes = True
+
+
+class WorkflowListResponse(BaseModel):
+    """Response schema for workflow list (without nodes/edges)"""
+    id: str
+    name: str
+    description: Optional[str] = None
+    status: WorkflowStatusEnum
+    device_id: Optional[str] = None
+    run_count: int
+    success_count: int
+    failure_count: int
+    node_count: int = Field(default=0, description="Number of nodes")
+    last_run_at: Optional[datetime] = None
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class WorkflowRunRequest(BaseModel):
+    """Request to run a workflow"""
+    device_id: Optional[str] = Field(None, description="Override device ID")
+    dry_run: bool = Field(default=False, description="Test mode (no actual execution)")

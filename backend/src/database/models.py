@@ -397,3 +397,99 @@ class SessionCache(Base):
 
     # Relationships
     device = relationship("Device", backref="session_caches")
+
+
+# ============================================
+# WORKFLOW MODELS (Visual Builder)
+# ============================================
+
+class WorkflowStatus(str, enum.Enum):
+    """Workflow status"""
+    DRAFT = "draft"
+    ACTIVE = "active"
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    ARCHIVED = "archived"
+
+
+class Workflow(Base):
+    """Workflow model - visual workflow with nodes and edges (ReactFlow)"""
+    __tablename__ = "workflows"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    name = Column(String(200), nullable=False)
+    description = Column(Text, nullable=True)
+    status = Column(String(20), default=WorkflowStatus.DRAFT.value)
+
+    # Execution settings
+    device_id = Column(String, ForeignKey('devices.id'), nullable=True)
+
+    # Statistics
+    run_count = Column(Integer, default=0)
+    success_count = Column(Integer, default=0)
+    failure_count = Column(Integer, default=0)
+    last_run_at = Column(DateTime, nullable=True)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    device = relationship("Device", backref="workflows")
+    nodes = relationship("WorkflowNode", back_populates="workflow",
+                        cascade="all, delete-orphan")
+    edges = relationship("WorkflowEdge", back_populates="workflow",
+                        cascade="all, delete-orphan")
+
+
+class WorkflowNode(Base):
+    """WorkflowNode model - single node in a visual workflow (ReactFlow node)"""
+    __tablename__ = "workflow_nodes"
+
+    id = Column(String, primary_key=True)  # ReactFlow node ID
+    workflow_id = Column(String, ForeignKey('workflows.id', ondelete='CASCADE'), nullable=False)
+
+    # Node type (trigger, action, condition)
+    node_type = Column(String(50), nullable=False)
+
+    # Position on canvas
+    position_x = Column(Float, nullable=False, default=0)
+    position_y = Column(Float, nullable=False, default=0)
+
+    # Node data (label, description, agent, icon, config, etc.)
+    data = Column(JSON, nullable=False, default=dict)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationship
+    workflow = relationship("Workflow", back_populates="nodes")
+
+
+class WorkflowEdge(Base):
+    """WorkflowEdge model - connection between nodes (ReactFlow edge)"""
+    __tablename__ = "workflow_edges"
+
+    id = Column(String, primary_key=True)  # ReactFlow edge ID
+    workflow_id = Column(String, ForeignKey('workflows.id', ondelete='CASCADE'), nullable=False)
+
+    # Source and target nodes
+    source_node_id = Column(String, nullable=False)
+    target_node_id = Column(String, nullable=False)
+
+    # Handle IDs for condition nodes (yes/no branches)
+    source_handle = Column(String(50), nullable=True)
+    target_handle = Column(String(50), nullable=True)
+
+    # Edge appearance
+    label = Column(String(100), nullable=True)
+    animated = Column(Boolean, default=False)
+    style = Column(JSON, nullable=True)  # {stroke: '#color', strokeWidth: 2}
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    # Relationship
+    workflow = relationship("Workflow", back_populates="edges")

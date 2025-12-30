@@ -7,7 +7,7 @@ from loguru import logger
 
 from .database.db import engine, Base, get_db
 from .device_manager.manager import device_manager
-from .routes import devices_router, tasks_router, logs_router, scenarios_router, settings_router
+from .routes import devices_router, tasks_router, logs_router, scenarios_router, settings_router, workflows_router
 from .websocket import websocket_router
 from .websocket.manager import ws_manager
 from .config import get_settings
@@ -17,6 +17,7 @@ from .middleware import setup_error_handlers
 from .orchestration.queue_manager import queue_manager
 from .orchestration.task_scheduler import task_scheduler
 from .orchestration.scenario_runner import scenario_runner
+from .orchestration.workflow_executor import workflow_executor
 
 # Agent imports (register available agents)
 from .agents.whatsapp_agent import whatsapp_agent
@@ -70,6 +71,14 @@ async def lifespan(app: FastAPI):
         scenario_runner.register_agent("max", max_agent)
         scenario_runner.register_agent("sms", sms_agent)
         logger.info("📱 Registered agents: whatsapp, max, sms")
+
+        # Initialize Workflow Executor
+        workflow_executor.set_db_factory(get_db)
+        workflow_executor.set_device_manager(device_manager)
+        workflow_executor.register_agent("whatsapp", whatsapp_agent)
+        workflow_executor.register_agent("max", max_agent)
+        workflow_executor.register_agent("sms", sms_agent)
+        logger.info("🔄 Workflow Executor initialized")
 
         # Start Queue Manager
         logger.info("📋 Starting Queue Manager...")
@@ -143,6 +152,7 @@ app.include_router(tasks_router)
 app.include_router(logs_router)
 app.include_router(scenarios_router)
 app.include_router(settings_router)
+app.include_router(workflows_router)
 app.include_router(websocket_router)
 
 
