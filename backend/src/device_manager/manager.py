@@ -18,6 +18,7 @@ class DeviceManager:
         self.devices: Dict[str, Device] = {}
         self.settings = get_settings()
         self._monitoring_task: Optional[asyncio.Task] = None
+        self._initial_connect_task: Optional[asyncio.Task] = None
 
     async def initialize(self):
         """
@@ -60,15 +61,15 @@ class DeviceManager:
             connection_info = device.adb_id if device.connection_type == "usb" else device.tailscale_ip
             logger.info(f"  ✅ Registered device: {device.name} ({device.device_id}) - {device.connection_type.upper()} ({connection_info})")
 
-        # Connect to all devices
-        logger.info("🔌 Connecting to devices...")
-        await self._connect_all_devices()
-
-        # Start health monitoring
+        # Start health monitoring (handles reconnects for offline devices)
         logger.info("💓 Starting health monitoring...")
         self._monitoring_task = asyncio.create_task(self._health_monitoring_loop())
 
-        logger.success("✅ Device Manager initialized successfully!")
+        # Connect to devices in BACKGROUND (non-blocking startup)
+        logger.info("🔌 Starting device connection in background...")
+        self._initial_connect_task = asyncio.create_task(self._connect_all_devices())
+
+        logger.success("✅ Device Manager initialized (device connection in progress)!")
 
     async def shutdown(self):
         """Shutdown Device Manager and disconnect all devices"""
@@ -79,6 +80,14 @@ class DeviceManager:
             self._monitoring_task.cancel()
             try:
                 await self._monitoring_task
+            except asyncio.CancelledError:
+                pass
+
+        # Stop initial connection task if still running
+        if self._initial_connect_task:
+            self._initial_connect_task.cancel()
+            try:
+                await self._initial_connect_task
             except asyncio.CancelledError:
                 pass
 
